@@ -2,12 +2,14 @@ const mongoose = require('mongoose');
 
 const userSchema = mongoose.Schema({
     createdOn: {
+        type: Date,
         default: Date.now,
         required: true
     },
     firstname: {
         type: String,
-        required: true
+        required: true,
+        
     },
     lastname: {
         type: String,

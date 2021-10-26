@@ -10,7 +10,10 @@ const productSchema = mongoose.Schema({
         required: true
     },
     createdOn: {
-        default: Date.now
+        type: Date,
+        default: Date.now,
+        required: true
+
     },
     description: String,
     location: String,

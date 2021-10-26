@@ -1,21 +1,27 @@
 const express = require('express');
 const Route = express.Router()
+const controllerAuth = require('../controllerAuth');
 
-const users = []
 
-Route.get('/', (req, res) => {
-    res.send(users)
+// routes get
+
+Route.get('/', controllerAuth.authenticateToken, (req, res) => {
+    res.json(req.user)
+})
+Route.get('/register', (req, res) => {
+    res.render('register')
+})
+Route.get('/login', (req, res) => {
+    res.render('login')
 })
 
-Route.post('/', (req, res) => {
-    users.push(req.body.name)
-    res.json(users)
-    
-    console.log(req.body.name)
-})
+// routes post
 
-Route.patch('/:id', (req, res) => {
-    res.json(req.params.id)
-})
+Route.post('/register', controllerAuth.registerUser)
+Route.post('/login', controllerAuth.authenticateUser)
+
+//routes patch
+
+Route.patch('/:id', controllerAuth.uptdateUser)
 
 module.exports = Route

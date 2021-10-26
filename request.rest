@@ -1,16 +1,27 @@
 GET http://localhost:8000/user
+authorization: Bearer eyJhbGciOiJIUzI1NiJ9.dG90bw.KgONxc0wLx4BnFIEOVmpg-SSIc_bE49h8sja7ri7lD0
+    
 
 ###
 
-POST http://localhost:8000/user
+POST http://localhost:8000/user/register
 Content-Type: application/json
 
 {
-    "name" : "soso"
+    "name" : "toto",
+    "password": "1234"
 }
 
 ###
 
+POST   http://localhost:8000/user/login
+Content-Type: application/json
+
+{
+    "name" : "toto",
+    "password": "1234"
+}
+###
 PATCH  http://localhost:8000/user/1234
 
 ###
