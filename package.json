@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node-dev index.js"
   },
   "author": "",
   "license": "ISC",
@@ -19,5 +20,8 @@
     "mongoose": "^6.0.12",
     "passport": "^0.5.0",
     "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "node-dev": "^7.1.0"
   }
 }

@@ -23,7 +23,9 @@ db.once('open',() => console.log('database connected'));
 
 app.use('/user', userRoutes);
 app.use('/product', productRoutes);
-
+app.get('/health', (req, res) => {
+    res.send('ok')
+})
 
 app.listen(process.env.PORT, () => {
     console.log(`server started at port ${process.env.PORT}`)
