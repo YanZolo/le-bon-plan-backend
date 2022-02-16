@@ -16,7 +16,7 @@ app.disable('x-powered-by'); //Disable this header, to prevent attacks. (use hel
 app.set('view engine', 'ejs')
 
 
-mongoose.connect(process.env.DATA_URL, {useNewUrlParser: true});
+mongoose.connect(process.env.DB_URL, {useNewUrlParser: true});
 const db = mongoose.connection;
 db.on('error',(err)=> console.error(err));
 db.once('open',() => console.log('database connected'));

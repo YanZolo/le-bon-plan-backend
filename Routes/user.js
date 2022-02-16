@@ -1,11 +1,11 @@
 const express = require('express');
 const Route = express.Router()
-const controllerAuth = require('../controllerAuth');
+const authController = require('../authController');
 
 
 // routes get
 
-Route.get('/', controllerAuth.authenticateToken, (req, res) => {
+Route.get('/', authController.authenticateToken, (req, res) => {
     res.json(req.user)
 })
 Route.get('/register', (req, res) => {
@@ -17,11 +17,11 @@ Route.get('/login', (req, res) => {
 
 // routes post
 
-Route.post('/register', controllerAuth.registerUser)
-Route.post('/login', controllerAuth.authenticateUser)
+Route.post('/register', authController.registerUser)
+Route.post('/login', authController.authenticateUser)
 
 //routes patch
 
-Route.patch('/:id', controllerAuth.uptdateUser)
+Route.patch('/:id', authController.uptdateUser)
 
 module.exports = Route

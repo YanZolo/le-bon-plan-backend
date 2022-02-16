@@ -13,7 +13,7 @@ COPY Models ./Models
 COPY Routes ./Routes
 COPY Views ./Views
 COPY index.js .
-COPY controllerAuth.js .
+COPY authController.js .
 COPY .env .
 
 CMD npm start

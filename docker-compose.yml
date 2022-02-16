@@ -4,10 +4,12 @@ services:
     image: le-bon-plan
     build:
       context: .
+    environment:
+      - DB_URL=mongodb://mongo/lebonplan
     ports: 
      - "8000:8000"
     depends_on: 
-      - mongo
+      - mongo    
   mongo:
     image: "mongo:4.1" 
     restart: always
