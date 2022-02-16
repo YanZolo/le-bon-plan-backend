@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest ",
     "start": "node-dev src/index.js",
     "start:db": "docker compose up -d mongo",
-    "build":"docker compose build"
+    "build": "docker compose build"
   },
   "author": "",
   "license": "ISC",
@@ -24,6 +24,7 @@
     "passport-local": "^1.0.0"
   },
   "devDependencies": {
+    "jest": "^27.5.1",
     "node-dev": "^7.1.0"
   }
 }
