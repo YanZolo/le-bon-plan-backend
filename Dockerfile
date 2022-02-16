@@ -9,11 +9,7 @@ COPY package.json .
 
 RUN npm ci 
 
-COPY Models ./Models
-COPY Routes ./Routes
-COPY Views ./Views
-COPY index.js .
-COPY authController.js .
+COPY src ./src
 COPY .env .
 
 CMD npm start
