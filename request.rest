@@ -37,5 +37,5 @@ POST http://localhost:8000/product
 Content-Type: application/json
 
 {
-    "name" : "sneakers"
+    "title" : "sneakers"
 }

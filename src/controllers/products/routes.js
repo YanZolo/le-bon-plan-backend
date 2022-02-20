@@ -10,9 +10,9 @@ Router.get('/', (req, res) => {
 
 Router.post('/', (req, res) => {
     const product = productsController.saveProduct({
-        title: req.body.name
+        title: req.body.title
     })
-
+    console.log('product ==> ', product);
     res.json(product)
 })
 

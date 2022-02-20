@@ -5,7 +5,7 @@ FN:6,getProducts
 FN:10,saveProduct
 FNF:3
 FNH:2
-FNDA:1,<instance_members_initializer>
+FNDA:2,<instance_members_initializer>
 FNDA:1,getProducts
 FNDA:0,saveProduct
 DA:1,1
@@ -33,7 +33,7 @@ DA:22,1
 DA:23,1
 LF:23
 LH:15
-BRDA:4,0,0,1
+BRDA:4,0,0,2
 BRDA:6,1,0,1
 BRF:2
 BRH:2
