@@ -1,4 +1,7 @@
+const { v4 } = require("uuid")
+// length of uuid v4() = 36
 const { ProductsController } = require("./productsController")
+
 
 describe('ProductsController', () => {
     describe('getProducts()', () => {
@@ -14,25 +17,20 @@ describe('ProductsController', () => {
         })
     })
     describe('saveProduct()', () => {
-        test('it should return an object with two properties (id and title)', () => {
-            //GIVEN
-            const productsController2 = new ProductsController()
-                jest.mock('uuid');
-                const uuidSpy = jest.spyOn(v4(), 'v4');
-
-            // WHEN
-            const result2 = productsController2.saveProduct({
-                title: "test"
-            })
-
-            //THEN
-
-            expect(result2).toEqual({
-                title: "test"
-            });
-                expect(uuidSpy).toHaveBeenCalledTimes(1);
-            
+        test('it should save one product',  () => {
+            // given
+            const productsController = new ProductsController()
+           
+            // when
+            const result = productsController.saveProduct({                
+                title: 'my Product'
+            })            
+            // then
+            expect(typeof result === 'object').toBe(true)
+            expect(result._id.length).toEqual(36)
+            expect(typeof result._id).toBe("string")
+            expect(result.title).toEqual('my Product')         
         })
-
     })
+   
 })
