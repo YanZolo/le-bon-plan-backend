@@ -29,7 +29,7 @@ describe('ProductsController', () => {
         })
     })
     describe('saveProduct()', () => {
-        test('it should save one product',  () => {
+        test('it should save new product',  () => {
             // given
             const productsController = new ProductsController()
            
@@ -46,7 +46,7 @@ describe('ProductsController', () => {
     })
 
     describe('updateProduct()', () => {
-        test('it should update a product', () => {
+        test('it should update a given product', () => {
             // given
             const productsController = new ProductsController();
             // when
@@ -66,6 +66,25 @@ describe('ProductsController', () => {
             })
 
         } )
+    })
+
+    describe('deleteProduct()', () => {
+        it('should delete a given product', () => {
+            // given
+            const productsController =  new ProductsController()
+            productsController.saveProduct({
+                title: 'new car'
+            })    
+            const listProducts = productsController.getProducts()
+            const product = listProducts.filter(item=>item.title === 'new car')[0]  
+            console.log('product :>> ', product);
+            const {_id} = product;                
+            // when
+            productsController.deleteProduct(_id)
+            const listProductsAfterDelete = productsController.getProducts()
+            // then 
+            expect(listProductsAfterDelete).toEqual([])
+        })
     })
     
    
