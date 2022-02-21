@@ -1,5 +1,4 @@
 const { v4 } = require("uuid")
-// length of uuid v4() = 36
 const { ProductsController } = require("./productsController")
 
 
@@ -44,6 +43,29 @@ describe('ProductsController', () => {
                 title: 'my Product'
             })       
         })
+    })
+
+    describe('updateProduct()', () => {
+        test('it should update a product', () => {
+            // given
+            const productsController = new ProductsController();
+            // when
+             productsController.saveProduct({
+                title: 'macBook PRO'
+            });  
+            const listProducts = productsController.getProducts(); 
+
+            const id = listProducts[0]._id
+
+            const result = productsController.updateProduct(({id,title: 'new MacBook PRO'}))
+
+            // then 
+            expect(result).toMatchObject({
+                _id: id,
+                title: 'new MacBook PRO'
+            })
+
+        } )
     })
     
    
