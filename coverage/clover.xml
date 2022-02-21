@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1645443407783" clover="3.2.0">
-  <project timestamp="1645443407783" name="All files">
-    <metrics statements="36" coveredstatements="36" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4" elements="40" coveredelements="40" complexity="0" loc="36" ncloc="36" packages="1" files="1" classes="1"/>
+<coverage generated="1645444574695" clover="3.2.0">
+  <project timestamp="1645444574695" name="All files">
+    <metrics statements="35" coveredstatements="35" conditionals="5" coveredconditionals="5" methods="4" coveredmethods="4" elements="44" coveredelements="44" complexity="0" loc="35" ncloc="35" packages="1" files="1" classes="1"/>
     <file name="productsController.js" path="C:\Users\sofia\Desktop\Zenika\le-bon-plan-v.Z\le-bon-plan-backend\src\controllers\products\productsController.js">
-      <metrics statements="36" coveredstatements="36" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
+      <metrics statements="35" coveredstatements="35" conditionals="5" coveredconditionals="5" methods="4" coveredmethods="4"/>
       <line num="1" count="1" type="stmt"/>
       <line num="2" count="1" type="stmt"/>
       <line num="3" count="1" type="stmt"/>
       <line num="4" count="1" type="stmt"/>
       <line num="5" count="1" type="stmt"/>
-      <line num="6" count="1" type="stmt"/>
+      <line num="6" count="1" type="cond" truecount="1" falsecount="0"/>
       <line num="7" count="1" type="stmt"/>
       <line num="8" count="1" type="stmt"/>
-      <line num="9" count="1" type="stmt"/>
+      <line num="9" count="1" type="cond" truecount="1" falsecount="0"/>
       <line num="10" count="3" type="stmt"/>
       <line num="11" count="3" type="stmt"/>
       <line num="12" count="1" type="stmt"/>
-      <line num="13" count="1" type="stmt"/>
+      <line num="13" count="1" type="cond" truecount="1" falsecount="0"/>
       <line num="14" count="3" type="stmt"/>
       <line num="15" count="3" type="stmt"/>
       <line num="16" count="3" type="stmt"/>
@@ -26,10 +26,10 @@
       <line num="20" count="3" type="stmt"/>
       <line num="21" count="3" type="stmt"/>
       <line num="22" count="1" type="stmt"/>
-      <line num="23" count="1" type="stmt"/>
+      <line num="23" count="1" type="cond" truecount="1" falsecount="0"/>
       <line num="24" count="1" type="stmt"/>
       <line num="25" count="1" type="stmt"/>
-      <line num="26" count="1" type="stmt"/>
+      <line num="26" count="1" type="cond" truecount="1" falsecount="0"/>
       <line num="27" count="1" type="stmt"/>
       <line num="28" count="1" type="stmt"/>
       <line num="29" count="1" type="stmt"/>
@@ -39,7 +39,6 @@
       <line num="33" count="1" type="stmt"/>
       <line num="34" count="1" type="stmt"/>
       <line num="35" count="1" type="stmt"/>
-      <line num="36" count="1" type="stmt"/>
     </file>
   </project>
 </coverage>

@@ -10,7 +10,7 @@ class ProductsController {
         return this.#products;
     }
 
-    saveProduct(product) {
+    saveProduct(product) {
         const mappedProduct =  {
             _id: product._id || v4(),
             title: product.title
@@ -21,13 +21,12 @@ class ProductsController {
     }
 
     updateProduct({id, title}) {
-        console.log('id :>> ', id);
         console.log('arguments :>> ', arguments);
         const product = this.#products
-        const result = product.filter(elem => elem._id == id) 
+        const result = product.filter(elem => elem._id == id)[0] 
         console.log('result :>> ', result);
-        result[0].title = title
-        return result[0]
+        result.title = title
+        return result
     }
 }
 

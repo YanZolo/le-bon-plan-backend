@@ -18,7 +18,7 @@ Router.post('/', (req, res) => {
 
 
 Router.post('/:id', (req, res) => {
-    productsController.updateProduct(req.params.id, req.body.title);
+    productsController.updateProduct({id: req.params.id, title: req.body.title});
     res.send('product updated !')
 })
 
