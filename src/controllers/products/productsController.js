@@ -21,12 +21,16 @@ class ProductsController {
     }
 
     updateProduct({id, title}) {
-        console.log('arguments :>> ', arguments);
         const product = this.#products
-        const result = product.filter(elem => elem._id == id)[0] 
-        console.log('result :>> ', result);
+        const result = product.filter(elem => elem._id === id)[0] 
         result.title = title
         return result
+    }
+
+    deleteProduct(id) {
+        const updatedListProducts = this.#products.filter(elem => elem._id !== id);
+        this.#products = updatedListProducts;
+        return updatedListProducts;
     }
 }
 
