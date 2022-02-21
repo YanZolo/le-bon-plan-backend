@@ -1,5 +1,5 @@
 TN:
-SF:src\controllers\products\productsController.js
+SF:src/controllers/products/productsController.js
 FN:5,<instance_members_initializer>
 FN:8,getProducts
 FN:12,saveProduct

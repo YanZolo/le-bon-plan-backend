@@ -26,10 +26,10 @@ describe('ProductsController', () => {
                 title: 'my Product'
             })            
             // then
-            expect(typeof result === 'object').toBe(true)
-            expect(result._id.length).toEqual(36)
-            expect(typeof result._id).toBe("string")
-            expect(result.title).toEqual('my Product')         
+            expect(result).toMatchObject({
+                _id: expect.any(String),
+                title: 'my Product'
+            })     
         })
     })
    
