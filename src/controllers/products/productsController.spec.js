@@ -16,6 +16,19 @@ describe('ProductsController', () => {
             expect(result).toEqual([])
         })
     })
+    describe('getProduct()', () => {
+        it('should not return an empty array', () => {
+            // given 
+            const productsController = new ProductsController();
+            productsController.saveProduct({
+                title: 'my Product1'
+            });
+            // when
+            const result = productsController.getProducts()
+            // then 
+            expect(result.length).toBeGreaterThan(0);
+        })
+    })
     describe('saveProduct()', () => {
         test('it should save one product',  () => {
             // given
@@ -29,8 +42,9 @@ describe('ProductsController', () => {
             expect(result).toMatchObject({
                 _id: expect.any(String),
                 title: 'my Product'
-            })     
+            })       
         })
     })
+    
    
 })
