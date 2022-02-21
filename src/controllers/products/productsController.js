@@ -1,14 +1,14 @@
-const res = require('express/lib/response');
 const {v4} = require('uuid')
+// const ProductModel = require('../../models/productModel')
 
 class ProductsController {
-    //private property with #
-    #products = []
-    
+  
 
-    getProducts() {
-        return this.#products;
-    }
+    #products = []
+   
+    getProducts() { // fait office de getter pour recuperer #products ?
+        return this.#products; 
+    } 
 
     saveProduct(product) {
         const mappedProduct =  {
@@ -21,6 +21,7 @@ class ProductsController {
     }
 
     updateProduct({id, title}) {
+        console.log('arguments :>> ', arguments);
         const product = this.#products
         const result = product.filter(elem => elem._id === id)[0] 
         result.title = title

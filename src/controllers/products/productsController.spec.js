@@ -51,7 +51,7 @@ describe('ProductsController', () => {
             const productsController = new ProductsController();
             // when
              productsController.saveProduct({
-                title: 'macBook PRO'
+                title: 'macBook'
             });  
             const listProducts = productsController.getProducts(); 
 

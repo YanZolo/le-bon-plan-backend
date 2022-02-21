@@ -7,6 +7,7 @@ Router.get('/', (req, res) => {
     const products = productsController.getProducts()
     res.json(products)
 })
+// Router.route('/').get(productsController.getProducts) 
 
 Router.post('/', (req, res) => {
     const product = productsController.saveProduct({
