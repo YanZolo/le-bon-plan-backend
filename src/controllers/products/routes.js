@@ -16,4 +16,10 @@ Router.post('/', (req, res) => {
     res.json(product)
 })
 
+
+Router.post('/:id', (req, res) => {
+    productsController.updateProduct(req.params.id, req.body.title);
+    res.send('product updated !')
+})
+
 module.exports = Router
