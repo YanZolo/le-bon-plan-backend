@@ -3,8 +3,16 @@
 // USERS ROUTES
 
 GET http://localhost:8000/user
-authorization: Bearer eyJhbGciOiJIUzI1NiJ9.dG90bw.KgONxc0wLx4BnFIEOVmpg-SSIc_bE49h8sja7ri7lD0
+//authorization: Bearer eyJhbGciOiJIUzI1NiJ9.dG90bw.KgONxc0wLx4BnFIEOVmpg-SSIc_bE49h8sja7ri7lD0
     
+
+###
+POST  http://localhost:8000/user
+Content-Type: application/json
+
+{
+    "name": "test111"
+}
 
 ###
 
@@ -26,7 +34,12 @@ Content-Type: application/json
     "password": "1234"
 }
 ###
-PATCH  http://localhost:8000/user/1234
+PATCH  http://localhost:8000/user/b13b493a-cb91-442b-8f20-65bd7666d418
+Content-Type: application/json
+
+{
+    "name" : "my second test"
+}
 
 ###
 

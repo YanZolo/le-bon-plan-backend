@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-const userRoutes = require('./routes/user');
+const userRoutes = require('./controllers/users/routes');
 /* const productRoutes = require('./routes/product'); */
 const productRoutes = require('./controllers/products/routes')
 
@@ -19,10 +19,10 @@ app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, '..' , 'views'))
 
 
-mongoose.connect(process.env.DB_URL, {useNewUrlParser: true});
+/* mongoose.connect(process.env.DB_URL, {useNewUrlParser: true});
 const db = mongoose.connection;
 db.on('error',(err)=> console.error(err));
-db.once('open',() => console.log('database connected'));
+db.once('open',() => console.log('database connected')); */
 
 app.get('/', (req, res) => {
     res.render('login')

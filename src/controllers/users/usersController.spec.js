@@ -51,5 +51,25 @@ describe('userController', () => {
             });
         })
     })
+    describe('updateUser()', () => {
+        it('should update user ', () => {
+            // given
+            const userController = new UserController()
+            const newUser = userController.saveUser({
+                name: 'zenika'
+            })
+            const user = userController.getUser(newUser._id)
+            // when
+            const result = userController.updateUser({
+                _id: newUser._id,
+                name: 'ZENIKA'
+            })
+            // then
+            expect(result).toMatchObject({
+                _id: newUser._id,
+                name: 'ZENIKA'
+            })
+        })
+    })
 
 })

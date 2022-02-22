@@ -21,6 +21,18 @@ class UserController {
    }
 
 
+   updateUser({_id, name}) {
+    const user = this.#users.filter(user => user._id === _id)[0];
+    if(user){
+        const indexUser = this.#users.indexOf(user);    
+        this.#users[indexUser].name = name;
+        return user;
+    }
+     throw new Error('User Not Found !')
+   }
+
+
+
 
 
 }
