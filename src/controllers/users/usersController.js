@@ -6,6 +6,11 @@ class UserController {
         return this.#users;
     };
 
+    getUser(id) {
+        const user = this.#users.filter(user => user._id === id)[0];
+        return user;
+    }
+
    saveUser(user) {
        const newUser = {
            _id: user._id || v4(),
@@ -14,6 +19,8 @@ class UserController {
        this.#users.push(newUser)
        return newUser
    }
+
+
 
 
 }

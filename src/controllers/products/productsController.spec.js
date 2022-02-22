@@ -34,11 +34,13 @@ describe('ProductsController', () => {
             const productsController = new ProductsController()
            
             // when
-            const result = productsController.saveProduct({                
+            const newProduct = productsController.saveProduct({                
                 title: 'my Product'
-            })            
+            })       
+            const result = productsController.getProducts().filter(product => product.name === newProduct.name) // i filter by the name but need refactor with the id
+     
             // then
-            expect(result).toMatchObject({
+            expect(result[0]).toMatchObject({
                 _id: expect.any(String),
                 title: 'my Product'
             })       
