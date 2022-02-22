@@ -6,8 +6,8 @@ class UserController {
         return this.#users;
     };
 
-    getUser(id) {
-        const user = this.#users.filter(user => user._id === id)[0];
+    getUser({_id}) {
+        const user = this.#users.filter(user => user._id === _id)[0];
         return user;
     }
 
@@ -31,7 +31,15 @@ class UserController {
      throw new Error('User Not Found !')
    }
 
-
+   deleteUser({_id}) {
+       const user = this.#users.filter(user => user._id === _id)[0];
+       if(user) {
+           const userIndex = this.#users.indexOf(user);
+           delete this.#users[userIndex];
+           return this.#users;
+       }
+       throw new Error('User Not Found !')
+   }
 
 
 

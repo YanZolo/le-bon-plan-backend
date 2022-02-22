@@ -23,7 +23,9 @@ describe('userController', () => {
             const newUser = userController.saveUser({
                 name: 'romain'
             })
-            const result = userController.getUser(newUser._id)
+            const result = userController.getUser({
+               _id: newUser._id
+            })
     
             // then
             expect(result).toMatchObject({
@@ -49,8 +51,8 @@ describe('userController', () => {
                 _id: newUser._id,
                 name: 'sofiane'
             });
-        })
-    })
+        });
+    });
     describe('updateUser()', () => {
         it('should update user ', () => {
             // given
@@ -58,7 +60,9 @@ describe('userController', () => {
             const newUser = userController.saveUser({
                 name: 'zenika'
             })
-            const user = userController.getUser(newUser._id)
+            const user = userController.getUser({
+                _id: newUser._id
+            })
             // when
             const result = userController.updateUser({
                 _id: newUser._id,
@@ -68,7 +72,25 @@ describe('userController', () => {
             expect(result).toMatchObject({
                 _id: newUser._id,
                 name: 'ZENIKA'
-            })
+            });
+        });
+    });
+    describe('deleteUser()', () => {
+        it('should delete a given user', () => {
+            // given
+            const userController = new UserController();
+            const newUser = userController.saveUser({
+                name: 'name to delete'
+            });
+            // when
+            userController.deleteUser({
+                _id: newUser._id
+            });
+            const result = userController.getUser({
+                _id: newUser._id
+            });
+            // then
+            expect(result).toEqual(expect.not.objectContaining(newUser))
         })
     })
 
