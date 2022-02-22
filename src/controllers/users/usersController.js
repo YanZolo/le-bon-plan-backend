@@ -36,7 +36,7 @@ class UserController {
        if(user) {
            const userIndex = this.#users.indexOf(user);
            delete this.#users[userIndex];
-           return this.#users;
+           return user;
        }
        throw new Error('User Not Found !')
    }

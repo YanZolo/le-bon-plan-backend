@@ -36,7 +36,12 @@ Router.patch('/:id', (req, res) => {
 });
 
 Router.delete('/:id', (req, res) => {
-
+    const user = userController.deleteUser({
+        _id: req.params.id
+    });
+    res.json({
+        message: `The User '${user.name}' Has Been Deleted`
+    })
 });
 
 
