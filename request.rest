@@ -1,3 +1,7 @@
+
+
+// USERS ROUTES
+
 GET http://localhost:8000/user
 authorization: Bearer eyJhbGciOiJIUzI1NiJ9.dG90bw.KgONxc0wLx4BnFIEOVmpg-SSIc_bE49h8sja7ri7lD0
     
@@ -27,7 +31,7 @@ PATCH  http://localhost:8000/user/1234
 ###
 
 
- // products routes
+/////////////////////////////////// PRODUCTS ROUTES
 
 GET http://localhost:8000/product
 
@@ -37,5 +41,10 @@ POST http://localhost:8000/product
 Content-Type: application/json
 
 {
-    "title" : "sneakers"
+    "title" : "test 3"
 }
+
+###
+
+
+PATCH  http://localhost:8000/product/
