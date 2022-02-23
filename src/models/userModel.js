@@ -3,15 +3,18 @@ const mongoose = require('mongoose');
 const userSchema = mongoose.Schema({ 
     username: {
         type: String,
+        min: [2, "The username must be longer than 2 characters"],
+        max: [22, "The username is too long"],
+        trim: true,
         required: true,
         
     },
     email: {
         type: String,
         unique: true,
-        required: true,
         lowercase: true,
-        trim: true
+        trim: true,
+        required: true,
     },
     createdOn: {
         type: Date,
@@ -38,4 +41,4 @@ const userSchema = mongoose.Schema({
     // }
 })
 
-module.exports = mongoose.model('user', userSchema)
+module.exports = mongoose.model('users', userSchema)

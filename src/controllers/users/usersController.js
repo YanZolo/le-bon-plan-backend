@@ -12,16 +12,16 @@ class UserController {
    saveUser(user) {
        const newUser = {
            _id: user._id || v4(),
-           name: user.name
+           username: user.username
        };
        this.#users.push(newUser);
        return newUser;
    };
-   updateUser({_id, name}) {
+   updateUser({_id, username}) {
     const user = this.#users.filter(user => user._id === _id)[0];
     if(user){
         const indexUser = this.#users.indexOf(user);    
-        this.#users[indexUser].name = name;
+        this.#users[indexUser].username = username;
         return user;
     };
      throw new Error('User Not Found !');

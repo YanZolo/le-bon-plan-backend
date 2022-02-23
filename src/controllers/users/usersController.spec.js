@@ -21,7 +21,7 @@ describe('userController', () => {
 
             // when
             const newUser = userController.saveUser({
-                name: 'romain'
+                username: 'romain'
             })
             const result = userController.getUser({
                _id: newUser._id
@@ -30,7 +30,7 @@ describe('userController', () => {
             // then
             expect(result).toMatchObject({
                 _id: newUser._id,
-                name: 'romain'
+                username: 'romain'
             })
         })
     })
@@ -42,14 +42,14 @@ describe('userController', () => {
 
             // WHEN
             const newUser = userController.saveUser({
-                name: 'sofiane'
+                username: 'sofiane'
             });
-            const result = userController.getAllUsers().filter(user => user.name === newUser.name);// i filter by name but need to refactor with id or email because id and email are unique
+            const result = userController.getAllUsers().filter(user => user.username === newUser.username);// i filter by username but need to refactor with id or email because id and email are unique
 
             // THEN
             expect(result[0]).toMatchObject({
                 _id: newUser._id,
-                name: 'sofiane'
+                username: 'sofiane'
             });
         });
     });
@@ -58,7 +58,7 @@ describe('userController', () => {
             // given
             const userController = new UserController()
             const newUser = userController.saveUser({
-                name: 'zenika'
+                username: 'zenika'
             })
             const user = userController.getUser({
                 _id: newUser._id
@@ -66,12 +66,12 @@ describe('userController', () => {
             // when
             const result = userController.updateUser({
                 _id: newUser._id,
-                name: 'ZENIKA'
+                username: 'ZENIKA'
             })
             // then
             expect(result).toMatchObject({
                 _id: newUser._id,
-                name: 'ZENIKA'
+                username: 'ZENIKA'
             });
         });
     });
@@ -80,7 +80,7 @@ describe('userController', () => {
             // given
             const userController = new UserController();
             const newUser = userController.saveUser({
-                name: 'name to delete'
+                username: 'username to delete'
             });
             // when
             userController.deleteUser({

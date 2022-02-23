@@ -1,12 +1,11 @@
 const {v4} = require('uuid')
-// const ProductModel = require('../../models/productModel')
 
 class ProductsController {
   
 
     #products = []
    
-    getProducts() { // fait office de getter pour recuperer #products ?
+    getProducts() { 
         return this.#products; 
     } 
 

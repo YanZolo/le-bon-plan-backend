@@ -11,7 +11,8 @@ POST  http://localhost:8000/user
 Content-Type: application/json
 
 {
-    "name": "test111"
+    "username": "test1",
+    "email": "test1@gmail.com"
 }
 
 ###
@@ -20,7 +21,7 @@ POST http://localhost:8000/user/register
 Content-Type: application/json
 
 {
-    "name" : "toto",
+    "username" : "toto",
     "password": "1234"
 }
 
@@ -30,7 +31,7 @@ POST   http://localhost:8000/user/login
 Content-Type: application/json
 
 {
-    "name" : "toto",
+    "username" : "toto",
     "password": "1234"
 }
 ###
@@ -38,7 +39,7 @@ PATCH  http://localhost:8000/user/b13b493a-cb91-442b-8f20-65bd7666d418
 Content-Type: application/json
 
 {
-    "name" : "my second test"
+    "username" : "my second test"
 }
 
 ###
@@ -54,10 +55,21 @@ POST http://localhost:8000/product
 Content-Type: application/json
 
 {
-    "title" : "test 3"
+    "title" : "test19999",
+    "price": "10"
 }
 
 ###
 
+PATCH http://localhost:8000/product/62162eb5d7a7129fa95cd66c
+Content-type: application/json
 
-PATCH  http://localhost:8000/product/
+{
+    "title": "test99",
+    "price": 4
+}
+###
+
+DELETE http://localhost:8000/product/62162eacd7a7129fa95cd660
+
+
