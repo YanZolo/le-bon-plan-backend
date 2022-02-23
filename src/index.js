@@ -1,12 +1,11 @@
 require('dotenv').config();
 const express = require('express');
 const app = express();
-const mongoose = require('mongoose');
 const userRoutes = require('./controllers/users/routes');
-/* const productRoutes = require('./routes/product'); */
 const productRoutes = require('./controllers/products/routes')
-
+const startDB = require('./db/connect')
 const path = require('path')
+const url = process.env.DB_URL;
 
 
 app.use(express.json());
@@ -19,10 +18,7 @@ app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, '..' , 'views'))
 
 
-/* mongoose.connect(process.env.DB_URL, {useNewUrlParser: true});
-const db = mongoose.connection;
-db.on('error',(err)=> console.error(err));
-db.once('open',() => console.log('database connected')); */
+
 
 app.get('/', (req, res) => {
     res.render('login')
@@ -33,6 +29,12 @@ app.get('/health', (req, res) => {
     res.send('ok')
 })
 
-app.listen(process.env.PORT, () => {
-    console.log(`server started at port ${process.env.PORT}`)
-});
+const connect = async () => {
+    await startDB(url);
+    app.listen(process.env.PORT, () => {
+        console.log(`server started at port ${process.env.PORT}`)
+    });
+}
+
+connect()
+
