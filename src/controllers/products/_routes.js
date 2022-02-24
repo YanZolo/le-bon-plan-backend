@@ -4,12 +4,12 @@ const {createRouter} = require('../../utils/createRouter')
 
 const routes = [
     {
-        path: "/",
+        path: "/all",
         method: "GET",
         handler: productController.getProducts.bind(productController) 
     },
     {
-        path: "/",
+        path: "/add",
         method: "POST",
         handler: productController.addProduct.bind(productController),
         responseStatus: 201
@@ -20,12 +20,12 @@ const routes = [
         handler: productController.getProduct.bind(productController)
     },
     {
-        path: "/:id",
+        path: "/update/:id",
         method: "PATCH",
         handler: productController.updateProduct.bind(productController)
     },
     {
-        path: "/:id",
+        path: "/delete/:id",
         method: "DELETE",
         handler: productController.deleteProduct.bind(productController),
         responseStatus: 204

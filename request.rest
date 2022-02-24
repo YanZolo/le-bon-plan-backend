@@ -47,29 +47,34 @@ Content-Type: application/json
 
 /////////////////////////////////// PRODUCTS ROUTES
 
-GET http://localhost:8000/product
+// get all product
+GET http://localhost:8000/product/all
+
+###
+// get single product
+GET http://localhost:8000/product/62162eb5d7a7129fa95cd662
 
 ###
 
-POST http://localhost:8000/product
+POST http://localhost:8000/product/add
 Content-Type: application/json
 
 {
-    "title" : "test19999",
+    "title" : "test199878799",
     "price": "10"
 }
 
 ###
 
-PATCH http://localhost:8000/product/62162eb5d7a7129fa95cd66c
+PATCH http://localhost:8000/product/update/6216484a4b3b9e442aba49cf
 Content-type: application/json
 
 {
     "title": "test99",
-    "price": 4
+    "price": 456564
 }
 ###
 
-DELETE http://localhost:8000/product/62162eacd7a7129fa95cd660
+DELETE http://localhost:8000/product/delete/6216484a4b3b9e442aba49cf
 
 

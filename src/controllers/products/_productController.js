@@ -45,7 +45,7 @@ class ProductController {
     async deleteProduct(req) {
         const product = await this.getProduct(req);
        
-        await ProductModel.deleteOne({_id: product._id}) // doc not receive !!! :(    
+        await ProductModel.deleteOne({_id: product._id})  
     }
 
 
