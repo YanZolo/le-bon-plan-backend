@@ -1,5 +1,5 @@
-const productModel = require('../../models/productModel');
-const { ProductController } = require('./_productController');
+import productModel from '../../models/productModel';
+import { ProductController } from './_productController';
 
 jest.mock('../../models/productModel');
 

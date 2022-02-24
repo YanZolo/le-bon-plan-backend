@@ -1,5 +1,5 @@
-const express = require('express');
-const {ProductsController} = require('./productsController')
+import express from 'express';
+import {ProductsController} from './productsController'
 const Router = express.Router()
 const productsController = new ProductsController()
 

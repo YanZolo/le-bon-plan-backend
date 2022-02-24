@@ -1,5 +1,5 @@
 const {v4} = require('uuid')
-class UserController {
+module.exports.UserController = class UserController {
     #users = [];
 
     getAllUsers() {
@@ -35,7 +35,4 @@ class UserController {
        };
        throw new Error('User Not Found !');
    };
-};
-module.exports = {
-    UserController
 };

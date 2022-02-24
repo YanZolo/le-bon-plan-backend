@@ -1,5 +1,5 @@
-const { v4 } = require("uuid")
-const { ProductsController } = require("./productsController")
+import { v4 } from "uuid"
+import { ProductsController } from "./productsController"
 
 
 describe('ProductsController', () => {

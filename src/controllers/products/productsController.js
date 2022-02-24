@@ -1,6 +1,6 @@
-const {v4} = require('uuid')
+import {v4} from 'uuid'
 
-class ProductsController {
+module.exports.ProductsController = class ProductsController {
   
 
     #products = []
@@ -32,8 +32,4 @@ class ProductsController {
         this.#products = updatedListProducts;
         return updatedListProducts;
     }
-}
-
-module.exports = {
-    ProductsController
 }

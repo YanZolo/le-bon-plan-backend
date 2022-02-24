@@ -1,6 +1,6 @@
-const {ProductController} = require('./_productController');
+import {ProductController} from './_productController'
+import {createRouter} from '../../utils/createRouter'
 const productController = new ProductController()
-const {createRouter} = require('../../utils/createRouter')
 
 const routes = [
     {

@@ -1,5 +1,5 @@
-const ProductModel = require('../../models/productModel');
-const { ProductNotFound } = require('../../errors/ProductNotFound')
+import ProductModel from '../../models/productModel';
+import { ProductNotFound } from '../../errors/ProductNotFound'
 
 class ProductController {
     async getProduct({ params: { id } }) {
@@ -51,6 +51,4 @@ class ProductController {
 
 }
 
-module.exports = {
-    ProductController
-}
+module.exports.ProductController = ProductController
