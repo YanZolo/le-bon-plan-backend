@@ -1,8 +1,8 @@
-import {ProductController} from './_productController'
-import {createRouter} from '../../utils/createRouter'
-const productController = new ProductController()
+import {ProductController} from './_productController.js';
+import {createRouter} from '../../utils/createRouter.js';
+const productController = new ProductController();
 
-const routes = [
+ const routes = [
     {
         path: "/",
         method: "GET",
@@ -33,5 +33,5 @@ const routes = [
 
 ]
 
-
-module.exports = createRouter(routes);
+export default createRouter(routes) 
+// module.exports = createRouter(routes);

@@ -1,6 +1,6 @@
-const express = require('express');
+import express from 'express';
 const Router = express.Router();
-const {UserController} = require('./usersController');
+import {UserController} from './usersController';
 const userController = new UserController;
 
 Router.get('/', (req, res) => {
@@ -45,4 +45,4 @@ Router.delete('/:id', (req, res) => {
 });
 
 
-module.exports =  Router;
+export default Router;

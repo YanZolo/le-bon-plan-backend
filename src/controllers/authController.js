@@ -1,6 +1,6 @@
-const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
-const User = require('../models/userModel')
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import User from '../models/userModel';
 
 
 

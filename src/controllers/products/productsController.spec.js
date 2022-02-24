@@ -1,5 +1,5 @@
-import { v4 } from "uuid"
-import { ProductsController } from "./productsController"
+import { v4 } from "uuid";
+import { ProductsController } from "./productsController.js";
 
 
 describe('ProductsController', () => {

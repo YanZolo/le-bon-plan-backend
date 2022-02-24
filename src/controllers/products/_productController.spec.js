@@ -1,5 +1,6 @@
-import productModel from '../../models/productModel';
-import { ProductController } from './_productController';
+import productModel from '../../models/productModel.js';
+import { ProductController } from './_productController.js';
+import {jest} from '@jest/globals';
 
 jest.mock('../../models/productModel');
 

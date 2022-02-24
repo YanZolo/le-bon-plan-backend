@@ -1,7 +1,7 @@
-import ProductModel from '../../models/productModel';
-import { ProductNotFound } from '../../errors/ProductNotFound'
+import ProductModel from '../../models/productModel.js';
+import { ProductNotFound } from '../../errors/ProductNotFound.js';
 
-class ProductController {
+export class ProductController {
     async getProduct({ params: { id } }) {
         const product = await ProductModel.findById(id);
         
@@ -51,4 +51,4 @@ class ProductController {
 
 }
 
-module.exports.ProductController = ProductController
+// module.exports.ProductController = ProductController;

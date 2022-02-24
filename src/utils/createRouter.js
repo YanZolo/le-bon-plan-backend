@@ -1,7 +1,20 @@
-const express = require('express')
-const { routes } = require("../controllers/products/_routes");
+import express from 'express';
+import routes  from "../controllers/products/_routes.js";
 
-function createHandler ({handler, responseStatus = 200}) {
+export let createRouter = (routes) => {
+    const router = express.Router()
+
+    routes.forEach((route) => {
+        const method = route.method.toLowerCase()
+ 
+        router[method](route.path, createHandler(route))
+    })
+
+    return router
+}
+
+
+export function createHandler ({handler, responseStatus = 200}) {
     return async (req, res) => {
         try {
             const result = await handler(req);
@@ -17,16 +30,7 @@ function createHandler ({handler, responseStatus = 200}) {
     }
 }
 
-module.exports.createHandler = createHandler
+// module.exports.createHandler = createHandler
 
-module.exports.createRouter = (routes) => {
-    const router = express.Router()
+// module.exports.createRouter = (routes) => {
 
-    routes.forEach((route) => {
-        const method = route.method.toLowerCase()
- 
-        router[method](route.path, createHandler(route))
-    })
-
-    return router
-}

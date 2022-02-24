@@ -1,12 +1,15 @@
-require('dotenv').config();
-const express = require('express');
+import dotenv from 'dotenv';
+dotenv.config();
+import express from 'express';
 const app = express();
-// const userRoutes = require('./controllers/users/_routes');
-const productRoutes = require('./controllers/products/_routes');
-const startDB = require('./db/connect');
-const path = require('path');
+// import userRoutes from './controllers/users/_routes';
+import  productRoutes from './controllers/products/_routes.js';
+import startDB from './db/connect.js';
 const url = process.env.DB_URL;
-
+import path from 'path';
+import {fileURLToPath} from 'url'
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename)
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));

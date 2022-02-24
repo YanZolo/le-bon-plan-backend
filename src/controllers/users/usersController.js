@@ -1,4 +1,5 @@
-const {v4} = require('uuid')
+import {v4} from 'uuid';
+
 module.exports.UserController = class UserController {
     #users = [];
 

@@ -1,4 +1,4 @@
-const { UserController } = require('./usersController');
+import { UserController }from './usersController';
 
 describe('userController', () => {
     describe('getAllUsers()', () => {
