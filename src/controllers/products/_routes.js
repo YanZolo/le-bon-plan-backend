@@ -34,4 +34,3 @@ const productController = new ProductController();
 ]
 
 export default createRouter(routes) 
-// module.exports = createRouter(routes);

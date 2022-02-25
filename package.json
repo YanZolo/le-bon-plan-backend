@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "  jest ",
-    "start": "node src/index.js",
+    "start": "nodemon src/index.js",
     "start:db": "docker compose up -d mongo",
     "build": "docker compose build"
   },
@@ -32,6 +32,7 @@
     "@babel/node": "^7.16.8",
     "@babel/preset-env": "^7.16.11",
     "jest": "^27.5.1",
-    "node-dev": "^7.1.0"
+    "node-dev": "^7.1.0",
+    "nodemon": "^2.0.15"
   }
 }

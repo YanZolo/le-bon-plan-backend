@@ -6,4 +6,3 @@ export class ProductNotFound extends NotFound {
     }
 }
 
-// module.exports.ProductNotFound = ProductNotFound

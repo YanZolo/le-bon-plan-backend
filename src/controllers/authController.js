@@ -3,9 +3,6 @@ import jwt from 'jsonwebtoken';
 import User from '../models/userModel';
 
 
-
-// const users = []
-
 module.exports = {
 
     registerUser: async (req, res) => {       

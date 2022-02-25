@@ -2,10 +2,10 @@ import dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
 const app = express();
-// import userRoutes from './controllers/users/_routes';
 import  productRoutes from './controllers/products/_routes.js';
 import startDB from './db/connect.js';
 const url = process.env.DB_URL;
+// code below because __dirname is not suported with esm 
 import path from 'path';
 import {fileURLToPath} from 'url'
 const __filename = fileURLToPath(import.meta.url);
@@ -24,7 +24,6 @@ app.set('views', path.join(__dirname, '..' , 'views'));
 app.get('/', (req, res) => {
     res.render('login');
 })
-// app.use('/user', userRoutes);
 app.use('/product', productRoutes);
 app.get('/health', (req, res) => {
     res.send('ok');

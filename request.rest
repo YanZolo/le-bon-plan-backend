@@ -65,7 +65,7 @@ PATCH http://localhost:8000/product/62162eb5d7a7129fa95cd66c
 Content-type: application/json
 
 {
-    "title": "test99",
+    "title": "yolo",
     "price": 4
 }
 ###

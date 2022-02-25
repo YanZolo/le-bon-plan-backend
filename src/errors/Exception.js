@@ -11,7 +11,6 @@ export class Exception extends Error {
     }
 }
 
-// module.exports.Exception = Exception
 
 // throw new Exception(400) => {name: 'BAD_REQUEST', message: 'bad request', status: 400}
 // throw new Exception(400, "Id is not correct") => {name: 'BAD_REQUEST', message: 'Id is not correct', status: 400}

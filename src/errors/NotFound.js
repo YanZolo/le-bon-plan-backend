@@ -6,4 +6,3 @@ export class NotFound extends Exception {
     }
 }
 
-// module.exports.NotFound = NotFound

@@ -48,7 +48,6 @@ export class ProductController {
         await ProductModel.deleteOne({_id: product._id}) // doc not receive !!! :(    
     }
 
-
 }
 
-// module.exports.ProductController = ProductController;
+
