@@ -1,6 +1,6 @@
 import {v4} from 'uuid';
 
-module.exports.UserController = class UserController {
+export class UserController {
     #users = [];
 
     getAllUsers() {

@@ -1,15 +1,15 @@
 import dotenv from 'dotenv';
-dotenv.config();
 import express from 'express';
-const app = express();
 import  productRoutes from './controllers/products/_routes.js';
 import startDB from './db/connect.js';
-const url = process.env.DB_URL;
-// code below because __dirname is not suported with esm 
 import path from 'path';
 import {fileURLToPath} from 'url'
+const app = express();
+const url = process.env.DB_URL;
+// code below because __dirname is not suported with esm 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename)
+dotenv.config();
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));

@@ -1,7 +1,7 @@
 import express from 'express';
-import routes from "../controllers/products/_routes.js";
+import routes from "../controllers/products/_routes.js"; // i can delete this line and it work, need to know why..
 
-export let createRouter = (routes) => {
+export function createRouter(routes) {
     const router = express.Router()
 
     routes.forEach((route) => {
