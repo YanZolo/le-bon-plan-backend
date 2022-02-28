@@ -1,12 +1,12 @@
-import {ProductController} from './_productController.js';
-import {createRouter} from '../../utils/createRouter.js';
+import { ProductController } from './_productController.js';
+import { createRouter } from '../../utils/createRouter.js';
 const productController = new ProductController();
 
- const routes = [
+const routes = [
     {
         path: "/",
         method: "GET",
-        handler: productController.getProducts.bind(productController) 
+        handler: productController.getProducts.bind(productController)
     },
     {
         path: "/",
