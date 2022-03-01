@@ -8,7 +8,8 @@
     "test": "jest",
     "start": "nodemon src/index.js",
     "start:db": "docker compose up -d mongo",
-    "build": "docker compose build"
+    "build": "docker compose build",
+    "prepare": "husky install"
   },
   "author": "",
   "license": "ISC",
@@ -31,7 +32,9 @@
     "@babel/core": "^7.17.5",
     "@babel/node": "^7.16.8",
     "@babel/preset-env": "^7.16.11",
+    "husky": "^7.0.4",
     "jest": "^27.5.1",
+    "lint-staged": "^12.3.4",
     "node-dev": "^7.1.0",
     "nodemon": "^2.0.15"
   }
