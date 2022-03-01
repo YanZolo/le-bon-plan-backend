@@ -11,6 +11,14 @@
     "build": "docker compose build",
     "prepare": "husky install"
   },
+  "lint-staged": {
+    "*.(js|html|css)": [
+      "prettier --write"
+    ],
+    "*.js": [
+      "eslint --fix"
+    ]
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -32,10 +40,15 @@
     "@babel/core": "^7.17.5",
     "@babel/node": "^7.16.8",
     "@babel/preset-env": "^7.16.11",
+    "eslint": "^8.10.0",
+    "eslint-config-prettier": "^8.4.0",
+    "eslint-plugin-prettier": "^4.0.0",
     "husky": "^7.0.4",
     "jest": "^27.5.1",
     "lint-staged": "^12.3.4",
     "node-dev": "^7.1.0",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "prettier": "^2.5.1",
+    "standard": "^16.0.4"
   }
 }
