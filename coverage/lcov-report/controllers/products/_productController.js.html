@@ -104,9 +104,7 @@
 <a name='L41'></a><a href='#L41'>41</a>
 <a name='L42'></a><a href='#L42'>42</a>
 <a name='L43'></a><a href='#L43'>43</a>
-<a name='L44'></a><a href='#L44'>44</a>
-<a name='L45'></a><a href='#L45'>45</a>
-<a name='L46'></a><a href='#L46'>46</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L44'></a><a href='#L44'>44</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -149,53 +147,49 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import ProductModel from '../../models/productModel.js';
-import { ProductNotFound } from '../../errors/ProductNotFound.js';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import ProductModel from "../../models/productModel.js";
+import { ProductNotFound } from "../../errors/ProductNotFound.js";
 export class ProductController {
-    async getProduct({ params: { id } }) {
-        const product = await ProductModel.findById(id);        
-        if (!product) {
-            throw new ProductNotFound()
-        }
-        return product;
+  async getProduct({ params: { id } }) {
+    const product = await ProductModel.findById(id);
+    if (!product) {
+      throw new ProductNotFound();
+    }
+    return product;
+  }
+&nbsp;
+  async getProducts() {
+    return ProductModel.find();
+  }
+&nbsp;
+  async addProduct({ body: { title, price } }) {
+    const newProduct = new ProductModel({
+      title,
+      price,
+    });
+    return newProduct.save();
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  as</span>ync updateProduct(req) {
+    const product = <span class="cstat-no" title="statement not covered" >await this.getProduct(req);</span>
+    const { title, price } = <span class="cstat-no" title="statement not covered" >req.body;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (product.title !== title) {</span>
+<span class="cstat-no" title="statement not covered" >      product.title = title;</span>
     }
 &nbsp;
-    async getProducts() {
-        return ProductModel.find();
+<span class="cstat-no" title="statement not covered" >    if (product.price !== price) {</span>
+<span class="cstat-no" title="statement not covered" >      product.price = price;</span>
     }
+<span class="cstat-no" title="statement not covered" >    await product.save();</span>
+<span class="cstat-no" title="statement not covered" >    return ProductModel.findById({ _id: product._id });</span>
+  }
 &nbsp;
-    async addProduct({ body: { title, price } }) {
-        const newProduct = new ProductModel({
-            title,
-            price
-        });
-        return newProduct.save();
-    }
-&nbsp;
-<span class="fstat-no" title="function not covered" >    as</span>ync updateProduct(req) {
-        const product = <span class="cstat-no" title="statement not covered" >await this.getProduct(req);</span>
-        const { title, price } = <span class="cstat-no" title="statement not covered" >req.body;</span>
-        
-<span class="cstat-no" title="statement not covered" >        if (product.title !== title) {</span>
-<span class="cstat-no" title="statement not covered" >            product.title = title;</span>
-        }
-&nbsp;
-<span class="cstat-no" title="statement not covered" >        if (product.price !== price) {</span>
-<span class="cstat-no" title="statement not covered" >            product.price = price;</span>
-        }
-<span class="cstat-no" title="statement not covered" >        await product.save();</span>
-<span class="cstat-no" title="statement not covered" >        return ProductModel.findById({_id: product._id})</span>
-    }
-&nbsp;
-<span class="fstat-no" title="function not covered" >    as</span>ync deleteProduct(req) {
-        const product = <span class="cstat-no" title="statement not covered" >await this.getProduct(req);       </span>
-<span class="cstat-no" title="statement not covered" >        await ProductModel.deleteOne({_id: product._id}) </span>
-    }
-};
-&nbsp;
-&nbsp;
+<span class="fstat-no" title="function not covered" >  as</span>ync deleteProduct(req) {
+    const product = <span class="cstat-no" title="statement not covered" >await this.getProduct(req);</span>
+<span class="cstat-no" title="statement not covered" >    await ProductModel.deleteOne({ _id: product._id });</span>
+  }
+}
 &nbsp;</pre></td></tr></table></pre>
 
       <div class="push"></div>
@@ -210,7 +204,7 @@ export class ProductController {
         rel="noopener noreferrer"
         >istanbul</a
       >
-      at Tue Mar 01 2022 11:03:35 GMT+0100 (heure normale d’Europe centrale)
+      at Tue Mar 01 2022 12:45:10 GMT+0100 (heure normale d’Europe centrale)
     </div>
     <script src="../../prettify.js"></script>
     <script>
