@@ -3,17 +3,12 @@ import routes from "../controllers/products/_routes.js"; // i can delete this li
 
 export function createRouter(routes) {
     const router = express.Router()
-
     routes.forEach((route) => {
         const method = route.method.toLowerCase()
-
         router[method](route.path, createHandler(route))
-
-    })
-   
+    })   
     return router
 }
-
 
 export function createHandler({ handler, responseStatus = 200 }) {
     return async (req, res) => {

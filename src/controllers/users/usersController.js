@@ -1,5 +1,4 @@
 import {v4} from 'uuid';
-
 export class UserController {
     #users = [];
 

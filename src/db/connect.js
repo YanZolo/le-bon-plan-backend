@@ -11,7 +11,6 @@ const startDB = (url) => {
     })
     .catch(err => console.error(err));
 }
-
 export default startDB
 
 

@@ -23,7 +23,6 @@ const productSchema = mongoose.Schema({
     location: String,
     photo: String,
     userId: { type: mongoose.Types.ObjectId, ref: "user" }
-
 })
 
 export default mongoose.model('products', productSchema)

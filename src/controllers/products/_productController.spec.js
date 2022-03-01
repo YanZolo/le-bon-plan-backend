@@ -13,10 +13,10 @@ describe("productController", () => {
             // when
             const result = await productController.getProducts();
             // then
-
             expect(result).toEqual([])
-        });
-    });
+        })
+    })
+
     describe("getProduct()", () => {
         it("should return a product from productModel", async () => {
             // given 
@@ -27,12 +27,12 @@ describe("productController", () => {
             // when
             const result = await productController.getProduct({ params: { id: 'gjdkgjdsglksdjg' } })
             // then
-
             expect(result).toEqual([{
                 title: "toto"
             }])
             expect(productModel.findById).toHaveBeenCalledWith("gjdkgjdsglksdjg")
         })
+
         it("should throw product error not found", async () => {
             // given 
             const productController = new ProductController();
@@ -45,12 +45,12 @@ describe("productController", () => {
                 actualError = error;
             }
             // then
-
             expect(actualError.message).toEqual("Product not found")
             expect(actualError.status).toEqual(404)
             expect(actualError.name).toEqual("NOT_FOUND")
         })
     })
+
     describe("addProduct()", () => {
         it("should add a new product", async () => {
             // given
@@ -60,13 +60,11 @@ describe("productController", () => {
                 price: 44,
                 title: "product 123",
             })
-
             productModel.mockImplementation(() => {
                 return {
                     save
                 }
             })
-
             // when 
             const result = await productController.addProduct({
                 body: {
@@ -75,8 +73,6 @@ describe("productController", () => {
                     unknown: "prop"
                 }
             })
-
-
             // then
             expect(productModel).toHaveBeenCalledWith({
                 price: 44,

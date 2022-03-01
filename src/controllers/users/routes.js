@@ -1,6 +1,6 @@
 import express from 'express';
-const Router = express.Router();
 import {UserController} from './usersController';
+const Router = express.Router();
 const userController = new UserController;
 
 Router.get('/', (req, res) => {
@@ -43,6 +43,5 @@ Router.delete('/:id', (req, res) => {
         message: `The User '${user.name}' Has Been Deleted`
     })
 });
-
 
 export default Router;

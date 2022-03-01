@@ -1,11 +1,9 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../models/userModel';
-
-
 export default class AuthController {
+    
     async registerUser(req, res) {
-
         try {
             const hashedPassword = await bcrypt.hash(req.body.password, 10)
             req.body.password = hashedPassword
@@ -17,7 +15,6 @@ export default class AuthController {
         } catch {
             res.status(500).send()
         }
-
     }
 
     async authenticateUser(req, res, next) {
@@ -45,17 +42,14 @@ export default class AuthController {
         jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
             if (err) return res.sendStatus(403)
             req.user = user
-
         })
         next()
     }
 
     async uptdateUser(req, res) {
         const user = User.findOne({ name: req.params.id })
-
     }
-
-}
+};
 
 
 
