@@ -11,7 +11,8 @@
     "start:db": "docker compose up -d mongo",
     "build": "docker compose build",
     "prepare": "husky install",
-    "lint": "eslint --fix",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
     "prettier": "prettier \"{src,views}/**/*.{ts,js,css}\" --write"
   },
   "lint-staged": {
