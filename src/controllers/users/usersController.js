@@ -1,41 +1,46 @@
-const {v4} = require('uuid')
-class UserController {
-    #users = [];
+import UserModel from '../../models/userModel.js';
+import UserNotFound from '../../errors/UserNotFound.js';
 
-    getAllUsers() {
-        return this.#users;
-    };
-    getUser({_id}) {
-        const user = this.#users.filter(user => user._id === _id)[0];
-        return user;
-    };
-   saveUser(user) {
-       const newUser = {
-           _id: user._id || v4(),
-           username: user.username
-       };
-       this.#users.push(newUser);
-       return newUser;
-   };
-   updateUser({_id, username}) {
-    const user = this.#users.filter(user => user._id === _id)[0];
-    if(user){
-        const indexUser = this.#users.indexOf(user);    
-        this.#users[indexUser].username = username;
-        return user;
-    };
-     throw new Error('User Not Found !');
-   };
-   deleteUser({_id}) {
-       const user = this.#users.filter(user => user._id === _id)[0];
-       if(user) {
-           const userIndex = this.#users.indexOf(user);
-           delete this.#users[userIndex];
-           return user;
-       };
-       throw new Error('User Not Found !');
-   };
-};
-module.exports = {
-    UserController
-};
+export class UserController {
+  // return all users
+  getAllUsers() {
+    return UserModel.find();
+  }
+
+  // return one user
+  async getUser({ params: { id } }) {
+    const user = await UserModel.findById(id);
+    if (!user) {
+      throw new UserNotFound();
+    }
+    return user;
+  }
+
+  // add user
+  async addUser({ body: { username, email } }) {
+    const newUser = new UserModel({
+      username,
+      email
+    });
+    return newUser.save();
+  }
+
+  // update user
+  async updateUser(req) {
+    const user = await this.getUser(req);
+    const { username, email } = req.body;
+    if (username !== user.username) {
+      user.username = username;
+    }
+    if (email !== user.email) {
+      user.email = email;
+    }
+    return user.save();
+  }
+
+  // remove user
+  async deleteUser(req) {
+    const user = await this.getUser(req);
+    await UserModel.deleteOne({ _id: user._id });
+  }
+}

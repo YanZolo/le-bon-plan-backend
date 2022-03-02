@@ -1,48 +1,34 @@
-const express = require('express');
-const Router = express.Router();
-const {UserController} = require('./usersController');
-const userController = new UserController;
+import { UserController } from './usersController.js';
+import { createRouter } from '../../utils/createRouter.js';
+const userController = new UserController();
 
-Router.get('/', (req, res) => {
-    const users = userController.getAllUsers();
-    res.json(users);
-});
+const routes = [
+  {
+    path: '/',
+    method: 'GET',
+    handler: userController.getAllUsers.bind(userController)
+  },
+  {
+    path: '/:id',
+    method: 'GET',
+    handler: userController.getUser.bind(userController)
+  },
+  {
+    path: '/',
+    method: 'POST',
+    handler: userController.addUser.bind(userController),
+    responseStatus: 201
+  },
+  {
+    path: '/:id',
+    method: 'PATCH',
+    handler: userController.updateUser.bind(userController)
+  },
+  {
+    path: '/:id',
+    method: 'DELETE',
+    handler: userController.deleteUser.bind(userController)
+  }
+];
 
-Router.post('/', (req, res) => {
-    const newUser = userController.saveUser({
-        name: req.body.name
-    });
-    res.json(newUser);
-});
-
-Router.get('/:id', (req, res) => {
-    const user = userController.getUser({
-        _id: req.params.id
-    });
-    res.json({
-        user: user
-    });
-});
-
-Router.patch('/:id', (req, res) => {
-    const user = userController.updateUser({
-        _id: req.params.id,
-        name: req.body.name
-    });
-    res.json({
-        message: 'user updated !',
-        user: user
-    })
-});
-
-Router.delete('/:id', (req, res) => {
-    const user = userController.deleteUser({
-        _id: req.params.id
-    });
-    res.json({
-        message: `The User '${user.name}' Has Been Deleted`
-    })
-});
-
-
-module.exports =  Router;
+export default createRouter(routes);

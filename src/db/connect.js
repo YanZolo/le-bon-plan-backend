@@ -1,19 +1,18 @@
-require('dotenv').config();
-const mongoose = require('mongoose');
-
+import dotenv from 'dotenv';
+dotenv.config();
+import mongoose from 'mongoose';
 
 const startDB = (url) => {
-    mongoose.connect(url,{
-        useNewUrlParser: true
+  mongoose
+    .connect(url, {
+      useNewUrlParser: true
     })
     .then(() => {
-        console.log('database connected');
+      console.log('database connected');
     })
-    .catch(err => console.error(err));
-}
-
-module.exports = startDB
-
+    .catch((err) => console.error(err));
+};
+export default startDB;
 
 /* mongoose.connect(process.env.DB_URL, {useNewUrlParser: true});
 const db = mongoose.connection;

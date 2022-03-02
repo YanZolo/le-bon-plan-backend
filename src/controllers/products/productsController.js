@@ -1,39 +1,43 @@
-const {v4} = require('uuid')
+import ProductModel from '../../models/productModel.js';
+import ProductNotFound from '../../errors/ProductNotFound.js';
+export class ProductsController {
+  async getProduct({ params: { id } }) {
+    const product = await ProductModel.findById(id);
+    if (!product) {
+      throw new ProductNotFound();
+    }
+    return product;
+  }
 
-class ProductsController {
-  
+  async getProducts() {
+    return ProductModel.find();
+  }
 
-    #products = []
-   
-    getProducts() { 
-        return this.#products; 
-    } 
+  async addProduct({ body: { title, price } }) {
+    const newProduct = new ProductModel({
+      title,
+      price
+    });
+    return newProduct.save();
+  }
 
-    saveProduct(product) {
-        const mappedProduct =  {
-            _id: product._id || v4(),
-            title: product.title
-        }
-        this.#products.push(mappedProduct)
-        
-        return mappedProduct
+  async updateProduct(req) {
+    const product = await this.getProduct(req);
+    const { title, price } = req.body;
+
+    if (product.title !== title) {
+      product.title = title;
     }
 
-    updateProduct({id, title}) {
-        console.log('arguments :>> ', arguments);
-        const product = this.#products
-        const result = product.filter(elem => elem._id === id)[0] 
-        result.title = title
-        return result
+    if (product.price !== price) {
+      product.price = price;
     }
+    await product.save();
+    return ProductModel.findById({ _id: product._id });
+  }
 
-    deleteProduct(id) {
-        const updatedListProducts = this.#products.filter(elem => elem._id !== id);
-        this.#products = updatedListProducts;
-        return updatedListProducts;
-    }
-}
-
-module.exports = {
-    ProductsController
+  async deleteProduct(req) {
+    const product = await this.getProduct(req);
+    await ProductModel.deleteOne({ _id: product._id });
+  }
 }

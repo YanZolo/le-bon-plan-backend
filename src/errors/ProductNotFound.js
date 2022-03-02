@@ -1,9 +1,7 @@
-const { NotFound } = require("./NotFound");
+import NotFound from './NotFound.js';
 
-class ProductNotFound extends NotFound {
-    constructor() {
-        super("Product not found")
-    }
+export default class ProductNotFound extends NotFound {
+  constructor() {
+    super('Product Not Found');
+  }
 }
-
-module.exports.ProductNotFound = ProductNotFound

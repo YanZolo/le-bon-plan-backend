@@ -1,93 +1,106 @@
-const { v4 } = require("uuid")
-const { ProductsController } = require("./productsController")
+import productModel from '../../models/productModel.js';
+import { ProductsController } from './productsController.js';
+import { jest, describe, it, expect } from '@jest/globals';
 
+jest.mock('../../models/productModel');
 
-describe('ProductsController', () => {
-    describe('getProducts()', () => {
-        test('it should return an empty list', () => {
-            // GIVEN
-            const productsController = new ProductsController()
+describe('productController', () => {
+  describe('getProducts()', () => {
+    it('should return empty array', async () => {
+      // given
+      const productController = new ProductsController();
+      productModel.find.mockResolvedValue([]);
+      // when
+      const result = await productController.getProducts();
+      // then
+      expect(result).toEqual([]);
+    });
+  });
 
-            // WHEN
-            const result = productsController.getProducts()
+  describe('getProduct()', () => {
+    it('should return a product from productModel', async () => {
+      // given
+      const productController = new ProductsController();
+      productModel.findById.mockResolvedValue([
+        {
+          title: 'toto'
+        }
+      ]);
+      // when
+      const result = await productController.getProduct({
+        params: { id: 'gjdkgjdsglksdjg' }
+      });
+      // then
+      expect(result).toEqual([
+        {
+          title: 'toto'
+        }
+      ]);
+      expect(productModel.findById).toHaveBeenCalledWith('gjdkgjdsglksdjg');
+    });
 
-            // THEN
-            expect(result).toEqual([])
-        })
-    })
-    describe('getProduct()', () => {
-        it('should not return an empty array', () => {
-            // given 
-            const productsController = new ProductsController();
-            productsController.saveProduct({
-                title: 'my Product1'
-            });
-            // when
-            const result = productsController.getProducts()
-            // then 
-            expect(result.length).toBeGreaterThan(0);
-        })
-    })
-    describe('saveProduct()', () => {
-        test('it should save new product',  () => {
-            // given
-            const productsController = new ProductsController()
-           
-            // when
-            const newProduct = productsController.saveProduct({                
-                title: 'my Product'
-            })       
-            const result = productsController.getProducts().filter(product => product.name === newProduct.name) // i filter by the name but need refactor with the id
-     
-            // then
-            expect(result[0]).toMatchObject({
-                _id: expect.any(String),
-                title: 'my Product'
-            })       
-        })
-    })
+    it('should throw product error not found', async () => {
+      // given
+      const productController = new ProductsController();
+      productModel.findById.mockResolvedValue();
+      // when
+      let actualError;
+      try {
+        await productController.getProduct({
+          params: { id: 'gjdkgjdsglksdjg' }
+        });
+      } catch (error) {
+        actualError = error;
+      }
+      // then
+      expect(actualError.message).toEqual('Product Not Found');
+      expect(actualError.status).toEqual(404);
+      expect(actualError.name).toEqual('NOT_FOUND');
+    });
+  });
 
-    describe('updateProduct()', () => {
-        test('it should update a given product', () => {
-            // given
-            const productsController = new ProductsController();
-            // when
-             productsController.saveProduct({
-                title: 'macBook'
-            });  
-            const listProducts = productsController.getProducts(); 
+  describe('addProduct()', () => {
+    it('should add a new product in database', async () => {
+      // given
+      const productController = new ProductsController();
+      const save = jest.fn().mockResolvedValue({
+        _id: 'id',
+        price: 44,
+        title: 'product 123'
+      });
+      productModel.mockImplementation(() => {
+        return {
+          save
+        };
+      });
+      // when
+      const result = await productController.addProduct({
+        body: {
+          price: 44,
+          title: 'product 123'
+          // unknown: "prop",
+        }
+      });
+      // then
+      expect(productModel).toHaveBeenCalledWith({
+        price: 44,
+        title: 'product 123'
+      });
+      expect(result).toEqual({
+        _id: 'id',
+        price: 44,
+        title: 'product 123'
+      });
+    });
+  });
 
-            const id = listProducts[0]._id
+  describe('updateProduct()', () => {
+    it('should update a product', () => {
+      // given
+      const productController = new ProductsController();
+      // when
 
-            const result = productsController.updateProduct(({id,title: 'new MacBook PRO'}))
-
-            // then 
-            expect(result).toMatchObject({
-                _id: id,
-                title: 'new MacBook PRO'
-            })
-
-        } )
-    })
-
-    describe('deleteProduct()', () => {
-        it('should delete a given product', () => {
-            // given
-            const productsController =  new ProductsController()
-            productsController.saveProduct({
-                title: 'new car'
-            })    
-            const listProducts = productsController.getProducts()
-            const product = listProducts.filter(item=>item.title === 'new car')[0]  
-            console.log('product :>> ', product);
-            const {_id} = product;                
-            // when
-            productsController.deleteProduct(_id)
-            const listProductsAfterDelete = productsController.getProducts()
-            // then 
-            expect(listProductsAfterDelete).toEqual([])
-        })
-    })
-    
-   
-})
+      // then
+    });
+  });
+});
