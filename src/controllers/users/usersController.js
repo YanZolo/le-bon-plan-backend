@@ -1,46 +1,46 @@
-import UserModel from '../../models/userModel.js'
-import UserNotFound from '../../errors/UserNotFound.js'
+import UserModel from '../../models/userModel.js';
+import UserNotFound from '../../errors/UserNotFound.js';
 
 export class UserController {
   // return all users
-  getAllUsers () {
-    return UserModel.find()
+  getAllUsers() {
+    return UserModel.find();
   }
 
   // return one user
-  async getUser ({params: {id}}) {
-    const user = await UserModel.findById(id)
+  async getUser({ params: { id } }) {
+    const user = await UserModel.findById(id);
     if (!user) {
-      throw new UserNotFound()
+      throw new UserNotFound();
     }
-    return user
+    return user;
   }
 
   // add user
-  async addUser ({body: {username, email}}) {
+  async addUser({ body: { username, email } }) {
     const newUser = new UserModel({
       username,
       email
-    })
-    return newUser.save()
+    });
+    return newUser.save();
   }
 
   // update user
-  async updateUser (req) {
-    const user = await this.getUser(req)
-    const {username, email} = req.body
+  async updateUser(req) {
+    const user = await this.getUser(req);
+    const { username, email } = req.body;
     if (username !== user.username) {
-      user.username = username
+      user.username = username;
     }
     if (email !== user.email) {
-      user.email = email
+      user.email = email;
     }
-    return user.save()
+    return user.save();
   }
 
   // remove user
-  async deleteUser (req) {
-    const user = await this.getUser(req)
-    await UserModel.deleteOne({_id: user._id})
+  async deleteUser(req) {
+    const user = await this.getUser(req);
+    await UserModel.deleteOne({ _id: user._id });
   }
 }

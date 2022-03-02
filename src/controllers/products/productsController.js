@@ -1,6 +1,6 @@
-import ProductModel from "../../models/productModel.js";
-import ProductNotFound from "../../errors/ProductNotFound.js";
-export class ProductController {
+import ProductModel from '../../models/productModel.js';
+import ProductNotFound from '../../errors/ProductNotFound.js';
+export class ProductsController {
   async getProduct({ params: { id } }) {
     const product = await ProductModel.findById(id);
     if (!product) {
@@ -16,7 +16,7 @@ export class ProductController {
   async addProduct({ body: { title, price } }) {
     const newProduct = new ProductModel({
       title,
-      price,
+      price
     });
     return newProduct.save();
   }

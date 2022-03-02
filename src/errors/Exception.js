@@ -1,12 +1,12 @@
 import statuses from 'statuses';
-import {constantCase} from 'change-case';
+import { constantCase } from 'change-case';
 export default class Exception extends Error {
-    constructor(status, message) {
-        super(message);
-        this.message = message || statuses(status)
-        this.name = constantCase(statuses(status))
-        this.status = status
-    }
+  constructor(status, message) {
+    super(message);
+    this.message = message || statuses(status);
+    this.name = constantCase(statuses(status));
+    this.status = status;
+  }
 }
 
 // throw new Exception(400) => {name: 'BAD_REQUEST', message: 'bad request', status: 400}

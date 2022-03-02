@@ -1,4 +1,4 @@
-import Exception from "./Exception.js";
+import Exception from './Exception.js';
 
 export default class NotFound extends Exception {
   constructor(message) {

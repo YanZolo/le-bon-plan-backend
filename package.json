@@ -10,10 +10,12 @@
     "start": "nodemon src/index.js",
     "start:db": "docker compose up -d mongo",
     "build": "docker compose build",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "lint": "eslint --fix",
+    "prettier": "prettier \"{src,views}/**/*.{ts,js,css}\" --write"
   },
   "lint-staged": {
-    "*.(js|html|css)": [
+    "{src,views}/*.{ts,js,ejs,css}": [
       "prettier --write"
     ],
     "*.js": [
@@ -44,6 +46,7 @@
     "eslint": "^8.10.0",
     "eslint-config-prettier": "^8.4.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-jest": "26.1.1",
     "husky": "^7.0.4",
     "jest": "^27.5.1",
     "lint-staged": "^12.3.4",
