@@ -42,9 +42,15 @@ jobs:
     if: ${{ github.event_name != 'pull_request' && (contains(github.ref, 'main')) }}
     steps:
       # Check-out your repository.
-      - name: Checkout
-        uses: actions/checkout@v2
-
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          cache: npm
+          node-version: 16.13.2
+      - run: yarn install --frozen-lockfile
+      - run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
       - name: Build, Push and Release a Docker container to Heroku. # Your custom step name
         uses: gonuit/heroku-docker-deploy@v1.3.3 # GitHub action name (leave it as it is).
         with:
@@ -79,5 +85,5 @@ jobs:
           # Select the process type for which you want the docker container to be uploaded.
           # By default, this argument is set to "web".
           # For more information look at https://devcenter.heroku.com/articles/process-model
-          process_type: web
+          process_type: web          
   
