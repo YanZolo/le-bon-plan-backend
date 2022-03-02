@@ -1,97 +1,94 @@
-const { UserController } = require('./usersController');
+import userModel from "../../models/userModel.js";
+import { UserController } from "./_userController.js";
+import { jest, describe, it, expect } from "@jest/globals";
 
-describe('userController', () => {
-    describe('getAllUsers()', () => {
-        it('should return empty array', () => {
-            // given
-            const userController = new UserController();
+jest.mock("../../models/userModel.js");
 
-            // when
-
-            const result = userController.getAllUsers();
-            // then
-
-            expect(result).toEqual([]);
-        })
+describe("useController", () => {
+  describe("getAllUsers()", () => {
+    it("should return an empty array", async () => {
+      // given
+      const userController = new UserController();
+      userModel.find.mockResolvedValue([]);
+      // when
+      const result = await userController.getAllUsers();
+      // then
+      expect(result).toEqual([]);
     });
-    describe('getUser()', () => {
-        it('should not return user by id', () => {
-            // given
-            const userController = new UserController()
-
-            // when
-            const newUser = userController.saveUser({
-                username: 'romain'
-            })
-            const result = userController.getUser({
-               _id: newUser._id
-            })
-    
-            // then
-            expect(result).toMatchObject({
-                _id: newUser._id,
-                username: 'romain'
-            })
-        })
-    })
-
-    describe('saveUser()', () => {
-        it('should save new user', () => {
-            // GIVEN 
-            const userController = new UserController();
-
-            // WHEN
-            const newUser = userController.saveUser({
-                username: 'sofiane'
-            });
-            const result = userController.getAllUsers().filter(user => user.username === newUser.username);// i filter by username but need to refactor with id or email because id and email are unique
-
-            // THEN
-            expect(result[0]).toMatchObject({
-                _id: newUser._id,
-                username: 'sofiane'
-            });
-        });
+  });
+  describe("getUser()", () => {
+    it("should return one user", async () => {
+      // given
+      const userController = new UserController();
+      userModel.findById.mockResolvedValue([
+        {
+          username: "soso",
+        },
+      ]);
+      // when
+      const result = await userController.getUser({
+        params: { id: "kjglmdfk" },
+      });
+      // then
+      expect(result).toEqual([
+        {
+          username: "soso",
+        },
+      ]);
+      expect(userModel.findById).toHaveBeenCalledWith("kjglmdfk");
     });
-    describe('updateUser()', () => {
-        it('should update user ', () => {
-            // given
-            const userController = new UserController()
-            const newUser = userController.saveUser({
-                username: 'zenika'
-            })
-            const user = userController.getUser({
-                _id: newUser._id
-            })
-            // when
-            const result = userController.updateUser({
-                _id: newUser._id,
-                username: 'ZENIKA'
-            })
-            // then
-            expect(result).toMatchObject({
-                _id: newUser._id,
-                username: 'ZENIKA'
-            });
-        });
+    it("should throw 'User Not Found'", async () => {
+      // GIVEN
+      const userController = new UserController();
+      userModel.findById.mockResolvedValue();
+      // WHEN
+      let currentError;
+      try {
+        await userController.getUser({ params: { id: "kjjfdfdfdkf" } });
+      } catch (error) {
+        currentError = error;
+      }
+      // THEN
+      expect(currentError.message).toEqual("User Not Found");
+      expect(currentError.status).toEqual(404);
+      expect(currentError.name).toEqual("NOT_FOUND");
     });
-    describe('deleteUser()', () => {
-        it('should delete a given user', () => {
-            // given
-            const userController = new UserController();
-            const newUser = userController.saveUser({
-                username: 'username to delete'
-            });
-            // when
-            userController.deleteUser({
-                _id: newUser._id
-            });
-            const result = userController.getUser({
-                _id: newUser._id
-            });
-            // then
-            expect(result).toEqual(expect.not.objectContaining(newUser))
-        })
-    })
+  });
 
-})
+  describe("addUser()", () => {
+    it("should add new user in database", async () => {
+      // given
+      const userController = new UserController();
+      const save = jest.fn(() => {
+        return {
+          _id: "some id",
+          username: "test addUser",
+          email: "test@addUser.com",
+        };
+      });
+      userModel.mockImplementation(() => {
+        return {
+          save,
+        };
+      });
+      // when
+      const result = await userController.addUser({
+        body: {
+          username: "test addUser",
+          email: "test@addUser.com",
+        },
+      });
+      // then
+      expect(userModel).toHaveBeenCalledWith({
+        username: "test addUser",
+        email: "test@addUser.com",
+      });
+      expect(result).toEqual({
+        _id: "some id",
+        username: "test addUser",
+        email: "test@addUser.com",
+      });
+    });
+  });
+
+});

@@ -1,6 +1,6 @@
-require('dotenv').config();
-const mongoose = require('mongoose');
-
+import dotenv from 'dotenv';
+dotenv.config();
+import mongoose from 'mongoose';
 
 const startDB = (url) => {
     mongoose.connect(url,{
@@ -11,8 +11,7 @@ const startDB = (url) => {
     })
     .catch(err => console.error(err));
 }
-
-module.exports = startDB
+export default startDB
 
 
 /* mongoose.connect(process.env.DB_URL, {useNewUrlParser: true});
