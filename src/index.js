@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import productRoutes from './controllers/products/routes.js';
+import versionRoutes from './controllers/version/routes.js';
 import startDB from './db/connect.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -17,6 +18,7 @@ app.set('views', path.join(__dirname, '..', 'views'));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use('/', versionRoutes);
 app.use('/product', productRoutes);
 
 app.get('/', (req, res) => {
