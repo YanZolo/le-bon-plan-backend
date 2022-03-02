@@ -10,7 +10,7 @@
     "start": "nodemon src/index.js",
     "start:db": "docker compose up -d mongo",
     "build": "docker compose build",
-    "prepare": "husky install",
+    "prepare": "is-ci || husky install",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
     "prettier": "prettier \"{src,views}/**/*.{ts,js,css}\" --write"
@@ -38,7 +38,8 @@
     "passport": "^0.5.0",
     "passport-local": "^1.0.0",
     "statuses": "~2.0.1",
-    "uuid": "8.3.2"
+    "uuid": "8.3.2",
+    "is-ci": "3.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.17.5",
