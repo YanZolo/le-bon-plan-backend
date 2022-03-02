@@ -34,7 +34,7 @@ node_modules
 # Typings
 typings/
 
-.env/
+.env
 .DS_Store
 .vsconf
 .idea
