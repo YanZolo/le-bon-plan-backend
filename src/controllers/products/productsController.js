@@ -23,11 +23,15 @@ export class ProductsController {
 
   async updateProduct(req) {
     const product = await this.getProduct(req);
+    if (!product) {
+      throw new ProductNotFound();
+    }
     const { title, price } = req.body;
 
     if (product.title !== title) {
       product.title = title;
     }
+    //if( title && product.title...) remplacer
 
     if (product.price !== price) {
       product.price = price;

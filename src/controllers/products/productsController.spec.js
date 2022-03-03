@@ -95,12 +95,56 @@ describe('productController', () => {
   });
 
   describe('updateProduct()', () => {
-    it('should update a product', () => {
+    it('should update a product', async () => {
+
       // given
       const productController = new ProductsController();
+      productModel.findById.mockResolvedValue(
+        {
+          _id: "some-id",
+          title: "test updateProduct()",
+          price: 46
+        }
+      )
+      const { body: { title, price } } = {
+        body: {
+          title: "new test updateProduct()",
+          price: 46
+        }
+      }
+
       // when
+      const productToUpdate = await productController.getProduct({ params: { id: "some-id" } })
+      if (productToUpdate.title !== title) {
+        productToUpdate.title = title
+      }
+      if (price && productToUpdate.price !== price) {
+        productToUpdate.price = price
+      }
+      const save = jest.fn().mockResolvedValue({
+        body: {
+          title: productToUpdate.title,
+          price: productToUpdate.price
+        }
+      })
+      productModel.mockImplementation(() => {
+        return {
+          save
+        }
+      })
+      const productUpdated = await productController.getProduct({ params: { id: "some-id" } })
 
       // then
+      expect(productUpdated).toEqual({
+        _id: "some-id",
+        title: "new test updateProduct()",
+        price: 46
+      })
+      expect(productUpdated).toEqual(productToUpdate)
+      // expect(productModel).toHaveBeenCalledWith({
+      //   title: "new test updateProduct()",
+      //   price: 46
+      // })
     });
   });
 });
