@@ -96,55 +96,81 @@ describe('productController', () => {
 
   describe('updateProduct()', () => {
     it('should update a product', async () => {
-
       // given
       const productController = new ProductsController();
-      productModel.findById.mockResolvedValue(
-        {
-          _id: "some-id",
-          title: "test updateProduct()",
-          price: 46
-        }
-      )
-      const { body: { title, price } } = {
+      productModel.findById.mockResolvedValue({
+        _id: 'some-id',
+        title: 'test updateProduct()',
+        price: 46
+      });
+      const {
+        body: { title, price }
+      } = {
         body: {
-          title: "new test updateProduct()",
+          title: 'new test updateProduct()',
           price: 46
         }
-      }
+      };
 
       // when
-      const productToUpdate = await productController.getProduct({ params: { id: "some-id" } })
+      const productToUpdate = await productController.getProduct({
+        params: { id: 'some-id' }
+      });
       if (productToUpdate.title !== title) {
-        productToUpdate.title = title
+        productToUpdate.title = title;
       }
       if (price && productToUpdate.price !== price) {
-        productToUpdate.price = price
+        productToUpdate.price = price;
       }
       const save = jest.fn().mockResolvedValue({
         body: {
           title: productToUpdate.title,
           price: productToUpdate.price
         }
-      })
+      });
       productModel.mockImplementation(() => {
         return {
           save
-        }
-      })
-      const productUpdated = await productController.getProduct({ params: { id: "some-id" } })
+        };
+      });
+      const productUpdated = await productController.getProduct({
+        params: { id: 'some-id' }
+      });
 
       // then
       expect(productUpdated).toEqual({
-        _id: "some-id",
-        title: "new test updateProduct()",
+        _id: 'some-id',
+        title: 'new test updateProduct()',
         price: 46
-      })
-      expect(productUpdated).toEqual(productToUpdate)
-      // expect(productModel).toHaveBeenCalledWith({
-      //   title: "new test updateProduct()",
-      //   price: 46
-      // })
+      });
+      expect(productUpdated).toEqual(productToUpdate);
+    });
+  });
+
+  describe('deleteProduct()', () => {
+    it('should delete a product', async () => {
+      // given
+      const productController = new ProductsController();
+      productModel.findById.mockResolvedValue({
+        _id: 'some_id',
+        title: 'test deleteProduct()',
+        price: 99
+      });
+      // when
+      const productToDelete = productController.getProduct({
+        params: { id: 'some_id' }
+      });
+      const deleteOne = jest.fn().mockResolvedValue();
+      productModel.deleteOne.getMockImplementation(() => {
+        return {
+          deleteOne
+        };
+      });
+      const result = await productController.deleteProduct({ params: { _id: productToDelete._id } });
+   
+      // then
+      console.log(result);
+      expect(result).toEqual();
     });
   });
 });
