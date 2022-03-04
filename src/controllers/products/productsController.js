@@ -28,15 +28,12 @@ export class ProductsController {
     }
     const { title, price } = req.body;
 
-    if (product.title !== title) {
+    if (title && product.title !== title) {
       product.title = title;
     }
-    //if( title && product.title...) remplacer
-
-    if (product.price !== price) {
+    if (price && product.price !== price) {
       product.price = price;
     }
-    
     return await ProductModel(product).save();
   }
 
