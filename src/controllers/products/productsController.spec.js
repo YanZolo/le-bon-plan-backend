@@ -1,10 +1,15 @@
 import productModel from '../../models/productModel.js';
 import { ProductsController } from './productsController.js';
-import { jest, describe, it, expect } from '@jest/globals';
+import { jest, describe, it, expect, beforeEach} from '@jest/globals';
+
+// jest.mock('../../models/productModel');
 
 jest.mock('../../models/productModel');
 
 describe('productController', () => {
+  beforeEach(()=>{
+    productModel.findById.mockClear()
+  })
   describe('getProducts()', () => {
     it('should return empty array', async () => {
       // given
@@ -36,7 +41,7 @@ describe('productController', () => {
           title: 'toto'
         }
       ]);
-      expect(productModel.findById).toHaveBeenCalledWith('gjdkgjdsglksdjg');
+      expect(productModel.findById).toHaveBeenCalledWith('gjdkgjdsglksdjg');      
     });
 
     it('should throw product error not found', async () => {
@@ -86,6 +91,7 @@ describe('productController', () => {
         price: 44,
         title: 'product 123'
       });
+      expect(save).toHaveReturned();
       expect(result).toEqual({
         _id: 'id',
         price: 44,
@@ -103,47 +109,29 @@ describe('productController', () => {
         title: 'test updateProduct()',
         price: 46
       });
-      const {
-        body: { title, price }
-      } = {
-        body: {
-          title: 'new test updateProduct()',
-          price: 46
-        }
-      };
-
-      // when
-      const productToUpdate = await productController.getProduct({
-        params: { id: 'some-id' }
-      });
-      if (productToUpdate.title !== title) {
-        productToUpdate.title = title;
-      }
-      if (price && productToUpdate.price !== price) {
-        productToUpdate.price = price;
-      }
       const save = jest.fn().mockResolvedValue({
-        body: {
-          title: productToUpdate.title,
-          price: productToUpdate.price
-        }
+        _id: 'some-id',
+        title: 'new test updateProduct()',
+        price: 46
       });
       productModel.mockImplementation(() => {
         return {
           save
         };
       });
-      const productUpdated = await productController.getProduct({
-        params: { id: 'some-id' }
+      const result = await productController.updateProduct({
+        params: { id: 'some-id' },
+        body: { title: 'new test updateProduct()', price: 46 }
       });
-
       // then
-      expect(productUpdated).toEqual({
+      expect(productModel.findById).toHaveBeenCalledWith('some-id');
+      expect(save).toBeCalled();
+      expect(save).toHaveReturned();
+      expect(result).toEqual({
         _id: 'some-id',
         title: 'new test updateProduct()',
         price: 46
       });
-      expect(productUpdated).toEqual(productToUpdate);
     });
   });
 
@@ -152,13 +140,13 @@ describe('productController', () => {
       // given
       const productController = new ProductsController();
       productModel.findById.mockResolvedValue({
-        _id: 'some_id',
+        _id: 'some_id_123',
         title: 'test deleteProduct()',
         price: 99
       });
       // when
       const productToDelete = productController.getProduct({
-        params: { id: 'some_id' }
+        params: { id: 'some_id_123' }
       });
       const deleteOne = jest.fn().mockResolvedValue();
       productModel.deleteOne.getMockImplementation(() => {
@@ -166,11 +154,16 @@ describe('productController', () => {
           deleteOne
         };
       });
-      const result = await productController.deleteProduct({ params: { _id: productToDelete._id } });
-   
+      const result = await productController.deleteProduct({
+        params: { _id: productToDelete._id }
+      });
       // then
       console.log(result);
+      expect(productModel.findById).toHaveBeenCalledWith('some_id_123')
       expect(result).toEqual();
+      expect(productModel.deleteOne).toHaveBeenCalledWith({
+        _id: 'some_id_123'
+      });
     });
   });
 });

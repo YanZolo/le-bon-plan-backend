@@ -36,8 +36,8 @@ export class ProductsController {
     if (product.price !== price) {
       product.price = price;
     }
-    await product.save();
-    return ProductModel.findById({ _id: product._id });
+    
+    return await ProductModel(product).save();
   }
 
   async deleteProduct(req) {
