@@ -3,7 +3,7 @@
         [
             "@babel/preset-env",
             {
-                "modules": "auto", 
+                // "modules": false, 
                 //  jest don't work when "modules" is set to false
                 "targets": {
                     "node": true
@@ -17,8 +17,7 @@
     "ignore": [
         "node_modules"
     ],
-    "comments": false,
-    "minified": true
+    "comments": false    
 }
 /*Babel configuration that enables TypeScript compilation with the Babel compiler
  The code above will configure Babel to use the preset-typescript and preset-env when generating JavaScript code

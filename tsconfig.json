@@ -4,10 +4,12 @@
     "isolatedModules": true,
     "strict": true,
     "module": "esnext",
-    "lib": ["ES2019"],
+    "target": "esnext",
+    "lib": ["ES6","ES2017","ESNext"],
     "noEmit": true,
     "moduleResolution": "node",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "noImplicitAny": false,
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules/**/*", "dist/**/*"]
