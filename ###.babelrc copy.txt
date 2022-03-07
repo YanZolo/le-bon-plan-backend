@@ -1,0 +1,47 @@
+MY LAST BABEL CONFIG....
+
+
+{
+    "presets": [
+        [
+            "@babel/preset-env",
+            {
+                // "modules": false, 
+                //  jest don't work when "modules" is set to false
+                "targets": {
+                    "node": true
+                },
+                "modules": false
+            }
+        ],
+        [
+            "@babel/preset-typescript"
+        ]
+    ],
+    "ignore": [
+        "node_modules"
+    ],
+    "comments": false,
+    "minified": true
+}
+/*Babel configuration that enables TypeScript compilation with the Babel compiler
+ The code above will configure Babel to use the preset-typescript and preset-env when generating JavaScript code
+
+The presets are executed in a bottom to top order, meaning that first Babel will compile the TypeScript into JavaScript and then on the resulting JavaScript code the preset-env configuration will be applied. This is where Babel is configured to use ES Modules as the "modules" setting is set to false, which is somewhat confusing because ES Modules are being used. It is necessary to set this to false otherwise Babel will use the default CommonJS module format for Node.js. Additionally the compilation target is set to Node so that Babel can apply code transforms that ensure the code will be able to run in the LTS version of Node.js.
+
+In this example there are two extra babel settings included that instruct the Babel compiler to remove any comments in the source code and minify the JavaScript output. These can be removed if not desired for your use case, however this is beneficial for using in production to minimize code size.
+
+*/
+
+/* 
+  old config in .babelrc file,  before typescript transition :
+   {
+     "presets": [[
+         "@babel/preset-env",
+         {
+             "targets": {
+               "node": "current"
+             }
+           }
+     ]]
+ } */

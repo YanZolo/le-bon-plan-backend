@@ -6,8 +6,7 @@ import versionRoutes from './controllers/version/routes.js';
 import startDB from './db/connect.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { NodePath } from '@babel/core';
-const app: Application = express();
+const app = express();
 const url = process.env.DB_URL;
 // code below because __dirname is not suported with esm
 const __filename = fileURLToPath(import.meta.url);
