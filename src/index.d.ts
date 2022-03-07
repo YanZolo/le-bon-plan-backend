@@ -1,12 +1,13 @@
 import dotenv from 'dotenv';
-import express from 'express';
+import express, { Application, Request, Response } from 'express';
 import productRoutes from './controllers/products/routes.js';
 import userRoutes from './controllers/users/routes.js';
 import versionRoutes from './controllers/version/routes.js';
 import startDB from './db/connect.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
-const app = express();
+import { NodePath } from '@babel/core';
+const app: Application = express();
 const url = process.env.DB_URL;
 // code below because __dirname is not suported with esm
 const __filename = fileURLToPath(import.meta.url);
