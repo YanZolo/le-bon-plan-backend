@@ -1,9 +1,14 @@
 import userModel from '../../models/userModel.js';
 import { UserController } from './usersController.js';
+import { jest, describe, it, expect, beforeEach } from '@jest/globals';
+
 
 jest.mock('../../models/userModel.js');
 
 describe('useController', () => {
+  beforeEach(() => {
+    userModel.findById.mockClear()
+  })
   describe('getAllUsers()', () => {
     it('should return an empty array', async () => {
       // given
@@ -60,7 +65,7 @@ describe('useController', () => {
       const userController = new UserController();
       const save = jest.fn(() => {
         return {
-          _id: 'some id',
+          _id: 'some id addUser',
           username: 'test addUser',
           email: 'test@addUser.com'
         };
@@ -82,11 +87,81 @@ describe('useController', () => {
         username: 'test addUser',
         email: 'test@addUser.com'
       });
+      expect(save).toHaveBeenCalled()
+      expect(save).toHaveReturned()
       expect(result).toEqual({
-        _id: 'some id',
+        _id: 'some id addUser',
         username: 'test addUser',
         email: 'test@addUser.com'
       });
     });
   });
+
+  describe("udpdateUser()", () => {
+    it("should update a user", async () => {
+      // given
+      const userController = new UserController();
+      userModel.findById.mockResolvedValue({
+        _id: "some id updateUser",
+        username: "old username",
+        email: "old email"
+      })
+      const save = jest.fn().mockResolvedValue({
+        _id: "some id updateUser",
+        username: "new username",
+        email: "new email"
+      })
+      userModel.mockImplementation(() => {
+        return {
+          save
+        }
+      })
+      // when
+      const result = await userController.updateUser({
+        params: { id: "some id updateUser" },
+        body: {
+          username: "new username",
+          email: "new email"
+        }
+      })
+      // then
+      expect(save).toBeCalled();
+      expect(save).toHaveReturned();
+      expect(result).toEqual({
+        _id: "some id updateUser",
+        username: "new username",
+        email: "new email"
+      })
+    })
+
+    describe("deleteUser()", () => {
+      it("should delete a user", async () => {
+        // given
+        const userController = new UserController();
+        userModel.findById.mockResolvedValue({
+          _id: "id deleteUser",
+          username: "username to delete",
+          email: "email to delete"
+        })
+        const deleteOne = jest.fn().mockResolvedValue().mockImplementation(() => {
+          return {
+            deleteOne
+          }
+        })
+        // userModel.mockImplementation(() => {
+        //   return {
+        //     deleteOne
+        //   }
+        // })
+        // when
+        const result = await userController.deleteUser({ params: { id: "id deleteUser" } })
+        // then
+        expect(userModel.deleteOne).toBeCalledTimes(1)
+        expect(userModel.deleteOne).toHaveBeenCalledWith(
+          { _id: "id deleteUser" }
+        );
+        expect(result).toEqual()
+      })
+    })
+  })
 });
