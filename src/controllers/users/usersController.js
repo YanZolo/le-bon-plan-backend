@@ -35,7 +35,7 @@ export class UserController {
     if (email !== user.email) {
       user.email = email;
     }
-    return user.save();
+    return await UserModel(user).save()
   }
 
   // remove user

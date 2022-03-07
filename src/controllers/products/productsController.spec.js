@@ -1,13 +1,13 @@
 import productModel from '../../models/productModel.js';
 import { ProductsController } from './productsController.js';
-import { jest, describe, it, expect, beforeEach} from '@jest/globals';
+import { jest, describe, it, expect, beforeEach } from '@jest/globals';
 
 // jest.mock('../../models/productModel');
 
 jest.mock('../../models/productModel');
 
 describe('productController', () => {
-  beforeEach(()=>{
+  beforeEach(() => {
     productModel.findById.mockClear()
   })
   describe('getProducts()', () => {
@@ -41,7 +41,7 @@ describe('productController', () => {
           title: 'toto'
         }
       ]);
-      expect(productModel.findById).toHaveBeenCalledWith('gjdkgjdsglksdjg');      
+      expect(productModel.findById).toHaveBeenCalledWith('gjdkgjdsglksdjg');
     });
 
     it('should throw product error not found', async () => {
@@ -91,6 +91,7 @@ describe('productController', () => {
         price: 44,
         title: 'product 123'
       });
+      expect(save).toHaveBeenCalled();
       expect(save).toHaveReturned();
       expect(result).toEqual({
         _id: 'id',
@@ -112,7 +113,7 @@ describe('productController', () => {
       const save = jest.fn().mockResolvedValue({
         _id: 'some-id',
         title: 'new test updateProduct()',
-        price: 46
+        price: 47
       });
       productModel.mockImplementation(() => {
         return {
@@ -121,7 +122,7 @@ describe('productController', () => {
       });
       const result = await productController.updateProduct({
         params: { id: 'some-id' },
-        body: { title: 'new test updateProduct()', price: 46 }
+        body: { title: 'new test updateProduct()', price: 47 }
       });
       // then
       expect(productModel.findById).toHaveBeenCalledWith('some-id');
@@ -130,7 +131,7 @@ describe('productController', () => {
       expect(result).toEqual({
         _id: 'some-id',
         title: 'new test updateProduct()',
-        price: 46
+        price: 47
       });
     });
   });
@@ -148,29 +149,22 @@ describe('productController', () => {
       const productToDelete = productController.getProduct({
         params: { id: 'some_id_123' }
       });
-      const deleteOne = jest.fn().mockResolvedValue();
-      productModel.deleteOne.getMockImplementation(() => {
+      // const deleteOne = jest.fn().mockResolvedValue();
+      productModel.mockImplementation(() => {
         return {
-          deleteOne
+          deleteOne: jest.fn().mockResolvedValue()
         };
       });
       const result = await productController.deleteProduct({
         params: { _id: productToDelete._id }
       });
       // then
-      console.log(result);
       expect(productModel.findById).toHaveBeenCalledWith('some_id_123')
       expect(result).toEqual();
+      expect(productModel.deleteOne).toHaveBeenCalledTimes(1)
       expect(productModel.deleteOne).toHaveBeenCalledWith({
         _id: 'some_id_123'
       });
-    });
-  });
-
-  // describe("deleteProduct()", () => {
-  //   it("should delete a product", () => {
-  //     const productController = new ProductsController();
-        
-  //   })
-  // })
+    })
+  })
 });

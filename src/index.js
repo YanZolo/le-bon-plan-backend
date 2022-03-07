@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import productRoutes from './controllers/products/routes.js';
+import userRoutes from './controllers/users/routes.js';
 import versionRoutes from './controllers/version/routes.js';
 import startDB from './db/connect.js';
 import path from 'path';
@@ -20,6 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/', versionRoutes);
 app.use('/product', productRoutes);
+app.use('/user', userRoutes);
 
 app.get('/', (req, res) => {
   res.render('login');
