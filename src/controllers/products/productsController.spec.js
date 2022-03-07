@@ -166,4 +166,11 @@ describe('productController', () => {
       });
     });
   });
+
+  // describe("deleteProduct()", () => {
+  //   it("should delete a product", () => {
+  //     const productController = new ProductsController();
+        
+  //   })
+  // })
 });
