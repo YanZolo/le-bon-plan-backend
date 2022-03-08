@@ -1,21 +1,18 @@
 import UserModel from '../../models/userModel.js';
 import UserNotFound from '../../errors/UserNotFound.js';
-
 interface UserDocument {
   _id: Object;
   username: String;
   email: String;
   password: String;
 }
-
 export class UserController {
   // return all users
-  async getAllUsers() : Promise<UserDocument[]>  {
-    return  UserModel.find();
+  async getAllUsers(): Promise<UserDocument[]> {
+    return UserModel.find();
   }
 
-  // return one user
-  async getUser({ params: { id } }) : Promise<UserDocument> {
+  async getUser({ params: { id } }): Promise<UserDocument> {
     const user = await UserModel.findById(id);
     if (!user) {
       throw new UserNotFound();
@@ -23,8 +20,7 @@ export class UserController {
     return user;
   }
 
-  // add user
-  async addUser({ body: { username, email } }) : Promise<UserDocument> {
+  async addUser({ body: { username, email } }): Promise<UserDocument> {
     const newUser = new UserModel({
       username,
       email
@@ -32,8 +28,7 @@ export class UserController {
     return newUser.save();
   }
 
-  // update user
-  async updateUser(req) : Promise<UserDocument> {
+  async updateUser(req): Promise<UserDocument> {
     const user = await this.getUser(req);
     const { username, email } = req.body;
     if (username !== user.username) {
@@ -46,8 +41,7 @@ export class UserController {
     return await userUpdated.save()
   }
 
-  // remove user
-  async deleteUser(req) : Promise<void> {
+  async deleteUser(req): Promise<void> {
     const user = await this.getUser(req);
     await UserModel.deleteOne({ _id: user._id });
   }

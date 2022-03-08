@@ -30,20 +30,6 @@ const userSchema = new mongoose.Schema<User>({
     default: Date.now,
     required: true
   }
-  // lastname: {
-  //     type: String,
-  //     required: true
-  // }, 
-  // phone: {
-  //     type: String,
-  //     required: true
-  // },
-  // avatar: String,
-  // address: String,
-  // isAdmin: {
-  //     type: Boolean,
-  //     default: false
-  // }
 });
 
 export default mongoose.model('users', userSchema);
