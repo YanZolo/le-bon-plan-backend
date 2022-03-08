@@ -2,11 +2,11 @@ import UserModel from '../../models/userModel.js';
 import UserNotFound from '../../errors/UserNotFound.js';
 interface UserDocument {
   _id: Object;
-  username: String;
-  email: String;
-  password: String;
+  username: string;
+  email: string;
+  password: string;
 }
-export class UserController {
+                      export class UserController {
   // return all users
   async getAllUsers(): Promise<UserDocument[]> {
     return UserModel.find();

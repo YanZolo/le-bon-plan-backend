@@ -3,10 +3,10 @@ import ProductNotFound from '../../errors/ProductNotFound.js';
 
 interface ProductDocument {
   _id: Object;
-  title: String;
-  price: Number;
+  title: string;
+  price: number;
 }
-export class ProductsController {
+                  export class ProductsController {
 
   async getProduct({ params: { id } }): Promise<ProductDocument> {
     const product = await ProductModel.findById(id);
