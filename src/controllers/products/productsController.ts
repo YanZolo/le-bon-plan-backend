@@ -1,7 +1,9 @@
 import ProductModel from '../../models/productModel.js';
 import ProductNotFound from '../../errors/ProductNotFound.js';
+
 export class ProductsController {
-  async getProduct({ params: { id } }) {
+  
+  async getProduct({ params: { id } }) : Promise<any> {
     const product = await ProductModel.findById(id);
     if (!product) {
       throw new ProductNotFound();
@@ -9,11 +11,11 @@ export class ProductsController {
     return product;
   }
 
-  async getProducts() {
+  async getProducts(): Promise<Object> {
     return ProductModel.find();
   }
 
-  async addProduct({ body: { title, price } }) {
+  async addProduct({ body: { title, price } }): Promise<any> {
     const newProduct = new ProductModel({
       title,
       price
@@ -21,7 +23,7 @@ export class ProductsController {
     return newProduct.save();
   }
 
-  async updateProduct(req) {
+  async updateProduct(req): Promise<any> {
     const product = await this.getProduct(req);
     const { title, price } = req.body;
 
@@ -31,10 +33,11 @@ export class ProductsController {
     if (price && product.price !== price) {
       product.price = price;
     }
-    return await ProductModel(product).save();
+    const updatedProduct = new ProductModel(product)
+    return await updatedProduct.save();
   }
 
-  async deleteProduct(req) {
+  async deleteProduct(req): Promise<void> {
     const product = await this.getProduct(req);
     await ProductModel.deleteOne({ _id: product._id });
   }

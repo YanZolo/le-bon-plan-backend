@@ -1,6 +1,12 @@
 import mongoose from 'mongoose';
+interface User {
+  username: string;
+  email: string;
+  password: string;
+  createdOn?: string;
 
-const userSchema = mongoose.Schema({
+}
+const userSchema = new mongoose.Schema<User>({
   username: {
     type: String,
     min: [2, 'The username must be longer than 2 characters'],
@@ -15,6 +21,10 @@ const userSchema = mongoose.Schema({
     trim: true,
     required: true
   },
+  password: {
+    type: String,
+    required: true
+  },
   createdOn: {
     type: Date,
     default: Date.now,
@@ -23,11 +33,7 @@ const userSchema = mongoose.Schema({
   // lastname: {
   //     type: String,
   //     required: true
-  // },
-  // password: {
-  //     type: String,
-  //     required: true
-  // },
+  // }, 
   // phone: {
   //     type: String,
   //     required: true
