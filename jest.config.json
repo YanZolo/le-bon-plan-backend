@@ -1,5 +1,4 @@
 {
-  "modulePathIgnorePatterns": ["src"],
   "collectCoverage": true,
   "moduleFileExtensions": [
     "js",
