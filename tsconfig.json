@@ -1,4 +1,3 @@
-
 {
   "compilerOptions": {
     // Ensure that .d.ts files are created by tsc, but not .js files
@@ -24,11 +23,9 @@
   },
   "baseUrl": "./src",
   "include": [
-    "./src/**/*.ts"
-, "src/models/productModel.js", "src/controllers/products/productsController.ts"  ],
+    "src/**/*.ts"
+  ],
   "exclude": [
-    "node_modules/**/*",
-    "dist/**/*"
+    "node_modules/**/*"
   ]
 }
-

@@ -1,14 +1,14 @@
 import ProductModel from '../../models/productModel.js';
 import ProductNotFound from '../../errors/ProductNotFound.js';
+import { Request } from 'express';
 
 interface ProductDocument {
-  _id: Object;
+  _id: {};
   title: string;
   price: number;
 }
-                  export class ProductsController {
-
-  async getProduct({ params: { id } }): Promise<ProductDocument> {
+export class ProductsController {
+  async getProduct({ params: { id } }: Request): Promise<ProductDocument> {
     const product = await ProductModel.findById(id);
     if (!product) {
       throw new ProductNotFound();
@@ -20,7 +20,9 @@ interface ProductDocument {
     return ProductModel.find();
   }
 
-  async addProduct({ body: { title, price } }): Promise<ProductDocument> {
+  async addProduct({
+    body: { title, price }
+  }: Request): Promise<ProductDocument> {
     const newProduct = new ProductModel({
       title,
       price
@@ -28,7 +30,7 @@ interface ProductDocument {
     return newProduct.save();
   }
 
-  async updateProduct(req): Promise<ProductDocument> {
+  async updateProduct(req: Request): Promise<ProductDocument> {
     const product = await this.getProduct(req);
     const { title, price } = req.body;
 
@@ -38,11 +40,11 @@ interface ProductDocument {
     if (price && product.price !== price) {
       product.price = price;
     }
-    const updatedProduct = new ProductModel(product)
+    const updatedProduct = new ProductModel(product);
     return await updatedProduct.save();
   }
 
-  async deleteProduct(req): Promise<void> {
+  async deleteProduct(req: Request): Promise<void> {
     const product = await this.getProduct(req);
     await ProductModel.deleteOne({ _id: product._id });
   }

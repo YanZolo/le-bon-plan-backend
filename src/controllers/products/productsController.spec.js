@@ -8,8 +8,8 @@ jest.mock('../../models/productModel');
 
 describe('productController', () => {
   beforeEach(() => {
-    productModel.findById.mockClear()
-  })
+    productModel.findById.mockClear();
+  });
   describe('getProducts()', () => {
     it('should return empty array', async () => {
       // given
@@ -159,12 +159,12 @@ describe('productController', () => {
         params: { _id: productToDelete._id }
       });
       // then
-      expect(productModel.findById).toHaveBeenCalledWith('some_id_123')
+      expect(productModel.findById).toHaveBeenCalledWith('some_id_123');
       expect(result).toEqual();
-      expect(productModel.deleteOne).toHaveBeenCalledTimes(1)
+      expect(productModel.deleteOne).toHaveBeenCalledTimes(1);
       expect(productModel.deleteOne).toHaveBeenCalledWith({
         _id: 'some_id_123'
       });
-    })
-  })
+    });
+  });
 });
