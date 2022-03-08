@@ -1,9 +1,14 @@
 import ProductModel from '../../models/productModel.js';
 import ProductNotFound from '../../errors/ProductNotFound.js';
 
+interface Document {
+  _id: Object;
+  title: string;
+  price: number;
+}
 export class ProductsController {
-  
-  async getProduct({ params: { id } }) : Promise<any> {
+
+  async getProduct({ params: { id } }): Promise<Document> {
     const product = await ProductModel.findById(id);
     if (!product) {
       throw new ProductNotFound();
@@ -11,11 +16,11 @@ export class ProductsController {
     return product;
   }
 
-  async getProducts(): Promise<Object> {
+  async getProducts(): Promise<Document[]> {
     return ProductModel.find();
   }
 
-  async addProduct({ body: { title, price } }): Promise<any> {
+  async addProduct({ body: { title, price } }): Promise<Document> {
     const newProduct = new ProductModel({
       title,
       price
@@ -23,7 +28,7 @@ export class ProductsController {
     return newProduct.save();
   }
 
-  async updateProduct(req): Promise<any> {
+  async updateProduct(req): Promise<Document> {
     const product = await this.getProduct(req);
     const { title, price } = req.body;
 

@@ -24,7 +24,7 @@
     "prettier": "prettier \"{src,views}/**/*.{ts,js,css}\" --write"
   },
   "lint-staged": {
-    "{src,views}/*.{ts,js,ejs,css}": [
+    "{dist,src,views}/*.{ts,js,ejs,css}": [
       "prettier --write"
     ],
     "*.js": [
