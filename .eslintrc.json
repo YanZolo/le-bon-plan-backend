@@ -19,6 +19,9 @@
         "@typescript-eslint"        
     ],
     "rules": {
-        "@typescript-eslint/rule-name": "error"       
+        "require-await": "off",
+        "@typescript-eslint/require-await": "error",
+        "no-use-before-define": ["error", { "functions": false, "classes": false, "variables": false }],// for typegoose 
+        "@typescript-eslint/no-explicit-any": "off"
     }
 }

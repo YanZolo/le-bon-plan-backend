@@ -21,17 +21,18 @@
     "prepare": "is-ci || husky install",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
+    "lint:fix:ts":  "eslint . --ext .ts --fix",
     "prettier": "prettier \"{src,views}/**/*.{ts,js,css}\" --write"
   },
   "lint-staged": {
-    "{dist,src,views}/*.{ts,js,ejs,css}": [
+    "{src,views}/*.{ts,js,ejs,css}": [
       "prettier --write"
     ],
     "*.js": [
       "eslint --fix"
     ],
     "*.ts": [
-      "eslint --fix"
+      "eslint . --ext .ts --fix"
     ]
   },
   "author": "",

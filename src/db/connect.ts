@@ -2,11 +2,11 @@ import dotenv from 'dotenv';
 dotenv.config();
 import mongoose from 'mongoose';
 
-const startDB = (url) => {
-  mongoose
-    .connect(url, {
-      useNewUrlParser: true
-    })
+const startDB = async (url: string) => {
+  await mongoose
+    // .connect(url,{useNewUrlParser: true}) 
+    // breaking change in Mongoose 6, this option should be removed in version 6 like below
+    .connect(url)
     .then(() => {
       console.log('database connected');
     })

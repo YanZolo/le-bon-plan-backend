@@ -2,8 +2,9 @@ import ProductModel from '../../models/productModel.js';
 import ProductNotFound from '../../errors/ProductNotFound.js';
 import { Request } from 'express';
 
+
 interface ProductDocument {
-  _id: {};
+  _id?: any;
   title: string;
   price: number;
 }

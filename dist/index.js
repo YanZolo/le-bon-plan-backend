@@ -1,9 +1,9 @@
 import dotenv from 'dotenv';
 import express from 'express';
-import productRoutes from './controllers/products/routes.js';
-import userRoutes from './controllers/users/routes.js';
-import versionRoutes from './controllers/version/routes.js';
-import startDB from './db/connect.js';
+import productRoutes from '../src/controllers/products/routes.js';
+import userRoutes from '../src/controllers/users/routes.js';
+import versionRoutes from '../src/controllers/version/routes.js';
+import startDB from '../src/db/connect.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 const app = express();
