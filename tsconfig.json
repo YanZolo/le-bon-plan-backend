@@ -19,6 +19,7 @@
     "noImplicitAny": false,
     "noImplicitReturns": true,
     "noEmitOnError": true,
+    "esModuleInterop": true, // to support d.ts extention
     "outDir": "./dist",
   },
   "baseUrl": ".",
@@ -26,6 +27,7 @@
     "src/**/*.ts"
   ],
   "exclude": [
-    "node_modules/**/*"
+    "node_modules/**/*",
+    "dist/**/*"
   ]
 }
