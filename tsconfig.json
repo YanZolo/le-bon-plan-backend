@@ -21,7 +21,7 @@
     "noEmitOnError": true,
     "outDir": "./dist",
   },
-  "baseUrl": "./src",
+  "baseUrl": ".",
   "include": [
     "src/**/*.ts"
   ],

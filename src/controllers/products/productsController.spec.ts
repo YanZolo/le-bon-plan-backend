@@ -2,20 +2,15 @@ import productModel from '../../models/productModel.js';
 import { ProductsController } from './productsController.js';
 import { jest, describe, it, expect, beforeEach } from '@jest/globals';
 
-// jest.mock('../../models/productModel');
-interface ProductDocument {
-  _id?: any;
-  title: string;
-  price: number;
-}
 jest.mock('../../models/productModel');
-//  const mockedModel = productModel as jest.Mock< productModel>
-describe('productController', () : void => {
-  beforeEach(() => {
-    productModel.findById.mockClear() ;
+describe('productController', ()  => {
+//  const mockedModel = productModel as jest.MockedFunction<typeof productModel>
+
+  beforeEach(()  => {
+    productModel.findById.mockClear();
   });
   describe('getProducts()', () => {
-    it('should return empty array', async () => {
+    it('should return empty array', async () :Promise<void> => {
       // given
       const productController = new ProductsController();
       productModel.find.mockResolvedValue([]);
