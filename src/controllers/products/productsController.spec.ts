@@ -2,18 +2,18 @@ import productModel from '../../models/productModel.js';
 import { ProductsController } from './productsController.js';
 import { jest, describe, it, expect, beforeEach } from '@jest/globals';
 
-jest.mock('../../models/productModel');
-describe('productController', ()  => {
-//  const mockedModel = productModel as jest.MockedFunction<typeof productModel>
 
-  beforeEach(()  => {
-    productModel.findById.mockClear();
+jest.mock('../../models/productModel');
+
+describe('productController', () => {
+  beforeEach(() => {
+    (productModel.findById as jest.Mock).mockClear();
   });
   describe('getProducts()', () => {
-    it('should return empty array', async () :Promise<void> => {
+    it('should return empty array', async () => {
       // given
       const productController = new ProductsController();
-      productModel.find.mockResolvedValue([]);
+      (productModel.find as jest.Mock).mockResolvedValue([]);
       // when
       const result = await productController.getProducts();
       // then
@@ -25,7 +25,7 @@ describe('productController', ()  => {
     it('should return a product from productModel', async () => {
       // given
       const productController = new ProductsController();
-      productModel.findById.mockResolvedValue([
+      (productModel.findById as jest.Mock).mockResolvedValue([
         {
           title: 'toto'
         }
@@ -33,26 +33,26 @@ describe('productController', ()  => {
       // when
       const result = await productController.getProduct({
         params: { id: 'gjdkgjdsglksdjg' }
-      });
+      } as any);
       // then
       expect(result).toEqual([
         {
           title: 'toto'
         }
       ]);
-      expect(productModel.findById).toHaveBeenCalledWith('gjdkgjdsglksdjg');
+      expect(productModel.findById as jest.Mock).toHaveBeenCalledWith('gjdkgjdsglksdjg');
     });
 
     it('should throw product error not found', async () => {
       // given
       const productController = new ProductsController();
-      productModel.findById.mockResolvedValue();
+      (productModel.findById as jest.Mock).mockResolvedValue("undefined");
       // when
       let actualError;
       try {
         await productController.getProduct({
           params: { id: 'gjdkgjdsglksdjg' }
-        });
+        } as any);
       } catch (error) {
         actualError = error;
       }

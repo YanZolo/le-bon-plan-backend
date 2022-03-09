@@ -28,10 +28,7 @@
     "{src,views}/*.{ts,js,ejs,css}": [
       "prettier --write"
     ],
-    "*.js": [
-      "eslint --fix"
-    ],
-    "*.ts": [
+    "*.{js,ts}": [
       "eslint . --ext .ts --fix"
     ]
   },
