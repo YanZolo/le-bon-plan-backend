@@ -25,7 +25,7 @@ export class ProductsController {
     return newProduct.save();
   }
 
-  async updateProduct(req: Request<{ id: string }, any, { title: string, price: number }>) {
+  async updateProduct(req: Request<{ id: string }, any, { title: string, price: number }>) { // to confirm
     const product = await this.getProduct(req);
     const { title, price } = req.body;
 
@@ -41,6 +41,6 @@ export class ProductsController {
 
   async deleteProduct(req: Request<{id:string}>) {
     const product = await this.getProduct(req);
-    await ProductModel.deleteOne({ _id: product._id });
+    await ProductModel.deleteOne({ id: product._id });// _id or id??
   }
 }

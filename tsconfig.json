@@ -8,6 +8,7 @@
     // Ensure that Babel can safely transpile files in the TypeScript project
     "isolatedModules": true,
     "strict": true,
+    "strictNullChecks": true,// ask Romain 
     "module": "ESNEXT",
     "target": "ESNEXT",
     "lib": [

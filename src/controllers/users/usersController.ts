@@ -14,7 +14,7 @@ export class UserController {
     return UserModel.find();
   }
 
-  async getUser({ params: { id } }: Request): Promise<UserDocument> {
+  async getUser({ params: { id } }: Request<{id: string}>): Promise<UserDocument> {
     const user = await UserModel.findById(id);
     if (!user) {
       throw new UserNotFound();
@@ -30,7 +30,7 @@ export class UserController {
     return newUser.save();
   }
 
-  async updateUser(req: Request): Promise<UserDocument> {
+  async updateUser(req: Request<any,any,{username:string,email:string}>): Promise<UserDocument> {
     const user = await this.getUser(req);
     const { username, email } = req.body;
     if (username !== user.username) {
@@ -43,8 +43,8 @@ export class UserController {
     return await userUpdated.save();
   }
 
-  async deleteUser(req: Request): Promise<void> {
+  async deleteUser(req: Request<{id: string}, any, any>): Promise<void> {
     const user = await this.getUser(req);
-    await UserModel.deleteOne({ _id: user._id });
-  }
+    await UserModel.deleteOne({ id: user._id }); // _id or id??
+  } // ask Romain i'm not sure 
 }
