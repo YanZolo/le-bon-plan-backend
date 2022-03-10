@@ -158,7 +158,6 @@ describe('productController', () => {
         params: { _id: productToDelete._id }
       });
       // then
-      console.log(result);
       expect(productModel.findById).toHaveBeenCalledWith('some_id_123')
       expect(result).toEqual();
       expect(productModel.deleteOne).toHaveBeenCalledWith({
