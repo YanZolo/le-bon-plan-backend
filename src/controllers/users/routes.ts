@@ -1,8 +1,10 @@
 import { UserController } from './usersController.js';
-import { createRouter } from '../../utils/createRouter.js';
+import { createRouter, RoutesOptions } from '../../utils/createRouter.js';
 const userController = new UserController();
 
-const routes = [
+
+
+const routes: RoutesOptions[] = [
   {
     path: '/',
     method: 'GET',

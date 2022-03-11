@@ -1,8 +1,8 @@
 import { ProductsController } from './productsController.js';
-import { createRouter } from '../../utils/createRouter.js';
+import { createRouter, RoutesOptions } from '../../utils/createRouter.js';
 const productController = new ProductsController();
 
-const routes = [
+const routes: RoutesOptions[] = [
   {
     path: '/',
     method: 'GET',

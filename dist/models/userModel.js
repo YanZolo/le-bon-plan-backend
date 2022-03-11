@@ -1,12 +1,5 @@
 import mongoose from 'mongoose';
-export interface User {
-  username: string;
-  email: string;
-  password: string;
-  createdOn?: string;
-
-}
-const userSchema = new mongoose.Schema<User>({
+const userSchema = new mongoose.Schema({
   username: {
     type: String,
     min: [2, 'The username must be longer than 2 characters'],
@@ -31,5 +24,5 @@ const userSchema = new mongoose.Schema<User>({
     required: true
   }
 });
-
 export default mongoose.model('users', userSchema);
+//# sourceMappingURL=userModel.js.map

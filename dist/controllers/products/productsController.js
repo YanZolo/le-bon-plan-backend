@@ -1,13 +1,17 @@
 import ProductModel from '../../models/productModel.js';
 import ProductNotFound from '../../errors/ProductNotFound.js';
-import { Request } from 'express';
-
 export class ProductsController {
-  async getProduct({ params: { id } }: Request<{ id: string }>) {
+  async getProduct({
+    params: {
+      id
+    }
+  }) {
     const product = await ProductModel.findById(id);
+
     if (!product) {
       throw new ProductNotFound();
     }
+
     return product;
   }
 
@@ -16,8 +20,11 @@ export class ProductsController {
   }
 
   async addProduct({
-    body: { title, price }
-  }: Request<any, any, { title: string, price: string }>) {
+    body: {
+      title,
+      price
+    }
+  }) {
     const newProduct = new ProductModel({
       title,
       price
@@ -25,22 +32,31 @@ export class ProductsController {
     return newProduct.save();
   }
 
-  async updateProduct(req: Request<{ id: string }, any, { title: string, price: number }>) { 
+  async updateProduct(req) {
     const product = await this.getProduct(req);
-    const { title, price } = req.body;
+    const {
+      title,
+      price
+    } = req.body;
 
     if (title && product.title !== title) {
       product.title = title;
     }
+
     if (price && product.price !== price) {
       product.price = price;
     }
+
     const updatedProduct = new ProductModel(product);
     return await updatedProduct.save();
   }
 
-  async deleteProduct(req: Request<{id:string}>) {
+  async deleteProduct(req) {
     const product = await this.getProduct(req);
-    await ProductModel.deleteOne({ _id: product._id });
+    await ProductModel.deleteOne({
+      _id: product._id
+    });
   }
+
 }
+//# sourceMappingURL=productsController.js.map

@@ -12,7 +12,7 @@
     "typecheck": "tsc --p .",
     "build-typecheck": "npm run typecheck && npm run build:ts",
     "start:prod": "npm run build-typecheck && node dist/index.js",
-    "start:dev": "ts-node ./src/index.ts",
+    "start:dev": "ts-node ./dist/index.js",
     "test": "jest",
     "test:watch": "jest --watchAll",
     "start": "nodemon dist/index.js",

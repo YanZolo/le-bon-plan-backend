@@ -1,6 +1,9 @@
+import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../../models/userModel.js';
+import UserNotFound from '../../errors/UserNotFound';
+dotenv.config()
 export default class AuthController {
   async registerUser(req, res) {
     try {
@@ -14,15 +17,17 @@ export default class AuthController {
     }
   }
 
+
+
   async authenticateUser(req, res, next) {
     const user = await User.findOne({ name: req.body.name });
-    if (user == null)
-      return res.status(404).json({ message: 'user does not exist' });
-
+    if (!user){
+      throw new UserNotFound();
+    }
     try {
       if (await bcrypt.compare(req.body.password, user.password)) {
         const accessToken = jwt.sign(
-          user.name,
+          user,
           process.env.ACCESS_TOKEN_SECRET
         );
         res.json({ accessToken: accessToken });

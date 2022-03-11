@@ -3,7 +3,7 @@
         [
             "@babel/preset-env",
             {
-                "modules": false, 
+                "modules": "auto", 
                 //  jest don't work when "modules" is set to false
                 "targets": {
                     "node": true

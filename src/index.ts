@@ -8,19 +8,18 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 const app: Application = express();
 const url: string | undefined = process.env.DB_URL;
-// code below because __dirname is not suported with esm
 const __filename: string = fileURLToPath(import.meta.url);
 const __dirname: string = path.dirname(__filename);
 dotenv.config();
 const PORT: string | number | undefined = process.env.PORT || 8888;
 
-app.disable('x-powered-by'); //Disable this header, to prevent attacks. (use helmet will be a best protection)
+app.disable('x-powered-by'); 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '..', 'views'));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/', versionRoutes);
+app.use('/version', versionRoutes);
 app.use('/product', productRoutes);
 app.use('/user', userRoutes);
 

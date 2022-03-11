@@ -1,69 +1,57 @@
 import userModel from '../../models/userModel.js';
 import { UserController } from './usersController.js';
 import { jest, describe, it, expect, beforeEach } from '@jest/globals';
-import { Request } from 'express';
-
 jest.mock('../../models/userModel.js');
-
 describe('useController', () => {
   beforeEach(() => {
-    (userModel.findById as jest.Mock).mockClear();
+    userModel.findById.mockClear();
   });
   describe('getAllUsers()', () => {
     it('should return an empty array', async () => {
-      // given
       const userController = new UserController();
-      (userModel.find as jest.Mock).mockResolvedValue([]);
-      // when
+      userModel.find.mockResolvedValue([]);
       const result = await userController.getAllUsers();
-      // then
       expect(result).toEqual([]);
     });
   });
   describe('getUser()', () => {
     it('should return one user', async () => {
-      // given
       const userController = new UserController();
-      (userModel.findById as jest.Mock).mockResolvedValue([
-        {
-          username: 'soso'
-        }
-      ]);
-      // when
+      userModel.findById.mockResolvedValue([{
+        username: 'soso'
+      }]);
       const result = await userController.getUser({
-        params: { id: 'kjglmdfk' }
-      } as Request<{ id: string }>);
-      // then
-      expect(result).toEqual([
-        {
-          username: 'soso'
+        params: {
+          id: 'kjglmdfk'
         }
-      ]);
+      });
+      expect(result).toEqual([{
+        username: 'soso'
+      }]);
       expect(userModel.findById).toHaveBeenCalledWith('kjglmdfk');
     });
     it("should throw 'User Not Found'", async () => {
-      // GIVEN
       const userController = new UserController();
-      (userModel.findById as jest.Mock).mockResolvedValue(undefined);
-      // WHEN
+      userModel.findById.mockResolvedValue(undefined);
       let currentError;
+
       try {
         await userController.getUser({
-          params: { id: 'kjjfdfdfdkf' }
-        } as Request<{ id: string }>);
+          params: {
+            id: 'kjjfdfdfdkf'
+          }
+        });
       } catch (error) {
         currentError = error;
       }
-      // THEN
+
       expect(currentError.message).toEqual('User Not Found');
       expect(currentError.status).toEqual(404);
       expect(currentError.name).toEqual('NOT_FOUND');
     });
   });
-
   describe('addUser()', () => {
     it('should add new user in database', async () => {
-      // given
       const userController = new UserController();
       const save = jest.fn(() => {
         return {
@@ -73,20 +61,18 @@ describe('useController', () => {
           password: 'test password'
         };
       });
-      (userModel as jest.MockedFunction<any>).mockImplementation(() => {
+      userModel.mockImplementation(() => {
         return {
           save
         };
       });
-      // when
       const result = await userController.addUser({
         body: {
           username: 'test addUser',
           email: 'test@addUser.com',
           password: 'test password'
         }
-      } as Request<{ username: string; email: string }>);
-      // then
+      });
       expect(userModel).toHaveBeenCalledWith({
         username: 'test addUser',
         email: 'test@addUser.com',
@@ -102,38 +88,36 @@ describe('useController', () => {
       });
     });
   });
-
   describe('udpdateUser()', () => {
     it('should update a user', async () => {
-      // given
       const userController = new UserController();
-      (userModel.findById as jest.Mock).mockResolvedValue({
+      userModel.findById.mockResolvedValue({
         _id: 'some id updateUser',
         username: 'old username',
         email: 'old email',
         password: 'old password'
       });
-      const save = (jest.fn() as jest.MockedFunction<any>).mockResolvedValue({
+      const save = jest.fn().mockResolvedValue({
         _id: 'some id updateUser',
         username: 'new username',
         email: 'new email',
         password: 'new password'
       });
-      (userModel as jest.MockedFunction<any>).mockImplementation(() => {
+      userModel.mockImplementation(() => {
         return {
           save
         };
       });
-      // when
       const result = await userController.updateUser({
-        params: { id: 'some id updateUser' },
+        params: {
+          id: 'some id updateUser'
+        },
         body: {
           username: 'new username',
           email: 'new email',
           password: 'new password'
         }
-      } as Request<{ id: string }, any, { username: string; email: string, password: string }>);
-      // then
+      });
       expect(save).toBeCalled();
       expect(save).toHaveReturned();
       expect(result).toEqual({
@@ -143,24 +127,19 @@ describe('useController', () => {
         password: 'new password'
       });
     });
-
     describe('deleteUser()', () => {
       it('should delete a user', async () => {
-        // given
         const userController = new UserController();
-
-        (userModel.findById as jest.Mock).mockResolvedValue({
+        userModel.findById.mockResolvedValue({
           _id: 'id deleteUser',
           username: 'username to delete',
           email: 'email to delete'
         });
-
-        // when
         const result = await userController.deleteUser({
-          params: { id: 'id deleteUser' }
-        } as Request<{ id: string }>);
-
-        // then
+          params: {
+            id: 'id deleteUser'
+          }
+        });
         expect(userModel.deleteOne).toBeCalledTimes(1);
         expect(userModel.deleteOne).toHaveBeenCalledWith({
           _id: 'id deleteUser'
@@ -170,3 +149,4 @@ describe('useController', () => {
     });
   });
 });
+//# sourceMappingURL=usersController.spec.js.map
