@@ -2,7 +2,6 @@ import productModel from '../../models/productModel.js';
 import { ProductsController } from './productsController.js';
 import { jest, describe, it, expect, beforeEach } from '@jest/globals';
 import { Request } from 'express';
-import mongoose from 'mongoose'
 
 jest.mock('../../models/productModel');
 
@@ -49,7 +48,7 @@ describe('productController', () => {
       const productController = new ProductsController();
       (productModel.findById as jest.Mock).mockResolvedValue(undefined);
       // when
-      let actualError;
+      let actualError: any;
       try {
         await productController.getProduct({
           params: { id: 'gjdkgjdsglksdjg' }
@@ -84,7 +83,7 @@ describe('productController', () => {
           price: 44,
           title: 'product 123'
         }
-      } as Request<{price:number, title: string}>);
+      } as Request<{ price: number, title: string }>);
       // then
       expect(productModel).toHaveBeenCalledWith({
         price: 44,
@@ -103,13 +102,8 @@ describe('productController', () => {
   describe('updateProduct()', () => {
     it('should update a product', async () => {
       // given
-      const productController = new ProductsController();
-      (productModel.findById as jest.Mock).mockResolvedValue({
-        _id: 'some-id',
-        title: 'test updateProduct()',
-        price: 46
-      });
-      const save = (jest.fn() as jest.MockedFunction<any>).mockResolvedValue({
+      const productController = new ProductsController();     
+      const save = (jest.fn() as jest.Mock).mockResolvedValue({
         _id: 'some-id',
         title: 'new test updateProduct()',
         price: 47
@@ -119,10 +113,11 @@ describe('productController', () => {
           save
         };
       });
+      // when
       const result = await productController.updateProduct({
         params: { id: 'some-id' },
         body: { title: 'new test updateProduct()', price: 47 }
-      } as Request<{id: string},any,{title:string, price:number}>);
+      } as Request<{ id: string }, any, { title: string, price: number }>);
       // then
       expect(productModel.findById).toHaveBeenCalledWith('some-id');
       expect(save).toBeCalled();
@@ -150,11 +145,11 @@ describe('productController', () => {
       } as any);
 
       // when
-      const result = await productController.deleteProduct(req as Request<{id: string}>);
-      
+      const result = await productController.deleteProduct(req as Request<{ id: string }>);
+
       // then
       expect(productController.getProduct).toHaveBeenCalledWith(req);
-      expect(result).toEqual(undefined); 
+      expect(result).toEqual(undefined);
       expect(productModel.deleteOne).toHaveBeenCalledTimes(1);
       expect(productModel.deleteOne).toHaveBeenCalledWith({
         _id: 'some_id_123'

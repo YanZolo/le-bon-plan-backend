@@ -46,7 +46,7 @@ describe('useController', () => {
       const userController = new UserController();
       (userModel.findById as jest.Mock).mockResolvedValue(undefined);
       // WHEN
-      let currentError;
+      let currentError: any;
       try {
         await userController.getUser({
           params: { id: 'kjjfdfdfdkf' }
@@ -113,7 +113,7 @@ describe('useController', () => {
         email: 'old email',
         password: 'old password'
       });
-      const save = (jest.fn() as jest.MockedFunction<any>).mockResolvedValue({
+      const save = (jest.fn() as jest.Mock).mockResolvedValue({
         _id: 'some id updateUser',
         username: 'new username',
         email: 'new email',
@@ -147,20 +147,22 @@ describe('useController', () => {
     describe('deleteUser()', () => {
       it('should delete a user', async () => {
         // given
+        const req = {
+          params: { id: 'some id updateUser' }
+        }
         const userController = new UserController();
-
-        (userModel.findById as jest.Mock).mockResolvedValue({
-          _id: 'id deleteUser',
-          username: 'username to delete',
-          email: 'email to delete'
-        });
+        jest.spyOn(userController, 'getUser').mockResolvedValue({
+          _id: 'some id updateUser',
+          username: 'new username',
+          email: 'new email',
+          password: 'new password'
+        } as any)
 
         // when
-        const result = await userController.deleteUser({
-          params: { id: 'id deleteUser' }
-        } as Request<{ id: string }>);
+        const result = await userController.deleteUser(req as Request<{ id: string }, any, any>);
 
         // then
+        expect(userController.getUser).toHaveBeenCalledWith(req)
         expect(userModel.deleteOne).toBeCalledTimes(1);
         expect(userModel.deleteOne).toHaveBeenCalledWith({
           _id: 'id deleteUser'

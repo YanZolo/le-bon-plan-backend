@@ -6,14 +6,14 @@ import versionRoutes from './controllers/version/routes.js';
 import startDB from './db/connect.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
+dotenv.config();
 const app: Application = express();
 const url: string | undefined = process.env.DB_URL;
 const __filename: string = fileURLToPath(import.meta.url);
 const __dirname: string = path.dirname(__filename);
-dotenv.config();
 const PORT: string | number | undefined = process.env.PORT || 8888;
 
-app.disable('x-powered-by'); 
+app.disable('x-powered-by');
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '..', 'views'));
 
@@ -31,15 +31,13 @@ app.get('/health', (req, res) => {
 });
 
 (function connect() {
-  startDB(url!)
+  startDB(url)
     .then(() => {
       app.listen(PORT, () => {
-        console.log(`server started at port ${PORT}`)
-      })
+        console.log(`server started at port ${PORT}`);
+      });
     })
-    .catch(err => {
-      console.error(err)
-    })
-}())
-
-
+    .catch((err) => {
+      console.error(err);
+    });
+})();

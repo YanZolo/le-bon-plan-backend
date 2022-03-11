@@ -1,12 +1,12 @@
-import express, {Request, Response} from 'express';
+import express, { Request, Response } from 'express';
 export interface RoutesOptions {
   path: string;
   method: string;
-  handler: Function;
+  handler: Function; // temporary fixed with rule "@typescript-eslint/ban-types":"off" in eslintrc.json :/
   responseStatus?: number;
 }
 
-export function createRouter(routes : RoutesOptions[]) {
+export function createRouter(routes: RoutesOptions[]) {
   const router = express.Router();
   routes.forEach((route) => {
     const method = route.method.toLowerCase();

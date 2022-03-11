@@ -16,7 +16,7 @@ export class UserController {
     return user;
   }
 
-  async addUser({ body: { username, email, password } }: Request) {
+  async addUser({ body: { username, email, password } }: Request<any,any,{username:string, email:string, password: string}>) {
     const newUser = new UserModel({
       username,
       email,
