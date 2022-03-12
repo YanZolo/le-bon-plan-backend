@@ -44,7 +44,7 @@ describe('useController', () => {
     it("should throw 'User Not Found'", async () => {
       // GIVEN
       const userController = new UserController();
-      (userModel.findById as jest.Mock).mockResolvedValue(undefined);
+      (userModel.findById as jest.Mock).mockResolvedValue(null);
       // WHEN
       let currentError: any;
       try {
@@ -148,11 +148,11 @@ describe('useController', () => {
       it('should delete a user', async () => {
         // given
         const req = {
-          params: { id: 'some id updateUser' }
+          params: { id: 'id deleteUser' }
         }
         const userController = new UserController();
         jest.spyOn(userController, 'getUser').mockResolvedValue({
-          _id: 'some id updateUser',
+          _id: 'id deleteUser',
           username: 'new username',
           email: 'new email',
           password: 'new password'

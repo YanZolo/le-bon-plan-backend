@@ -32,7 +32,7 @@ describe('productController', () => {
     });
     it('should throw product error not found', async () => {
       const productController = new ProductsController();
-      productModel.findById.mockResolvedValue(undefined);
+      productModel.findById.mockResolvedValue(null);
       let actualError;
 
       try {
@@ -85,10 +85,15 @@ describe('productController', () => {
   describe('updateProduct()', () => {
     it('should update a product', async () => {
       const productController = new ProductsController();
+      productModel.findById.mockResolvedValue({
+        _id: 'some-id',
+        title: 'old test updateProduct()',
+        price: 47
+      });
       const save = jest.fn().mockResolvedValue({
         _id: 'some-id',
         title: 'new test updateProduct()',
-        price: 47
+        price: 86
       });
       productModel.mockImplementation(() => {
         return {
@@ -110,7 +115,7 @@ describe('productController', () => {
       expect(result).toEqual({
         _id: 'some-id',
         title: 'new test updateProduct()',
-        price: 47
+        price: 86
       });
     });
   });
