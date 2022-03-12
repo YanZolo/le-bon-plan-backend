@@ -15,7 +15,7 @@ export function createRouter(routes: RoutesOptions[]) {
   return router;
 }
 
-export function createHandler({ handler, responseStatus = 200 }) {
+export function createHandler({ handler, responseStatus = 200 }: RoutesOptions): any {
   return async (req: Request, res: Response) => {
     try {
       const result = await handler(req);

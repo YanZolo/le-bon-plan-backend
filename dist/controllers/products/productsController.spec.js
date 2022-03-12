@@ -85,11 +85,6 @@ describe('productController', () => {
   describe('updateProduct()', () => {
     it('should update a product', async () => {
       const productController = new ProductsController();
-      productModel.findById.mockResolvedValue({
-        _id: 'some-id',
-        title: 'test updateProduct()',
-        price: 46
-      });
       const save = jest.fn().mockResolvedValue({
         _id: 'some-id',
         title: 'new test updateProduct()',

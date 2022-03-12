@@ -3,12 +3,12 @@ import { constantCase } from 'change-case';
 export default class Exception extends Error {
   name: string;
   status:number;
-  message:string;
+  message:string ;
   
   constructor(status:number, message:string) {
     super(message);
-    this.message = message || statuses(status);
-    this.name = constantCase(statuses(status));
+    this.message = message || statuses(status) as string;
+    this.name = constantCase(statuses(status) as string);
     this.status = status;
   }
 }
