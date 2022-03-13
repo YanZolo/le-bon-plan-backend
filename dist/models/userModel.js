@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
-
-const userSchema = mongoose.Schema({
+const userSchema = new mongoose.Schema({
   username: {
     type: String,
     min: [2, 'The username must be longer than 2 characters'],
@@ -15,29 +14,15 @@ const userSchema = mongoose.Schema({
     trim: true,
     required: true
   },
+  password: {
+    type: String,
+    required: true
+  },
   createdOn: {
     type: Date,
     default: Date.now,
     required: true
   }
-  // lastname: {
-  //     type: String,
-  //     required: true
-  // },
-  // password: {
-  //     type: String,
-  //     required: true
-  // },
-  // phone: {
-  //     type: String,
-  //     required: true
-  // },
-  // avatar: String,
-  // address: String,
-  // isAdmin: {
-  //     type: Boolean,
-  //     default: false
-  // }
 });
-
 export default mongoose.model('users', userSchema);
+//# sourceMappingURL=userModel.js.map

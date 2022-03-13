@@ -1,15 +1,16 @@
 import express from 'express';
-
 export function createRouter(routes) {
   const router = express.Router();
-  routes.forEach((route) => {
+  routes.forEach(route => {
     const method = route.method.toLowerCase();
     router[method](route.path, createHandler(route));
   });
   return router;
 }
-
-export function createHandler({ handler, responseStatus = 200 }) {
+export function createHandler({
+  handler,
+  responseStatus = 200
+}) {
   return async (req, res) => {
     try {
       const result = await handler(req);
@@ -24,3 +25,4 @@ export function createHandler({ handler, responseStatus = 200 }) {
     }
   };
 }
+//# sourceMappingURL=createRouter.js.map

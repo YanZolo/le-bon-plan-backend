@@ -7,8 +7,8 @@
   ],
   "transform": {
     "^.+\\.js$": "babel-jest",
-    "^.+\\.ts$": "babel-jest",
-    "^.+\\.mjs$": "babel-jest"
+    "^.+\\.mjs$": "babel-jest",
+    "^.+\\.tsx?$": "babel-jest"
   },
  
   "testRegex": "((\\.|/*.)(spec))\\.js?$"

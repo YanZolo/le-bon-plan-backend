@@ -1,7 +1,9 @@
 import ProductModel from '../../models/productModel.js';
 import ProductNotFound from '../../errors/ProductNotFound.js';
+import { Request } from 'express';
+
 export class ProductsController {
-  async getProduct({ params: { id } }) {
+  async getProduct({ params: { id } }: Request<{ id: string }>) {
     const product = await ProductModel.findById(id);
     if (!product) {
       throw new ProductNotFound();
@@ -13,7 +15,9 @@ export class ProductsController {
     return ProductModel.find();
   }
 
-  async addProduct({ body: { title, price } }) {
+  async addProduct({
+    body: { title, price }
+  }: Request<any, any, { title: string; price: string }>) {
     const newProduct = new ProductModel({
       title,
       price
@@ -21,7 +25,9 @@ export class ProductsController {
     return newProduct.save();
   }
 
-  async updateProduct(req) {
+  async updateProduct(
+    req: Request<{ id: string }, any, { title: string; price: number }>
+  ) {
     const product = await this.getProduct(req);
     const { title, price } = req.body;
 
@@ -31,10 +37,11 @@ export class ProductsController {
     if (price && product.price !== price) {
       product.price = price;
     }
-    return await ProductModel(product).save();
+    const updatedProduct = new ProductModel(product);
+    return await updatedProduct.save();
   }
 
-  async deleteProduct(req) {
+  async deleteProduct(req: Request<{ id: string }>) {
     const product = await this.getProduct(req);
     await ProductModel.deleteOne({ _id: product._id });
   }

@@ -6,36 +6,38 @@ import versionRoutes from './controllers/version/routes.js';
 import startDB from './db/connect.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { NodePath } from '@babel/core';
-const app: Application = express();
-const url = process.env.DB_URL;
-// code below because __dirname is not suported with esm
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 dotenv.config();
+const app: Application = express();
+const url: string | undefined = process.env.DB_URL;
+const __filename: string = fileURLToPath(import.meta.url);
+const __dirname: string = path.dirname(__filename);
+const PORT: string | number | undefined = process.env.PORT || 8888;
 
-app.disable('x-powered-by'); //Disable this header, to prevent attacks. (use helmet will be a best protection)
+app.disable('x-powered-by');
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '..', 'views'));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/', versionRoutes);
+app.use('/version', versionRoutes);
 app.use('/product', productRoutes);
 app.use('/user', userRoutes);
 
-app.get('/', (req, res) => {
+app.get('/', (req: Request, res: Response) => {
   res.render('login');
 });
 app.get('/health', (req, res) => {
   res.send('ok');
 });
 
-const connect = async () => {
-  await startDB(url);
-  app.listen(process.env.PORT, () => {
-    console.log(`server started at port ${process.env.PORT}`);
-  });
-};
-
-connect();
+(function connect() {
+  startDB(url)
+    .then(() => {
+      app.listen(PORT, () => {
+        console.log(`server started at port ${PORT}`);
+      });
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+})();
