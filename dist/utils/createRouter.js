@@ -3,7 +3,7 @@ export function createRouter(routes) {
   const router = express.Router();
   routes.forEach(route => {
     const method = route.method.toLowerCase();
-    router[method](route.path, createHandler(route));
+    router[method](route.path, ...[...(route.pre || []), createHandler(route)]);
   });
   return router;
 }
