@@ -3,6 +3,7 @@ export interface User {
   username: string;
   email: string;
   password: string;
+  refreshToken: string[];
   createdOn?: string;
 }
 const userSchema = new mongoose.Schema<User>({
@@ -23,6 +24,9 @@ const userSchema = new mongoose.Schema<User>({
   password: {
     type: String,
     required: true
+  },
+  refreshToken: {
+    type: [String]
   },
   createdOn: {
     type: Date,

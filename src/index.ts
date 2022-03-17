@@ -7,6 +7,7 @@ import versionRoutes from './controllers/version/routes.js';
 import startDB from './db/connect.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import cookieParser from 'cookie-parser';
 dotenv.config();
 const app: Application = express();
 const url: string | undefined = process.env.DB_URL;
@@ -20,6 +21,7 @@ app.set('views', path.join(__dirname, '..', 'views'));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use('/', versionRoutes);
 app.use('/', productRoutes);
 app.use('/', userRoutes);

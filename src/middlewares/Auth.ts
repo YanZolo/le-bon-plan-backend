@@ -1,31 +1,28 @@
-import bcrypt from 'bcrypt';
+import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import { Response, Request, NextFunction } from 'express';
-import userModel from '../models/userModel.js';
-export class AuthMiddlewares {
+dotenv.config();
 
-  isAuth(req: Request, res: Response, next: NextFunction): void {
-    const { token } = req.cookies;
-    if (token) {
-      next();
-    }
-    res.redirect('/login');
-  }
-
-  async register(req: Request, res: Response, next: NextFunction) {
-    const { password, username, email } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new userModel({
-      username: username,
-      email: email,
-      password: hashedPassword
-    });
-    try {
-      const newUser = await user.save();
-      console.log('newUser saved :', newUser)
-      res.status(201).redirect('/user/login')
-    } catch (error: any) {
-      res.json({ message: error.message })
-    }
-  }
+interface ProcessEnv {
+  [key: string]: string
 }
+const { ACCESS_TOKEN_SECRET } = process.env as ProcessEnv
+export class Middlewares {
+
+  isAuth(req: Request<any, any, any, any, { token: string }>, res: Response, next: NextFunction): void {
+    const { token } = req.cookies;   
+      if (token && jwt.verify(token, ACCESS_TOKEN_SECRET)) {
+        return next();
+      }    
+    res.redirect('/user/login');
+  }
+  isNotAuth(req: Request<any, any, any, any, { token: string }>, res: Response, next: NextFunction): void {
+    const { token } = req.cookies;   
+      if (!token) {
+        return next();      
+      }    
+  }
+
+}
+
+
