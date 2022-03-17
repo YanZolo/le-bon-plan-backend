@@ -4,7 +4,7 @@ const versionController = new VersionController();
 
 const routes: RoutesOptions[] = [
   {
-    path: '/',
+    path: '/version',
     method: 'GET',
     handler: versionController.get.bind(versionController)
   }

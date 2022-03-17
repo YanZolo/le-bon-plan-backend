@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 export interface RoutesOptions {
   path: string;
   method: string;
+  pre?: Function[];
   handler: Function; // temporary fixed with rule "@typescript-eslint/ban-types":"off" in eslintrc.json :/
   responseStatus?: number;
 }
@@ -10,7 +11,7 @@ export function createRouter(routes: RoutesOptions[]) {
   const router = express.Router();
   routes.forEach((route) => {
     const method = route.method.toLowerCase();
-    router[method](route.path, createHandler(route));
+    router[method](route.path, ...[...route.pre || [], createHandler(route)]);
   });
   return router;
 }

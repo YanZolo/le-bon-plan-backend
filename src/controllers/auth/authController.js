@@ -62,14 +62,5 @@ export default class AuthController {
     next();
   }
 
-  // async uptdateUser({ body: { username, email, password } }, { params: { id } }) {
 
-  //   return await User.findOneAndUpdate(
-  //     { _id: id },
-  //     {
-  //       username,
-  //       email
-  //     }
-  //   );
-  // }
 }

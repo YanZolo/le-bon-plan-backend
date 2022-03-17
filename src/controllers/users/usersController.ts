@@ -30,7 +30,7 @@ export class UserController {
 
   async updateUser(
     req: Request<
-      any,
+      { id: string },
       any,
       { username: string; email: string; password: string }
     >
