@@ -13,6 +13,7 @@ export class UserController {
     if (!user) {
       throw new UserNotFound();
     }
+    // req.user = user;  how to pass user in req.user with typescript
     return user;
   }
 

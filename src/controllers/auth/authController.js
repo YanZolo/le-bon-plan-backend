@@ -18,7 +18,7 @@ export default class AuthController {
       });
       const newUser = await user.save();
       console.log('newUser :>> ', newUser);
-      res.status(201).redirect('login'); // save new user and redirect to login page
+      res.status(201).render('login'); // save new user and redirect to login page
     } catch (err) {
       res.status(500).json({
         message: err.message
@@ -37,7 +37,7 @@ export default class AuthController {
       if (await bcrypt.compare(req.body.password, user.password)) {
         const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
         console.log('accessToken :>> ', accessToken, 'user is authentified');
-        res.redirect('profile'); // user has been authentified and he is redirected to his profile
+        res.render('profile'); // user has been authentified and he is redirected to his profile
       } else {
         res.status(401).json({ message: 'password incorrect' });
       }
