@@ -2,13 +2,12 @@ FROM node:16.13.2
 
 WORKDIR /src
 
-COPY package-lock.json .
+COPY yarn.lock .
 COPY package.json .
 
-RUN npm ci 
+RUN yarn install --frozen-lockfile
 
 COPY src ./src
 COPY views ./views
-COPY .env .
 
-CMD npm start
+CMD yarn start

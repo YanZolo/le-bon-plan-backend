@@ -60,7 +60,7 @@ POST http://localhost:8000/product/add
 Content-Type: application/json
 
 {
-    "title" : "test199878799",
+    "title" : "test559",
     "price": "10"
 }
 
@@ -70,8 +70,8 @@ PATCH http://localhost:8000/product/update/6216484a4b3b9e442aba49cf
 Content-type: application/json
 
 {
-    "title": "test99",
-    "price": 456564
+    "title": "yolo",
+    "price": 4
 }
 ###
 
