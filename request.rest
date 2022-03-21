@@ -2,44 +2,59 @@
 
 // USERS ROUTES
 
-GET http://localhost:8000/user
-//authorization: Bearer eyJhbGciOiJIUzI1NiJ9.dG90bw.KgONxc0wLx4BnFIEOVmpg-SSIc_bE49h8sja7ri7lD0
+GET http://localhost:8888/admin/users/all
+authorization: Bearer eyJhbGciOiJIUzI1NiJ9.dGVzdDFAZ21haWwuY29t.KuOSGmuCgiw59N8EaUVSZxxwmIzUJoHxzG6i3R6Rzz8
+
+###
+GET http://localhost:8888/admin/user/single62348a479cee35515846e475
+
     
 
 ###
-POST  http://localhost:8000/user
+POST  http://localhost:8888/admin/user/add
 Content-Type: application/json
 
 {
-    "username": "test1",
-    "email": "test1@gmail.com"
+    "username": "test7",
+    "email": "test7gmail.com",
+    "password": 1234,
+    "isAdmin": true
+}
+###
+POST  http://localhost:8888/auth/login
+Content-Type: application/json
+
+{
+    
+    "email": "test1@gmail.com",
+    "password": "1234"
+    
 }
 
 ###
 
-POST http://localhost:8000/user/register
+POST http://localhost:8888/auth/register
 Content-Type: application/json
 
 {
-    "username" : "toto",
+    "username": "test10",
+    "email" : "test10@gmail.com",
     "password": "1234"
 }
 
 ###
 
-POST   http://localhost:8000/user/login
+
+GET   http://localhost:8888/auth/logout
 Content-Type: application/json
 
-{
-    "username" : "toto",
-    "password": "1234"
-}
+
 ###
-PATCH  http://localhost:8000/user/b13b493a-cb91-442b-8f20-65bd7666d418
+PATCH  http://localhost:8888/admin/update/b13b493a-cb91-442b-8f20-65bd7666d418
 Content-Type: application/json
 
 {
-    "username" : "my second test"
+    "email" : "my second test"
 }
 
 ###
@@ -47,26 +62,27 @@ Content-Type: application/json
 
 /////////////////////////////////// PRODUCTS ROUTES
 
-// get all product
-GET http://localhost:8000/product/all
-
-###
-// get single product
-GET http://localhost:8000/product/62162eb5d7a7129fa95cd662
+GET http://localhost:8888/admin/products/all
 
 ###
 
-POST http://localhost:8000/product/add
+GET http://localhost:8888/admin/product/single/62162ec2d7a7129fa95cd666
+
+
+
+###
+
+POST http://localhost:8888/admin/product/add
 Content-Type: application/json
 
 {
-    "title" : "test559",
-    "price": "10"
+    "title" : "test add",
+    "price": "12330"
 }
 
 ###
 
-PATCH http://localhost:8000/product/update/6216484a4b3b9e442aba49cf
+PATCH http://localhost:8888/admin/product/update/62162eb5d7a7129fa95cd66c
 Content-type: application/json
 
 {
@@ -75,6 +91,6 @@ Content-type: application/json
 }
 ###
 
-DELETE http://localhost:8000/product/delete/6216484a4b3b9e442aba49cf
+DELETE http://localhost:8888/admin/product/delete/62162eacd7a7129fa95cd660
 
 

@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import UserModel from '../../models/userModel.js';
-import UserNotFound from '../../errors/UserNotFound';
+import UserNotFound from '../../errors/UserNotFound.js';
 dotenv.config();
 const {
   ACCESS_TOKEN_SECRET,
@@ -21,16 +21,9 @@ export default class AuthController {
       email: email,
       password: hashedPassword
     });
-
-    try {
-      const newUser = await user.save();
-      console.log('newUser saved :', newUser);
-      res.status(201).redirect('/user/login');
-    } catch (error) {
-      res.json({
-        message: error.message
-      });
-    }
+    const newUser = await user.save();
+    console.log('newUser saved :', newUser);
+    res.redirect('/auth/login');
   }
 
   async handleLogin(req, res) {
@@ -40,39 +33,33 @@ export default class AuthController {
     } = req.body;
     const user = await UserModel.findOne({
       email
-    });
+    }).select('-refreshToken').lean();
 
     if (!user) {
       throw new UserNotFound();
     }
 
-    try {
-      console.log('user', user);
+    console.log('user', user);
 
-      if (await bcrypt.compare(password, user.password)) {
-        const accessToken = jwt.sign(user, ACCESS_TOKEN_SECRET, {
-          expiresIn: '7d'
-        });
-        const refreshToken = jwt.sign(user, REFRESH_TOKEN_SECRET);
-        await UserModel.updateOne({
-          email
-        }, {
-          $addToSet: {
-            refreshToken: refreshToken
-          }
-        });
-        res.cookie('access_token', accessToken).status(200).redirect('/user/profile');
-      }
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({
-        message: error.message
+    if (await bcrypt.compare(password, user.password)) {
+      console.log('if statement bcrypt');
+      const accessToken = jwt.sign(user, ACCESS_TOKEN_SECRET, {
+        expiresIn: '7d'
       });
+      const refreshToken = jwt.sign(user, REFRESH_TOKEN_SECRET);
+      await UserModel.updateOne({
+        email
+      }, {
+        $addToSet: {
+          refreshToken: refreshToken
+        }
+      });
+      return res.cookie('access_token', accessToken).send('logged');
     }
   }
 
   handleLogout(res) {
-    res.cookie('access_token', '').redirect('/user/login');
+    res.cookie('access_token', '').redirect('/auth/login');
   }
 
 }
