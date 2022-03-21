@@ -3,7 +3,7 @@ export function createRouter(routes) {
   const router = express.Router();
   routes.forEach(route => {
     const method = route.method.toLowerCase();
-    router[method](route.path, createHandler(route));
+    router[method](route.path, ...[...(route.pre || []), createHandler(route)]);
   });
   return router;
 }
@@ -14,7 +14,7 @@ export function createHandler({
   return async (req, res) => {
     try {
       const result = await handler(req);
-      res.status(responseStatus).json(result);
+      res.status(responseStatus).json(JSON.parse(result));
     } catch (e) {
       res.status(e.status || 500).json({
         name: e.name || 'INTERNAL_ERROR',

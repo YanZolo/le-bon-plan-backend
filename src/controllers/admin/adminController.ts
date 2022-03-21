@@ -2,9 +2,22 @@ import UserModel from '../../models/userModel.js';
 import ProductModel from '../../models/productModel.js';
 import UserNotFound from '../../errors/UserNotFound.js';
 import ProductNotFound from '../../errors/ProductNotFound.js';
-import { Request } from 'express';
+import { Request, Response } from 'express';
 
 export class AdminController {
+
+    async addUser({ body: { username, email, password, isAdmin } }: Request<any, any, { username: string, email: string, password: string, isAdmin: boolean }>) {
+        const newUser = new UserModel({
+            username, email, password, isAdmin
+        })
+        return newUser.save()
+    }
+    async addProduct({ body: { title, price } }: Request<any, any, { title: string, price: number }>) {
+        const newProduct = new ProductModel({
+            title, price
+        })
+        return newProduct.save()
+    }
 
     async getAllUsers() {
         return UserModel.find();
@@ -74,5 +87,11 @@ export class AdminController {
     async deleteProduct(req: Request<{ id: string }>) {
         const product = await this.getProduct(req);
         await ProductModel.deleteOne({ _id: product._id });
+    }
+    displayRegisterView(res: Response){
+       return res.render('register')
+    }
+    displayLoginView(res: Response){
+       return  res.render('login')
     }
 }

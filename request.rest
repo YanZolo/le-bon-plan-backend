@@ -2,44 +2,50 @@
 
 // USERS ROUTES
 
-GET http://localhost:8000/user
+GET http://localhost:8888/admin/users/all
 //authorization: Bearer eyJhbGciOiJIUzI1NiJ9.dG90bw.KgONxc0wLx4BnFIEOVmpg-SSIc_bE49h8sja7ri7lD0
     
 
 ###
-POST  http://localhost:8000/user
+GET http://localhost:8888/user/62348a479cee35515846e475
+
+    
+
+###
+POST  http://localhost:8888/admin/add
 Content-Type: application/json
 
 {
-    "username": "test1",
-    "email": "test1@gmail.com"
+    "name": "test4",
+    "email": "test4@gmail.com",
+    "password": 1234
 }
 
 ###
 
-POST http://localhost:8000/user/register
+POST http://localhost:8888/admin/register
 Content-Type: application/json
 
 {
-    "username" : "toto",
+    "email" : "toto",
     "password": "1234"
 }
 
 ###
 
-POST   http://localhost:8000/user/login
+POST   http://localhost:8888/admin/login
 Content-Type: application/json
 
 {
-    "username" : "toto",
+    "email" : "toto",
     "password": "1234"
 }
 ###
-PATCH  http://localhost:8000/user/b13b493a-cb91-442b-8f20-65bd7666d418
+PATCH  http://localhost:8888/admin/b13b493a-cb91-442b-8f20-65bd7666d418
 Content-Type: application/json
 
 {
-    "username" : "my second test"
+    "email" : "my second test"
 }
 
 ###

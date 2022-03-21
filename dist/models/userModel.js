@@ -18,6 +18,13 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  isAdmin: {
+    type: String,
+    default: false
+  },
+  refreshToken: {
+    type: [String]
+  },
   createdOn: {
     type: Date,
     default: Date.now,

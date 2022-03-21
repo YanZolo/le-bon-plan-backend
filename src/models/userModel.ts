@@ -3,6 +3,7 @@ export interface User {
   username: string;
   email: string;
   password: string;
+  isAdmin: string | boolean;
   refreshToken: string[];
   createdOn?: string;
 }
@@ -24,6 +25,10 @@ const userSchema = new mongoose.Schema<User>({
   password: {
     type: String,
     required: true
+  },
+  isAdmin: {
+    type: String,
+    default:false,
   },
   refreshToken: {
     type: [String]

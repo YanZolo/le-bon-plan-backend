@@ -23,7 +23,7 @@ export function createHandler({
   return async (req: Request, res: Response) => {
     try {
       const result = await handler(req);
-      res.status(responseStatus).json(result);
+      res.status(responseStatus).json(JSON.parse(result));
     } catch (e: any) {
       res.status(e.status || 500).json({
         name: e.name || 'INTERNAL_ERROR',
