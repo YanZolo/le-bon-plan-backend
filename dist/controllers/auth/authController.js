@@ -33,7 +33,7 @@ export default class AuthController {
     } = req.body;
     const user = await UserModel.findOne({
       email
-    }).select('-refreshToken').lean();
+    });
 
     if (!user) {
       throw new UserNotFound();
@@ -42,11 +42,15 @@ export default class AuthController {
     console.log('user', user);
 
     if (await bcrypt.compare(password, user.password)) {
-      console.log('if statement bcrypt');
-      const accessToken = jwt.sign(user, ACCESS_TOKEN_SECRET, {
+      const accessToken = jwt.sign({
+        user
+      }, ACCESS_TOKEN_SECRET, {
         expiresIn: '7d'
       });
-      const refreshToken = jwt.sign(user, REFRESH_TOKEN_SECRET);
+      const refreshToken = jwt.sign({
+        user
+      }, REFRESH_TOKEN_SECRET);
+      console.log('handleLogin() ==> access token ===>', accessToken);
       await UserModel.updateOne({
         email
       }, {
@@ -54,7 +58,7 @@ export default class AuthController {
           refreshToken: refreshToken
         }
       });
-      return res.cookie('access_token', accessToken).send('logged');
+      res.cookie('access_token', accessToken).send('logged').redirect('/admin/profile');
     }
   }
 

@@ -7,9 +7,9 @@ import UserNotFound from '../../errors/UserNotFound.js';
 dotenv.config();
 
 interface ProcessEnv {
-  [key: string]: string
+  [key: string]: string;
 }
-const { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } = process.env as ProcessEnv
+const { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } = process.env as ProcessEnv;
 
 export default class AuthController {
   // on register page
@@ -23,32 +23,38 @@ export default class AuthController {
       password: hashedPassword
     });
     const newUser = await user.save();
-    console.log('newUser saved :', newUser)
-    res.redirect('/auth/login')
+    console.log('newUser saved :', newUser);
+    res.redirect('/auth/login');
   }
 
-  async handleLogin(req: Request<any, any, { email: string, password: string }>, res: Response) {
+  async handleLogin(
+    req: Request<any, any, { email: string; password: string }>,
+    res: Response
+  ) {
     const { email, password } = req.body;
-    const user = await UserModel.findOne({ email }).select('-refreshToken').lean()
+    const user = await UserModel.findOne({ email });
+    // const user = await UserModel.findOne({ email }).select('-refreshToken')
     if (!user) {
-      throw new UserNotFound()
+      throw new UserNotFound();
     }
 
-    console.log('user', user)
+    console.log('user', user);
     if (await bcrypt.compare(password, user.password)) {
-      console.log('if statement bcrypt')
-
-      const accessToken = jwt.sign(user, ACCESS_TOKEN_SECRET, { expiresIn: '7d' }) // fixed secret type error with inteface ProcessEnv
-      const refreshToken = jwt.sign(user, REFRESH_TOKEN_SECRET)
-      await UserModel.updateOne({ email }, { $addToSet: { refreshToken: refreshToken } })
-      return res.cookie('access_token', accessToken).send('logged')
-      
-      // .redirect('/admin/profile')     
+      const accessToken = jwt.sign({ user }, ACCESS_TOKEN_SECRET, {
+        expiresIn: '7d'
+      }); // fixed secret type error with inteface ProcessEnv
+      const refreshToken = jwt.sign({ user }, REFRESH_TOKEN_SECRET);
+      console.log('handleLogin() ==> access token ===>', accessToken);
+      await UserModel.updateOne(
+        { email },
+        { $addToSet: { refreshToken: refreshToken } }
+      );
+      res.cookie('access_token', accessToken).send('logged')
+      .redirect('/admin/profile')
     }
   }
 
   handleLogout(res: Response) {
-    res.cookie('access_token', '').redirect('/auth/login') // maybe req.cookie
+    res.cookie('access_token', '').redirect('/auth/login'); // maybe req.cookie
   }
-
 }

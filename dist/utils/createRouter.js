@@ -8,13 +8,14 @@ export function createRouter(routes) {
   return router;
 }
 export function createHandler({
-  handler
+  handler,
+  responseStatus = 200
 }) {
   return async (req, res) => {
     try {
       console.log('create handler ==> try catch block');
       const result = await handler(req);
-      result;
+      res.status(responseStatus).json(result);
     } catch (e) {
       return res.status(e.status || 500).json({
         name: e.name || 'INTERNAL_ERROR',

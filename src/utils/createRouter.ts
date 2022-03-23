@@ -11,7 +11,7 @@ export function createRouter(routes: RoutesOptions[]) {
   const router: Router = express.Router();
   routes.forEach((route) => {
     const method = route.method.toLowerCase();
-    router[method](route.path, ...[...route.pre || [], createHandler(route)]);
+    router[method](route.path, ...[...(route.pre || []), createHandler(route)]);
   });
   return router;
 }
@@ -22,10 +22,9 @@ export function createHandler({
 }: RoutesOptions) {
   return async (req: Request, res: Response) => {
     try {
-      console.log('create handler ==> try catch block') // I can't reach there
-      const result = await handler(req);
-      res.status(responseStatus).json(result); 
-       
+      console.log('create handler ==> try catch block'); // I can't reach there
+      const result = await handler(req);     
+      res.status(responseStatus).json(result);
     } catch (e: any) {
       return res.status(e.status || 500).json({
         name: e.name || 'INTERNAL_ERROR',
@@ -36,3 +35,8 @@ export function createHandler({
     }
   };
 }
+
+ // if (typeof result === 'object' || 'array') {
+      //  return res.status(responseStatus).json(result);
+      // }
+      // return JSON.parse(result);
