@@ -4,6 +4,10 @@ import AuthController from "../auth/authController.js";
 const adminController = new AdminController();
 const authController = new AuthController();
 const routes = [{
+  path: '/admin/user/add',
+  method: 'POST',
+  handler: adminController.addUser.bind(adminController)
+}, {
   path: '/admin/users/all',
   method: 'GET',
   handler: adminController.getAllUsers.bind(adminController)
@@ -12,7 +16,7 @@ const routes = [{
   method: 'GET',
   handler: adminController.getAllProducts.bind(adminController)
 }, {
-  path: '/admin/user/:id',
+  path: '/admin/user/single/:id',
   method: 'GET',
   handler: adminController.getUser.bind(adminController)
 }, {

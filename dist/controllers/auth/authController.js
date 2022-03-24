@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import UserModel from '../../models/userModel.js';
 import UserNotFound from '../../errors/UserNotFound.js';
+import Exception from '../../errors/Exception.js';
 dotenv.config();
 const {
   ACCESS_TOKEN_SECRET,
@@ -13,17 +14,21 @@ export default class AuthController {
     const {
       password,
       username,
-      email
+      email,
+      isAdmin
     } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
+    console.log('hashedPassword', hashedPassword);
     const user = new UserModel({
       username: username,
       email: email,
-      password: hashedPassword
+      password: hashedPassword,
+      isAdmin: isAdmin
     });
     const newUser = await user.save();
     console.log('newUser saved :', newUser);
     res.redirect('/auth/login');
+    return res;
   }
 
   async handleLogin(req, res) {
@@ -41,11 +46,11 @@ export default class AuthController {
 
     console.log('user', user);
 
-    if (await bcrypt.compare(password, user.password)) {
+    if (await bcrypt.compare(req.body.password, user.password)) {
       const accessToken = jwt.sign({
         user
       }, ACCESS_TOKEN_SECRET, {
-        expiresIn: '7d'
+        expiresIn: '200s'
       });
       const refreshToken = jwt.sign({
         user
@@ -58,12 +63,25 @@ export default class AuthController {
           refreshToken: refreshToken
         }
       });
-      res.cookie('access_token', accessToken).send('logged').redirect('/admin/profile');
+      res.cookie('access_token', accessToken, {
+        httpOnly: false
+      });
+      console.log('=====');
+      return {
+        status: 'LOGGED'
+      };
     }
+
+    throw new Exception(401, 'Not autorized');
   }
 
-  handleLogout(res) {
-    res.cookie('access_token', '').redirect('/auth/login');
+  handleLogout(req, res) {
+    res.cookie('access_token', '', {
+      maxAge: 0,
+      httpOnly: false
+    });
+    res.redirect('/auth/login');
+    return res;
   }
 
 }

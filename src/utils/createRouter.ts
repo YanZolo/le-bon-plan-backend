@@ -22,9 +22,12 @@ export function createHandler({
 }: RoutesOptions) {
   return async (req: Request, res: Response) => {
     try {
-      console.log('create handler ==> try catch block'); // I can't reach there
-      const result = await handler(req);     
-      res.status(responseStatus).json(result);
+      const result = await handler(req, res);
+      
+      if (res !== result) {
+        res.status(responseStatus).json(result);
+      }
+      
     } catch (e: any) {
       return res.status(e.status || 500).json({
         name: e.name || 'INTERNAL_ERROR',

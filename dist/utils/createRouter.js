@@ -13,9 +13,11 @@ export function createHandler({
 }) {
   return async (req, res) => {
     try {
-      console.log('create handler ==> try catch block');
-      const result = await handler(req);
-      res.status(responseStatus).json(result);
+      const result = await handler(req, res);
+
+      if (res !== result) {
+        res.status(responseStatus).json(result);
+      }
     } catch (e) {
       return res.status(e.status || 500).json({
         name: e.name || 'INTERNAL_ERROR',

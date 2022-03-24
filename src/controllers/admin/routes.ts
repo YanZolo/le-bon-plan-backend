@@ -8,6 +8,14 @@ const authController = new AuthController()
 
 const routes : RoutesOptions[] = [
     {
+        path: '/admin/user/add',
+        method: 'POST',
+        // pre: [
+        //     middlewares.isAuth.bind(middlewares)
+        //   ],
+        handler: adminController.addUser.bind(adminController)
+    },
+    {
         path: '/admin/users/all',
         method: 'GET',
         // pre: [
@@ -24,7 +32,7 @@ const routes : RoutesOptions[] = [
         handler: adminController.getAllProducts.bind(adminController)
     },
     {
-        path: '/admin/user/:id',
+        path: '/admin/user/single/:id',
         method: 'GET',
         // pre: [
         //     middlewares.isAuth.bind(middlewares)
