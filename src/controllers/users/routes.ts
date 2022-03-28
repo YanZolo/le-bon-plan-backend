@@ -5,22 +5,22 @@ const userController = new UserController();
 
 
 const routes: RoutesOptions[] = [
-  {
-    path: '/',
-    method: 'GET',
-    handler: userController.getAllUsers.bind(userController)
-  },
-  {
-    path: '/:id',
-    method: 'GET',
-    handler: userController.getUser.bind(userController)
-  },
-  {
-    path: '/',
-    method: 'POST',
-    handler: userController.addUser.bind(userController),
-    responseStatus: 201
-  },
+  // {
+  //   path: '/',
+  //   method: 'GET',
+  //   handler: userController.getAllUsers.bind(userController)
+  // },
+  // {
+  //   path: '/:id',
+  //   method: 'GET',
+  //   handler: userController.getUser.bind(userController)
+  // },
+  // {
+  //   path: '/',
+  //   method: 'POST',
+  //   handler: userController.addUser.bind(userController),
+  //   responseStatus: 201
+  // },
   {
     path: '/:id',
     method: 'PATCH',
