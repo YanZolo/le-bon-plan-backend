@@ -32,7 +32,6 @@ export default class AuthController {
   }
 
   async handleLogin(req, res) {
-    console.log('handleLogin() req.body', req.body);
     const {
       email,
       password
@@ -45,28 +44,19 @@ export default class AuthController {
       throw new UserNotFound();
     }
 
-    console.log('user', user);
-
     if (await bcrypt.compare(password, user.password)) {
       const accessToken = jwt.sign({
         user
       }, ACCESS_TOKEN_SECRET, {
         expiresIn: '200s'
       });
-      const refreshToken = jwt.sign({
-        user
-      }, REFRESH_TOKEN_SECRET);
-      console.log('handleLogin() ==> access token ===>', accessToken);
-      await UserModel.updateOne({
-        email
-      }, {
-        $addToSet: {
-          refreshToken: refreshToken
-        }
-      });
-      req.app.set("username", user.username);
+      res.app.locals = {
+        user: user.username
+      };
       res.cookie('access_token', accessToken, {
-        httpOnly: true
+        httpOnly: true,
+        secure: true,
+        maxAge: 1000000
       });
       console.log('=====');
       res.redirect('/profile');
@@ -77,10 +67,13 @@ export default class AuthController {
   }
 
   handleLogout(req, res) {
-    res.cookie('access_token', '', {
+    res.clearCookie('access_token', {
+      httpOnly: true,
+      secure: true,
       maxAge: 0
     });
     res.redirect('/login');
+    console.log('handleLogout() req.headers', req.headers);
     return res;
   }
 

@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { Response, Request } from 'express';
+import { Response, Request, request } from 'express';
 import UserModel from '../../models/userModel.js';
 import UserNotFound from '../../errors/UserNotFound.js';
 import Exception from '../../errors/Exception.js';
@@ -43,27 +43,30 @@ export default class AuthController {
     req: Request<any, any, { email: string; password: string }>,
     res: Response
   ) {
-    console.log('handleLogin() req.body', req.body)
     const { email, password } = req.body;
     const user = await UserModel.findOne({ email });
     if (!user) {
       throw new UserNotFound();
     }
 
-    console.log('user', user);
     if (await bcrypt.compare(password, user.password)) {
+
       const accessToken = jwt.sign({ user }, ACCESS_TOKEN_SECRET, {
         expiresIn: '200s'
       }); // fixed secret type error with inteface ProcessEnv
-      const refreshToken = jwt.sign({ user }, REFRESH_TOKEN_SECRET);
-      console.log('handleLogin() ==> access token ===>', accessToken);
-      await UserModel.updateOne(
-        { email },
-        { $addToSet: { refreshToken: refreshToken } }
-      );
-      req.app.set("username", user.username)
+      // const refreshToken = jwt.sign({ user }, REFRESH_TOKEN_SECRET);
+      // console.log('handleLogin() ==> access token ===>', accessToken);
+
+      // await UserModel.updateOne(
+      //   { email },
+      //   { $addToSet: { refreshToken: refreshToken } }
+      // );
+
+      res.app.locals = { user: user.username }
       res.cookie('access_token', accessToken, {
-        httpOnly: true
+        httpOnly: true,
+        secure: true,
+        maxAge: 1000000
       });
       console.log('=====');
       res.redirect('/profile')
@@ -76,9 +79,14 @@ export default class AuthController {
   }
 
   handleLogout(req: Request, res: Response) {
-    res.cookie('access_token', '', { maxAge: 0});
-    res.redirect('/login') 
+    res.clearCookie('access_token', {
+      httpOnly: true,
+      secure: true,
+      maxAge: 0
+    });
+    res.redirect('/login')
+    console.log('handleLogout() req.headers', req.headers)
     return res
-    
+
   }
 }
