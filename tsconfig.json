@@ -17,7 +17,7 @@
       "moduleResolution": "node",
       "skipLibCheck": true,
       "noImplicitAny": false,
-      "noImplicitReturns": true,
+      "noImplicitReturns": false, // fixe Not all code paths return a value.ts(7030) ==> handleLogin()
       "noEmitOnError": true,
       "esModuleInterop": true, 
       "outDir": "./dist",

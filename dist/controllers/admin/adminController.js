@@ -2,7 +2,26 @@ import UserModel from '../../models/userModel.js';
 import ProductModel from '../../models/productModel.js';
 import UserNotFound from '../../errors/UserNotFound.js';
 import ProductNotFound from '../../errors/ProductNotFound.js';
+import bcrypt from 'bcrypt';
 export class AdminController {
+  async addUser({
+    body: {
+      username,
+      email,
+      password,
+      isAdmin
+    }
+  }) {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = new UserModel({
+      username,
+      email,
+      password: hashedPassword,
+      isAdmin
+    });
+    return newUser.save();
+  }
+
   async getAllUsers() {
     return UserModel.find();
   }
@@ -44,7 +63,8 @@ export class AdminController {
     const {
       username,
       email,
-      password
+      password,
+      isAdmin
     } = req.body;
 
     if (username && username !== user.username) {
@@ -55,8 +75,14 @@ export class AdminController {
       user.email = email;
     }
 
-    if (password && password !== user.password) {
-      user.password = password;
+    if (password && (await bcrypt.compare(password, user.password)) === false) {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      user.password = hashedPassword;
+      console.log('user.password ===>', user.password);
+    }
+
+    if (isAdmin && isAdmin !== user.isAdmin) {
+      user.isAdmin = isAdmin;
     }
 
     const userUpdated = new UserModel(user);

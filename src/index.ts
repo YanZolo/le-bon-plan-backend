@@ -4,6 +4,8 @@ import productRoutes from './controllers/products/routes.js';
 import userRoutes from './controllers/users/routes.js';
 import adminRoutes from './controllers/admin/routes.js';
 import versionRoutes from './controllers/version/routes.js';
+import authRoutes from './controllers/auth/routes.js';
+import pagesRoutes from './controllers/pages/routes.js';
 import startDB from './db/connect.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -19,13 +21,15 @@ app.disable('x-powered-by');
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '..', 'views'));
 
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
 app.use('/', versionRoutes);
-app.use('/', productRoutes);
-app.use('/', userRoutes);
+app.use('/', authRoutes);
 app.use('/', adminRoutes);
+app.use('/', userRoutes);
+app.use('/', productRoutes);
+app.use('/', pagesRoutes);
 
 app.get('/', (req: Request, res: Response) => {
   res.render('login');

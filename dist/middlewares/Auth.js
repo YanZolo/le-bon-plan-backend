@@ -14,7 +14,7 @@ export class Middlewares {
       return next();
     }
 
-    res.redirect('/user/login');
+    res.redirect('/');
   }
 
   isNotAuth(req, res, next) {
