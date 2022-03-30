@@ -2,7 +2,8 @@ import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import UserModel from '../../models/userModel.js';
-import UserNotFound from '../../errors/UserNotFound';
+import UserNotFound from '../../errors/UserNotFound.js';
+import Exception from '../../errors/Exception.js';
 dotenv.config();
 const {
   ACCESS_TOKEN_SECRET,
@@ -13,24 +14,21 @@ export default class AuthController {
     const {
       password,
       username,
-      email
+      email,
+      isAdmin
     } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
+    console.log('hashedPassword', hashedPassword);
     const user = new UserModel({
       username: username,
       email: email,
-      password: hashedPassword
+      password: hashedPassword,
+      isAdmin: isAdmin
     });
-
-    try {
-      const newUser = await user.save();
-      console.log('newUser saved :', newUser);
-      res.status(201).redirect('/user/login');
-    } catch (error) {
-      res.json({
-        message: error.message
-      });
-    }
+    const newUser = await user.save();
+    console.log('newUser saved :', newUser);
+    res.redirect('/login');
+    return res;
   }
 
   async handleLogin(req, res) {
@@ -46,33 +44,37 @@ export default class AuthController {
       throw new UserNotFound();
     }
 
-    try {
-      console.log('user', user);
-
-      if (await bcrypt.compare(password, user.password)) {
-        const accessToken = jwt.sign(user, ACCESS_TOKEN_SECRET, {
-          expiresIn: '7d'
-        });
-        const refreshToken = jwt.sign(user, REFRESH_TOKEN_SECRET);
-        await UserModel.updateOne({
-          email
-        }, {
-          $addToSet: {
-            refreshToken: refreshToken
-          }
-        });
-        res.cookie('access_token', accessToken).status(200).redirect('/user/profile');
-      }
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({
-        message: error.message
+    if (await bcrypt.compare(password, user.password)) {
+      const accessToken = jwt.sign({
+        user
+      }, ACCESS_TOKEN_SECRET, {
+        expiresIn: '200s'
       });
+      res.app.locals = {
+        user: user.username
+      };
+      res.cookie('access_token', accessToken, {
+        httpOnly: true,
+        secure: true,
+        maxAge: 1000000
+      });
+      console.log('=====');
+      res.redirect('/profile');
+      return res;
     }
+
+    throw new Exception(401, 'Not autorized');
   }
 
-  handleLogout(res) {
-    res.cookie('access_token', '').redirect('/user/login');
+  handleLogout(req, res) {
+    res.clearCookie('access_token', {
+      httpOnly: true,
+      secure: true,
+      maxAge: 0
+    });
+    res.redirect('/login');
+    console.log('handleLogout() req.headers', req.headers);
+    return res;
   }
 
 }

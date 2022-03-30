@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1647543099706" clover="3.2.0">
-  <project timestamp="1647543099706" name="All files">
+<<<<<<< HEAD
+<coverage generated="1647899515832" clover="3.2.0">
+  <project timestamp="1647899515833" name="All files">
     <metrics statements="45" coveredstatements="44" conditionals="19" coveredconditionals="17" methods="14" coveredmethods="14" elements="78" coveredelements="75" complexity="0" loc="45" ncloc="45" packages="4" files="8" classes="8"/>
     <package name="controllers.products">
       <metrics statements="17" coveredstatements="16" conditionals="7" coveredconditionals="6" methods="5" coveredmethods="5"/>
@@ -83,5 +84,10 @@
         <line num="9" count="1" type="stmt"/>
       </file>
     </package>
+=======
+<coverage generated="1648136531851" clover="3.2.0">
+  <project timestamp="1648136531851" name="All files">
+    <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0" elements="0" coveredelements="0" complexity="0" loc="0" ncloc="0" packages="0" files="0" classes="0"/>
+>>>>>>> e051f162fadf37cdf3c9ca5491ecd1407fb359bb
   </project>
 </coverage>
