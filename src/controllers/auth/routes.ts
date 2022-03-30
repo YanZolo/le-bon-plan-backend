@@ -6,18 +6,18 @@ const authController = new AuthController();
 
 const routes: RoutesOptions[] = [
     {
-        path: '/auth/register',
+        path: '/auth/login',
         method: 'POST',
         handler: authController.handleLogin.bind(authController)
     },
     {
-        path: '/auth/login',
+        path: '/auth/register',
         method: 'POST',
         handler: authController.handleRegister.bind(authController)
     },
     {
         path: '/auth/logout',
-        method: 'DELETE',
+        method: 'GET', // change method GET with DELETE OR POST
         handler: authController.handleLogout.bind(authController)
     }
 ]

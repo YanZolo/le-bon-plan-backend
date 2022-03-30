@@ -2,38 +2,47 @@
 
 // USERS ROUTES
 
-GET http://localhost:8888/admin/users/all
-authorization: Bearer eyJhbGciOiJIUzI1NiJ9.dGVzdDFAZ21haWwuY29t.KuOSGmuCgiw59N8EaUVSZxxwmIzUJoHxzG6i3R6Rzz8
+GET http://localhost:8080/admin/users/all
 
 ###
-GET http://localhost:8888/admin/user/single62348a479cee35515846e475
+GET http://localhost:8080/admin/user/single/62348a479cee35515846e475
 
     
 
 ###
-POST  http://localhost:8888/admin/user/add
+POST  http://localhost:8080/admin/user/add
 Content-Type: application/json
 
 {
-    "username": "test7",
-    "email": "test7gmail.com",
-    "password": 1234,
+    "username": "test2",
+    "email": "test2@gmail.com",
+    "password": "1234",
     "isAdmin": true
 }
+
 ###
-POST  http://localhost:8888/auth/login
+PATCH  http://localhost:8080/admin/user/update/b13b493a-cb91-442b-8f20-65bd7666d418
 Content-Type: application/json
 
 {
-    
-    "email": "test1@gmail.com",
-    "password": "1234"
-    
+    "email" : "my second test"
+}
+###
+
+//  login , register , logout
+
+
+POST  http://localhost:8080/auth/login
+Content-Type: application/json
+
+{    
+    "email": "test1gmail.com",
+    "password": "1234"    
 }
 
 ###
 
-POST http://localhost:8888/auth/register
+POST http://localhost:8080/auth/register
 Content-Type: application/json
 
 {
@@ -45,20 +54,24 @@ Content-Type: application/json
 ###
 
 
-GET   http://localhost:8888/auth/logout
-Content-Type: application/json
+GET   http://localhost:8080/auth/logout
+
+
 
 
 ###
-PATCH  http://localhost:8888/admin/update/b13b493a-cb91-442b-8f20-65bd7666d418
+
+
+POST  http://localhost:8080/user
 Content-Type: application/json
 
 {
-    "email" : "my second test"
+    "username": "test3",
+    "email": "test3gmail.com",
+    "password": "1234"
+    
 }
-
 ###
-
 
 /////////////////////////////////// PRODUCTS ROUTES
 

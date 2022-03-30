@@ -1,18 +1,23 @@
 import { AdminController } from "./adminController.js";
 import { createRouter } from "../../utils/createRouter.js";
-import AuthController from "../auth/authController.js";
+import { Middlewares } from "../../middlewares/Auth.js";
 const adminController = new AdminController();
-const authController = new AuthController();
+const middlewares = new Middlewares();
 const routes = [{
+  path: '/admin/user/add',
+  method: 'POST',
+  handler: adminController.addUser.bind(adminController)
+}, {
   path: '/admin/users/all',
   method: 'GET',
+  pre: [middlewares.isAuth.bind(middlewares)],
   handler: adminController.getAllUsers.bind(adminController)
 }, {
   path: '/admin/products/all',
   method: 'GET',
   handler: adminController.getAllProducts.bind(adminController)
 }, {
-  path: '/admin/user/:id',
+  path: '/admin/user/single/:id',
   method: 'GET',
   handler: adminController.getUser.bind(adminController)
 }, {
@@ -32,17 +37,9 @@ const routes = [{
   method: 'DELETE',
   handler: adminController.deleteUser.bind(adminController)
 }, {
-  path: '/auth/login',
-  method: 'POST',
-  handler: authController.handleLogin.bind(authController)
-}, {
-  path: '/auth/register',
-  method: 'POST',
-  handler: authController.handleRegister.bind(authController)
-}, {
-  path: '/auth/logout',
-  method: 'GET',
-  handler: authController.handleLogout.bind(authController)
+  path: '/admin/product/delete/:id',
+  method: 'DELETE',
+  handler: adminController.deleteProduct.bind(adminController)
 }];
 export default createRouter(routes);
 //# sourceMappingURL=routes.js.map

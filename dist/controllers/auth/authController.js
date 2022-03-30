@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import UserModel from '../../models/userModel.js';
 import UserNotFound from '../../errors/UserNotFound.js';
+import Exception from '../../errors/Exception.js';
 dotenv.config();
 const {
   ACCESS_TOKEN_SECRET,
@@ -13,27 +14,32 @@ export default class AuthController {
     const {
       password,
       username,
-      email
+      email,
+      isAdmin
     } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
+    console.log('hashedPassword', hashedPassword);
     const user = new UserModel({
       username: username,
       email: email,
-      password: hashedPassword
+      password: hashedPassword,
+      isAdmin: isAdmin
     });
     const newUser = await user.save();
     console.log('newUser saved :', newUser);
-    res.redirect('/auth/login');
+    res.redirect('/login');
+    return res;
   }
 
   async handleLogin(req, res) {
+    console.log('handleLogin() req.body', req.body);
     const {
       email,
       password
     } = req.body;
     const user = await UserModel.findOne({
       email
-    }).select('-refreshToken').lean();
+    });
 
     if (!user) {
       throw new UserNotFound();
@@ -42,11 +48,15 @@ export default class AuthController {
     console.log('user', user);
 
     if (await bcrypt.compare(password, user.password)) {
-      console.log('if statement bcrypt');
-      const accessToken = jwt.sign(user, ACCESS_TOKEN_SECRET, {
-        expiresIn: '7d'
+      const accessToken = jwt.sign({
+        user
+      }, ACCESS_TOKEN_SECRET, {
+        expiresIn: '200s'
       });
-      const refreshToken = jwt.sign(user, REFRESH_TOKEN_SECRET);
+      const refreshToken = jwt.sign({
+        user
+      }, REFRESH_TOKEN_SECRET);
+      console.log('handleLogin() ==> access token ===>', accessToken);
       await UserModel.updateOne({
         email
       }, {
@@ -54,12 +64,24 @@ export default class AuthController {
           refreshToken: refreshToken
         }
       });
-      return res.cookie('access_token', accessToken).send('logged');
+      req.app.set("username", user.username);
+      res.cookie('access_token', accessToken, {
+        httpOnly: true
+      });
+      console.log('=====');
+      res.redirect('/profile');
+      return res;
     }
+
+    throw new Exception(401, 'Not autorized');
   }
 
-  handleLogout(res) {
-    res.cookie('access_token', '').redirect('/auth/login');
+  handleLogout(req, res) {
+    res.cookie('access_token', '', {
+      maxAge: 0
+    });
+    res.redirect('/login');
+    return res;
   }
 
 }

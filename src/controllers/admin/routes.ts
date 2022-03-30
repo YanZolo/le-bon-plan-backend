@@ -1,17 +1,26 @@
 import { AdminController } from "./adminController.js";
 import { createRouter, RoutesOptions } from "../../utils/createRouter.js";
+import { Middlewares } from "../../middlewares/Auth.js";
 
 const adminController = new AdminController();
-// const middlewares = new Middlewares();
+const middlewares = new Middlewares();
 
 
 const routes : RoutesOptions[] = [
     {
-        path: '/admin/users/all',
-        method: 'GET',
+        path: '/admin/user/add',
+        method: 'POST',
         // pre: [
         //     middlewares.isAuth.bind(middlewares)
         //   ],
+        handler: adminController.addUser.bind(adminController)
+    },
+    {
+        path: '/admin/users/all',
+        method: 'GET',
+        pre: [
+            middlewares.isAuth.bind(middlewares)
+          ],
         handler: adminController.getAllUsers.bind(adminController)
     },
     {
@@ -23,7 +32,7 @@ const routes : RoutesOptions[] = [
         handler: adminController.getAllProducts.bind(adminController)
     },
     {
-        path: '/admin/user/:id',
+        path: '/admin/user/single/:id',
         method: 'GET',
         // pre: [
         //     middlewares.isAuth.bind(middlewares)
