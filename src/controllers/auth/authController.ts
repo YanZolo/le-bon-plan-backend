@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { Response, Request, request } from 'express';
+import { Response, Request } from 'express';
 import UserModel from '../../models/userModel.js';
 import UserNotFound from '../../errors/UserNotFound.js';
 import Exception from '../../errors/Exception.js';

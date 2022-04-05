@@ -7,11 +7,11 @@ import bcrypt from 'bcrypt';
 
 export class AdminController {
   async addUser({
-    body: { username, email, password, isAdmin }
+    body: { username, email, password }
   }: Request<
     any,
     any,
-    { username: string; email: string; password: string; isAdmin: boolean }
+    { username: string; email: string; password: string; }
   >) {
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -19,7 +19,6 @@ export class AdminController {
       username,
       email,
       password: hashedPassword,
-      isAdmin
     });
     return newUser.save();
   }

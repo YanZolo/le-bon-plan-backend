@@ -8,16 +8,14 @@ export class AdminController {
     body: {
       username,
       email,
-      password,
-      isAdmin
+      password
     }
   }) {
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new UserModel({
       username,
       email,
-      password: hashedPassword,
-      isAdmin
+      password: hashedPassword
     });
     return newUser.save();
   }

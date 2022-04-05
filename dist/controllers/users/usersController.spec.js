@@ -2,7 +2,7 @@ import userModel from '../../models/userModel.js';
 import { UserController } from './usersController.js';
 import { jest, describe, it, expect, beforeEach } from '@jest/globals';
 jest.mock('../../models/userModel.js');
-describe('useController', () => {
+describe('userController', () => {
   beforeEach(() => {
     userModel.findById.mockClear();
   });

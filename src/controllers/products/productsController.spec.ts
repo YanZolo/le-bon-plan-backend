@@ -3,7 +3,7 @@ import { ProductsController } from './productsController.js';
 import { jest, describe, it, expect, beforeEach } from '@jest/globals';
 import { Request } from 'express';
 
-jest.mock('../../models/productModel');
+jest.mock('../../models/productModel.js');
 
 describe('productController', () => {
   beforeEach(() => {

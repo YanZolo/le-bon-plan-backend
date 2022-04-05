@@ -1,7 +1,7 @@
 import productModel from '../../models/productModel.js';
 import { ProductsController } from './productsController.js';
 import { jest, describe, it, expect, beforeEach } from '@jest/globals';
-jest.mock('../../models/productModel');
+jest.mock('../../models/productModel.js');
 describe('productController', () => {
   beforeEach(() => {
     productModel.findById.mockClear();

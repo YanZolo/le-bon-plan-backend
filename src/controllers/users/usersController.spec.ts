@@ -5,7 +5,7 @@ import { Request } from 'express';
 
 jest.mock('../../models/userModel.js');
 
-describe('useController', () => {
+describe('userController', () => {
   beforeEach(() => {
     (userModel.findById as jest.Mock).mockClear();
   });
