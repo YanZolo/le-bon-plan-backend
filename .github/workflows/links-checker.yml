@@ -11,7 +11,7 @@ jobs:
       uses: celinekurpershoek/link-checker@v1.0.1
       with:
         # Required:
-        url: 'http://localhost:8888/'
+        url: 'http://localhost:8888/login'
         # optional:
         honorRobotExclusions: false
         ignorePatterns: 'google'
