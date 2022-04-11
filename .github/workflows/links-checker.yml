@@ -11,10 +11,10 @@ jobs:
       uses: celinekurpershoek/link-checker@v1.0.1
       with:
         # Required:
-        url: 'https://...'
+        url: 'https://tsed.io/'
         # optional:
         honorRobotExclusions: false
         ignorePatterns: 'google'
-        recursiveLinks: true # Check all URLs on all reachable pages (could take a while)
+        recursiveLinks: false # Check all URLs on all reachable pages (could take a while)
     - name: Get the result
       run: echo "${{steps.link-report.outputs.result}}"
