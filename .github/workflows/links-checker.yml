@@ -11,7 +11,7 @@ jobs:
       uses: celinekurpershoek/link-checker@v1.0.1
       with:
         # Required:
-        url: 'https://github.com/marketplace/actions/broken-link-check'
+        url: 'http://localhost:8888/'
         # optional:
         honorRobotExclusions: false
         ignorePatterns: 'google'

@@ -32,7 +32,7 @@ app.use('/', productRoutes);
 app.use('/', pagesRoutes);
 
 app.get('/', (req: Request, res: Response) => {
-  res.render('login');
+  res.redirect('/auth/login');
 });
 app.get('/health', (req, res) => {
   res.send('ok');
