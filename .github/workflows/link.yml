@@ -2,8 +2,8 @@ name: Links
 
 on: 
   schedule:
-    - cron: '20 17 * * 4'
-    - timezone: 'France/Paris'
+    - cron: '26 17 * * 4'
+
 jobs:
   linkChecker:
     runs-on: ubuntu-latest
