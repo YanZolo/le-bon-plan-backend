@@ -4,18 +4,20 @@ on:
   repository_dispatch:
   workflow_dispatch:
   schedule:
-    - cron: '59 09 * * 5'
+    - cron: '00 10 * * 5'
 
 jobs:  
     linkChecker:
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v3
+
         - name: Link Checker
           id: lychee
           uses: lycheeverse/lychee-action@v1.4.1
           env:
             GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
         - name: Create Issue From File
           if: steps.lychee.outputs.exit_code != 0
           uses: peter-evans/create-issue-from-file@v3
