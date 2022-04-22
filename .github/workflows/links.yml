@@ -2,7 +2,7 @@ name: Links
 
 on: 
   schedule:
-    - cron: '35 11 * * 5'
+    - cron: '*/15 * * * *' 
 
 jobs:  
     linkChecker:
