@@ -2,24 +2,24 @@ import { UserController } from './usersController.js';
 import { createRouter } from '../../utils/createRouter.js';
 const userController = new UserController();
 const routes = [{
-  path: '/',
+  path: '/user',
   method: 'GET',
   handler: userController.getAllUsers.bind(userController)
 }, {
-  path: '/:id',
+  path: '/user/:id',
   method: 'GET',
   handler: userController.getUser.bind(userController)
 }, {
-  path: '/',
+  path: '/user',
   method: 'POST',
   handler: userController.addUser.bind(userController),
   responseStatus: 201
 }, {
-  path: '/:id',
+  path: '/user/:id',
   method: 'PATCH',
   handler: userController.updateUser.bind(userController)
 }, {
-  path: '/:id',
+  path: '/user/:id',
   method: 'DELETE',
   handler: userController.deleteUser.bind(userController)
 }];

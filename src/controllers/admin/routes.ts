@@ -1,11 +1,20 @@
 import { AdminController } from "./adminController.js";
-import { Middlewares } from '../../middlewares/Auth.js';
 import { createRouter, RoutesOptions } from "../../utils/createRouter.js";
+import { Middlewares } from "../../middlewares/Auth.js";
+
 const adminController = new AdminController();
 const middlewares = new Middlewares();
 
 
 const routes : RoutesOptions[] = [
+    {
+        path: '/admin/user/add',
+        method: 'POST',
+        // pre: [
+        //     middlewares.isAuth.bind(middlewares)
+        //   ],
+        handler: adminController.addUser.bind(adminController)
+    },
     {
         path: '/admin/users/all',
         method: 'GET',
@@ -17,59 +26,59 @@ const routes : RoutesOptions[] = [
     {
         path: '/admin/products/all',
         method: 'GET',
-        pre: [
-            middlewares.isAuth.bind(middlewares)
-          ],
+        // pre: [
+        //     middlewares.isAuth.bind(middlewares)
+        //   ],
         handler: adminController.getAllProducts.bind(adminController)
     },
     {
-        path: '/admin/user/:id',
+        path: '/admin/user/single/:id',
         method: 'GET',
-        pre: [
-            middlewares.isAuth.bind(middlewares)
-          ],
+        // pre: [
+        //     middlewares.isAuth.bind(middlewares)
+        //   ],
         handler: adminController.getUser.bind(adminController)
     },
     {
         path: '/admin/product/:id',
         method: 'GET',
-        pre: [
-            middlewares.isAuth.bind(middlewares)
-          ],
+        // pre: [
+        //     middlewares.isAuth.bind(middlewares)
+        //   ],
         handler: adminController.getProduct.bind(adminController)
     },
     {
         path: '/admin/user/update/:id',
         method: 'PATCH',
-        pre: [
-            middlewares.isAuth.bind(middlewares)
-          ],
+        // pre: [
+        //     middlewares.isAuth.bind(middlewares)
+        //   ],
         handler: adminController.updateUser.bind(adminController)
     },
     {
         path: '/admin/product/update/:id',
         method: 'PATCH',
-        pre: [
-            middlewares.isAuth.bind(middlewares)
-          ],
+        // pre: [
+        //     middlewares.isAuth.bind(middlewares)
+        //   ],
         handler: adminController.updateUser.bind(adminController)
     },
     {
         path: '/admin/user/delete/:id',
         method: 'DELETE',
-        pre: [
-            middlewares.isAuth.bind(middlewares)
-          ],
+        // pre: [
+        //     middlewares.isAuth.bind(middlewares)
+        //   ],
         handler: adminController.deleteUser.bind(adminController)
     },
     {
         path: '/admin/product/delete/:id',
         method: 'DELETE',
-        pre: [
-            middlewares.isAuth.bind(middlewares)
-          ],
+        // pre: [
+        //     middlewares.isAuth.bind(middlewares)
+        //   ],
         handler: adminController.deleteProduct.bind(adminController)
-    },
+    }
 
 ]
 
