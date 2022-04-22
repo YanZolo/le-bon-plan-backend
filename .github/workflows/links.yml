@@ -1,8 +1,10 @@
 name: Links
 
 on: 
+  repository_dispatch:
+  workflow_dispatch:
   schedule:
-    - cron: '42 08 * * 5'
+    - cron: '53 08 * * 5'
 
 jobs:  
     linkChecker:
