@@ -5,7 +5,8 @@ services:
     build:
       context: .
     environment:
-      - DB_URL=mongodb://mongo/lebonplan
+      # - DB_URL=mongodb://mongo/lebonplan
+      - DB_URL=mongodb+srv://smohmoh:S5rPyk6b1pRgRLxh@clusterthegoodplan.4uts4.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
     ports: 
      - "8000:8000"
     depends_on: 
