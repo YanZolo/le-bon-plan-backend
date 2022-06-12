@@ -3,7 +3,7 @@
         [
             "@babel/preset-env",
             {
-                "modules": "auto", 
+                "modules":false, 
                 // babel not compile in esm when "modules" isn't set to false, and jest don't work too
                 "targets": {
                     "node": true
