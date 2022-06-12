@@ -8,6 +8,6 @@ COPY package.json .
 RUN yarn install --frozen-lockfile
 
 COPY src ./src
-COPY views ./views
+COPY Views ./Views
 
 CMD yarn start

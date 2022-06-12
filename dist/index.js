@@ -34,7 +34,7 @@ app.use('/', userRoutes);
 app.use('/', productRoutes);
 app.use('/', pagesRoutes);
 app.get('/', (req, res) => {
-  res.render('login');
+  res.redirect('/auth/login');
 });
 app.get('/health', (req, res) => {
   res.send('ok');
