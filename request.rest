@@ -2,7 +2,7 @@
 
 // USERS ROUTES
 
-GET http://localhost:8080/admin/users/all
+GET http://localhost:8888/admin/users/all
 
 ###
 GET http://localhost:8080/admin/user/single/62348a479cee35515846e475
