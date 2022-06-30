@@ -2,8 +2,6 @@ import { UserController } from './usersController.js';
 import { createRouter, RoutesOptions } from '../../utils/createRouter.js';
 const userController = new UserController();
 
-
-
 const routes: RoutesOptions[] = [
   {
     path: '/user',

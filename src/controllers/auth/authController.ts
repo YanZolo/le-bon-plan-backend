@@ -50,7 +50,6 @@ export default class AuthController {
     }
 
     if (await bcrypt.compare(password, user.password)) {
-
       const accessToken = jwt.sign({ user }, ACCESS_TOKEN_SECRET, {
         expiresIn: '200s'
       }); // fixed secret type error with inteface ProcessEnv
@@ -62,15 +61,15 @@ export default class AuthController {
       //   { $addToSet: { refreshToken: refreshToken } }
       // );
 
-      res.app.locals = { user: user.username }
+      res.app.locals = { user: user.username };
       res.cookie('access_token', accessToken, {
         httpOnly: true,
         secure: true,
         maxAge: 1000000
       });
       console.log('=====');
-      res.redirect('/profile')
-      return res
+      res.redirect('/profile');
+      return res;
       // return {
       //   status: 'LOGGED'
       // };
@@ -84,9 +83,8 @@ export default class AuthController {
       secure: true,
       maxAge: 0
     });
-    res.redirect('/login')
-    console.log('handleLogout() req.headers', req.headers)
-    return res
-
+    res.redirect('/login');
+    console.log('handleLogout() req.headers', req.headers);
+    return res;
   }
 }

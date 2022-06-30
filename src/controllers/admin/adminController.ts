@@ -51,7 +51,12 @@ export class AdminController {
     req: Request<
       { id: string },
       any,
-      { username?: string; email?: string; password?: string; isAdmin?: boolean }
+      {
+        username?: string;
+        email?: string;
+        password?: string;
+        isAdmin?: boolean;
+      }
     >
   ) {
     const user = await this.getUser(req);
@@ -62,10 +67,10 @@ export class AdminController {
     if (email && email !== user.email) {
       user.email = email;
     }
-    if (password && await bcrypt.compare(password, user.password) === false) {
-         const hashedPassword = await bcrypt.hash(password, 10);
-         user.password = hashedPassword  
-         console.log('user.password ===>', user.password)    
+    if (password && (await bcrypt.compare(password, user.password)) === false) {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      user.password = hashedPassword;
+      console.log('user.password ===>', user.password);
     }
     if (isAdmin && isAdmin !== user.isAdmin) {
       user.isAdmin = isAdmin;

@@ -28,11 +28,11 @@ const userSchema = new mongoose.Schema<User>({
   },
   isAdmin: {
     type: Boolean,
-    default:false
+    default: false
   },
   refreshToken: {
     type: [String],
-    default:[]
+    default: []
   },
   createdOn: {
     type: Date,

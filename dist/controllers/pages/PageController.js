@@ -1,12 +1,12 @@
 export default class PageController {
   getRegisterPage(req, res) {
-    res.render("register");
+    res.render('register');
     return res;
   }
 
   getLoginPage(req, res) {
     console.log('getLoginPage() req.headers', req.headers);
-    res.render("login");
+    res.render('login');
     return res;
   }
 
@@ -14,14 +14,14 @@ export default class PageController {
     const user = res.app.locals.user;
     console.log('getProfilePage res.app.locals ===> ', res.app.locals);
     console.log('getProfilePage user ===> ', user);
-    res.render("profile", {
+    res.render('profile', {
       user: user
     });
     return res;
   }
 
   getProductsPage(req, res) {
-    res.render("products");
+    res.render('products');
     return res;
   }
 

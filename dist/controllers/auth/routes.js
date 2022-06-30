@@ -1,5 +1,5 @@
-import { createRouter } from "../../utils/createRouter.js";
-import AuthController from "./authController.js";
+import { createRouter } from '../../utils/createRouter.js';
+import AuthController from './authController.js';
 const authController = new AuthController();
 const routes = [{
   path: '/auth/login',
