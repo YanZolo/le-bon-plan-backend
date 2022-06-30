@@ -1,6 +1,6 @@
-import { AdminController } from "./adminController.js";
-import { createRouter } from "../../utils/createRouter.js";
-import { Middlewares } from "../../middlewares/Auth.js";
+import { AdminController } from './adminController.js';
+import { createRouter } from '../../utils/createRouter.js';
+import { Middlewares } from '../../middlewares/Auth.js';
 const adminController = new AdminController();
 const middlewares = new Middlewares();
 const routes = [{
